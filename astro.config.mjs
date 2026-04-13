@@ -2,9 +2,7 @@
 import { defineConfig } from 'astro/config';
 
 export default defineConfig({
-  site: 'https://pantalla-led.com.mx',
-  output: 'static',
-  vite: {
-    cacheDir: '/tmp/vite-cache',
-  },
+    site: 'https://frankoropeza.github.io',
+    base: '/PANTALLA-LED',
+    output: 'static',
 });

@@ -1,0 +1,121 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
+
+const servicios = [
+  {
+    icon: '🔧',
+    title: 'Instalación Profesional',
+    desc: 'Instalación certificada por técnicos especializados con más de 10 años de experiencia.',
+    href: '/servicios#instalacion',
+  },
+  {
+    icon: '📺',
+    title: 'Renta de Pantallas',
+    desc: 'Renta flexible por evento, semana o mes. Ideal para conciertos, exposiciones y eventos.',
+    href: '/servicios#renta',
+  },
+  {
+    icon: '🛠️',
+    title: 'Mantenimiento',
+    desc: 'Servicio preventivo y correctivo para mantener tu pantalla al 100% de rendimiento.',
+    href: '/servicios#mantenimiento',
+  },
+  {
+    icon: '💡',
+    title: 'Asesoría Técnica',
+    desc: 'Te ayudamos a elegir la pantalla ideal para tu espacio, presupuesto y necesidades.',
+    href: '/servicios#asesoria',
+  },
+];
+
+const productos = [
+  {
+    title: 'Pantalla Exterior',
+    desc: 'Alta luminosidad para publicidad exterior. Resistente a la intemperie IP65.',
+    specs: 'P4, P5, P6, P8, P10',
+    href: '/productos/pantalla-exterior',
+  },
+  {
+    title: 'Pantalla Interior',
+    desc: 'Perfecta para lobbies, centros comerciales, restaurantes y hoteles.',
+    specs: 'P2, P2.5, P3, P4',
+    href: '/productos/pantalla-interior',
+  },
+  {
+    title: 'Pantalla Flexible',
+    desc: 'Diseños curvados e innovadores para instalaciones creativas y arquitectónicas.',
+    specs: 'P3.9, P4.8, P5.9',
+    href: '/productos/pantalla-flexible',
+  },
+];
+---
+
+<Layout
+  title="Inicio"
+  description="PantallaLED México — Especialistas en venta, renta e instalación de pantallas LED para exteriores e interiores en toda la República Mexicana."
+>
+  <!-- Hero -->
+  <Hero />
+
+  <!-- Servicios -->
+  <section class="py-20 bg-gray-950">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h2 class="section-title">Nuestros Servicios</h2>
+        <p class="section-subtitle">Todo lo que necesitas para tu pantalla LED en un solo lugar</p>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {servicios.map((s) => (
+          <a href={s.href} class="card group text-center">
+            <div class="text-4xl mb-4">{s.icon}</div>
+            <h3 class="text-white font-semibold text-lg mb-2 group-hover:text-primary transition-colors">{s.title}</h3>
+            <p class="text-gray-400 text-sm leading-relaxed">{s.desc}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Productos Destacados -->
+  <section class="py-20 bg-dark">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h2 class="section-title">Productos Destacados</h2>
+        <p class="section-subtitle">Pantallas LED para cada necesidad y presupuesto</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {productos.map((p) => (
+          <a href={p.href} class="card group">
+            <div class="aspect-video bg-gray-800 rounded-lg mb-4 overflow-hidden flex items-center justify-center">
+              <span class="text-gray-600 text-sm">Imagen próximamente</span>
+            </div>
+            <h3 class="text-white font-semibold text-xl mb-2 group-hover:text-primary transition-colors">{p.title}</h3>
+            <p class="text-gray-400 text-sm mb-3">{p.desc}</p>
+            <span class="inline-block bg-primary/10 text-primary text-xs font-medium px-3 py-1 rounded-full">
+              {p.specs}
+            </span>
+          </a>
+        ))}
+      </div>
+      <div class="text-center mt-10">
+        <a href="/productos" class="btn-primary inline-flex">Ver todos los productos</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Final -->
+  <section class="py-20 bg-gradient-to-r from-primary/20 to-primary/5 border-y border-primary/20">
+    <div class="max-w-3xl mx-auto px-4 text-center">
+      <h2 class="text-3xl md:text-4xl font-heading font-bold text-white mb-4">
+        ¿Listo para iluminar tu negocio?
+      </h2>
+      <p class="text-gray-400 text-lg mb-8">
+        Contáctanos hoy y recibe una cotización personalizada sin costo.
+      </p>
+      <a href="/contacto" class="btn-secondary inline-flex text-base">
+        Solicitar Cotización Gratuita
+      </a>
+    </div>
+  </section>
+</Layout>

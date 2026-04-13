@@ -1,0 +1,104 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const servicios = [
+  {
+    id: 'instalacion',
+    icon: '🔧',
+    title: 'Instalación Profesional',
+    description: 'Contamos con técnicos certificados y maquinaria especializada para instalar tu pantalla LED de forma segura y eficiente. Realizamos el trabajo en fachadas, azoteas, interiores y estructuras especiales.',
+    features: [
+      'Evaluación técnica del sitio sin costo',
+      'Diseño y fabricación de estructura metálica',
+      'Cableado y conexiones certificadas',
+      'Configuración de software de gestión de contenido',
+      'Capacitación al usuario final',
+    ],
+  },
+  {
+    id: 'renta',
+    icon: '📺',
+    title: 'Renta de Pantallas LED',
+    description: 'Solución ideal para eventos, conciertos, exposiciones, bodas y activaciones de marca. Contamos con pantallas de distintos tamaños disponibles para renta por día, semana o mes.',
+    features: [
+      'Entrega e instalación incluidas',
+      'Operador técnico durante el evento (opcional)',
+      'Diseño de contenido audiovisual',
+      'Seguros y garantía durante el evento',
+      'Disponible en CDMX y área metropolitana',
+    ],
+  },
+  {
+    id: 'mantenimiento',
+    icon: '🛠️',
+    title: 'Mantenimiento Preventivo y Correctivo',
+    description: 'Extendemos la vida útil de tu pantalla con programas de mantenimiento preventivo. También ofrecemos servicio correctivo de emergencia para minimizar tiempos de inactividad.',
+    features: [
+      'Limpieza y calibración de módulos LED',
+      'Revisión de fuentes de poder y tarjetas de control',
+      'Reemplazo de módulos dañados',
+      'Actualización de firmware',
+      'Contrato anual con visitas programadas',
+    ],
+  },
+  {
+    id: 'asesoria',
+    icon: '💡',
+    title: 'Asesoría Técnica',
+    description: 'Antes de invertir, te ayudamos a tomar la mejor decisión. Analizamos tu espacio, la distancia de visión, el nivel de luminosidad requerido y tu presupuesto para recomendarte la pantalla ideal.',
+    features: [
+      'Visita técnica al sitio',
+      'Propuesta de solución personalizada',
+      'Análisis de retorno de inversión (ROI)',
+      'Asesoría en contenido y operación',
+      'Acompañamiento posventa',
+    ],
+  },
+];
+---
+
+<Layout
+  title="Servicios"
+  description="Servicios de instalación, renta, mantenimiento y asesoría de pantallas LED en México."
+>
+  <!-- Hero de página -->
+  <section class="pt-32 pb-16 bg-dark">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h1 class="section-title text-5xl">Nuestros Servicios</h1>
+      <p class="section-subtitle max-w-2xl mx-auto">
+        Desde la asesoría hasta la instalación y mantenimiento, somos tu socio integral en soluciones de pantallas LED.
+      </p>
+    </div>
+  </section>
+
+  <!-- Servicios -->
+  <section class="py-16 bg-gray-950">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-24">
+      {servicios.map((s, i) => (
+        <div id={s.id} class={`grid grid-cols-1 md:grid-cols-2 gap-12 items-center ${i % 2 === 1 ? 'md:[&>*:first-child]:order-2' : ''}`}>
+          <!-- Content -->
+          <div>
+            <div class="text-5xl mb-4">{s.icon}</div>
+            <h2 class="text-3xl font-heading font-bold text-white mb-4">{s.title}</h2>
+            <p class="text-gray-400 leading-relaxed mb-6">{s.description}</p>
+            <ul class="space-y-3">
+              {s.features.map((f) => (
+                <li class="flex items-start gap-3 text-gray-300">
+                  <svg class="w-5 h-5 text-primary flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                  </svg>
+                  {f}
+                </li>
+              ))}
+            </ul>
+            <a href="/contacto" class="btn-primary inline-flex mt-8">Solicitar información</a>
+          </div>
+          <!-- Image placeholder -->
+          <div class="aspect-video bg-gray-900 border border-gray-800 rounded-2xl flex items-center justify-center">
+            <span class="text-gray-600 text-sm">Imagen del servicio</span>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+</Layout>

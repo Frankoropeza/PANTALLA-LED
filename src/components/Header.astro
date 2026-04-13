@@ -1,9 +1,11 @@
 ---
+import { url } from '../utils/url';
+
 const navLinks = [
-  { href: '/', label: 'Inicio' },
-  { href: '/productos', label: 'Productos' },
-  { href: '/servicios', label: 'Servicios' },
-  { href: '/contacto', label: 'Contacto' },
+  { href: url('/'), label: 'Inicio' },
+  { href: url('/productos'), label: 'Productos' },
+  { href: url('/servicios'), label: 'Servicios' },
+  { href: url('/contacto'), label: 'Contacto' },
 ];
 
 const currentPath = Astro.url.pathname;
@@ -13,7 +15,7 @@ const currentPath = Astro.url.pathname;
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex items-center justify-between h-16">
       <!-- Logo -->
-      <a href="/" class="flex items-center gap-2 group">
+      <a href={url('/')} class="flex items-center gap-2 group">
         <div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
           <span class="text-white font-heading font-bold text-sm">PL</span>
         </div>
@@ -39,7 +41,7 @@ const currentPath = Astro.url.pathname;
       </nav>
 
       <!-- CTA Button -->
-      <a href="/contacto" class="hidden md:inline-flex btn-primary text-sm">
+      <a href={url('/contacto')} class="hidden md:inline-flex btn-primary text-sm">
         Solicitar Cotización
       </a>
 
@@ -71,7 +73,7 @@ const currentPath = Astro.url.pathname;
           {link.label}
         </a>
       ))}
-      <a href="/contacto" class="block btn-primary text-center text-sm mt-4">
+      <a href={url('/contacto')} class="block btn-primary text-center text-sm mt-4">
         Solicitar Cotización
       </a>
     </nav>

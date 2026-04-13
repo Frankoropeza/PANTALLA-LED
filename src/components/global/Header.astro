@@ -1,0 +1,804 @@
+---
+// Header.astro — Navegación principal con mega menú profesional
+// Dark theme: fondo oscuro, acento azul, dropdowns con blur
+
+import { PRODUCT_CATEGORIES, SERVICES, APPLICATIONS, MEGA_SUBCATEGORIES, waUrl, WA_MESSAGES } from '../../config/site'
+import { url } from '../../utils/url'
+
+const currentPath = Astro.url.pathname
+---
+
+<header class="site-header" role="banner">
+  <div class="hdr-inner container">
+
+    <!-- Logo -->
+    <a href={url('/')} class="hdr-logo" aria-label="PantallaLED — Inicio">
+      <div class="hdr-logo__icon" aria-hidden="true">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+          <rect width="28" height="28" rx="6" fill="#0066CC"/>
+          <rect x="4" y="8" width="20" height="12" rx="2" stroke="white" stroke-width="1.5" fill="none"/>
+          <circle cx="14" cy="14" r="3" fill="white" opacity="0.9"/>
+          <rect x="11" y="21" width="6" height="1.5" rx="0.75" fill="white" opacity="0.6"/>
+        </svg>
+      </div>
+      <span class="hdr-logo__text">
+        Pantalla<span class="hdr-logo__accent">LED</span>
+      </span>
+    </a>
+
+    <!-- Navegación desktop -->
+    <nav class="hdr-nav" aria-label="Navegación principal">
+      <ul class="hdr-nav__list" role="list">
+
+        <!-- Productos (mega menú) -->
+        <li class="hdr-nav__item" data-dropdown="mega-productos">
+          <a
+            href={url('/productos/')}
+            class:list={['hdr-nav__link', {
+              'hdr-nav__link--active':
+                currentPath.startsWith('/productos') ||
+                currentPath.startsWith('/pantallas')
+            }]}
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            Productos
+            <svg class="hdr-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+              <polyline points="6 9 12 15 18 9"/>
+            </svg>
+          </a>
+        </li>
+
+        <!-- Servicios -->
+        <li class="hdr-nav__item" data-dropdown="drop-servicios">
+          <a
+            href={url('/servicios/')}
+            class:list={['hdr-nav__link', { 'hdr-nav__link--active': currentPath.startsWith('/servicios') }]}
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            Servicios
+            <svg class="hdr-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+              <polyline points="6 9 12 15 18 9"/>
+            </svg>
+          </a>
+        </li>
+
+        <!-- Aplicaciones -->
+        <li class="hdr-nav__item" data-dropdown="drop-aplicaciones">
+          <a
+            href={url('/aplicaciones/')}
+            class:list={['hdr-nav__link', { 'hdr-nav__link--active': currentPath.startsWith('/aplicaciones') }]}
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            Aplicaciones
+            <svg class="hdr-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+              <polyline points="6 9 12 15 18 9"/>
+            </svg>
+          </a>
+        </li>
+
+        <!-- Blog -->
+        <li class="hdr-nav__item">
+          <a
+            href={url('/blog/')}
+            class:list={['hdr-nav__link', { 'hdr-nav__link--active': currentPath.startsWith('/blog') }]}
+          >Blog</a>
+        </li>
+
+        <!-- Contacto -->
+        <li class="hdr-nav__item">
+          <a
+            href={url('/contacto/')}
+            class:list={['hdr-nav__link', { 'hdr-nav__link--active': currentPath === '/contacto/' }]}
+          >Contacto</a>
+        </li>
+
+      </ul>
+    </nav>
+
+    <!-- CTA Cotizar -->
+    <a
+      href={waUrl(WA_MESSAGES.cotizacion)}
+      class="hdr-cta"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Solicitar cotización por WhatsApp"
+    >
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+      </svg>
+      Cotizar
+    </a>
+
+    <!-- Hamburger mobile -->
+    <button
+      class="hdr-burger"
+      id="hdr-burger-btn"
+      aria-label="Abrir menú"
+      aria-expanded="false"
+      aria-controls="hdr-mobile-nav"
+    >
+      <span></span><span></span><span></span>
+    </button>
+
+  </div>
+</header>
+
+<!-- ══════════════════════════════════════════════════
+     MEGA MENÚ — Productos (panel full-width)
+══════════════════════════════════════════════════ -->
+<div class="mega-panel" id="mega-productos" role="region" aria-label="Categorías de productos" aria-hidden="true">
+  <div class="container mega-panel__inner">
+    <div class="mega-panel__top">
+      <span class="mega-panel__label">Tipos de Pantalla LED</span>
+      <a href={url('/productos/')} class="mega-panel__all">Ver catálogo completo →</a>
+    </div>
+    <ul class="mega-grid" role="list">
+      {PRODUCT_CATEGORIES.map((cat) => {
+        const subs = MEGA_SUBCATEGORIES[cat.slug] ?? []
+        return (
+          <li class="mega-col">
+            <a href={url(cat.href)} class="mega-col__title">
+              {cat.label}
+              {cat.badge && <span class="mega-col__badge">{cat.badge}</span>}
+            </a>
+            {subs.length > 0 && (
+              <ul class="mega-sub" role="list">
+                {subs.map((sub) => (
+                  <li>
+                    <a href={url(`/productos/${cat.slug}/${sub.slug}/`)} class="mega-sub__link">
+                      {sub.label}
+                    </a>
+                  </li>
+                ))}
+                <li>
+                  <a href={url(cat.href)} class="mega-sub__link mega-sub__link--ver-todos">
+                    Ver todos →
+                  </a>
+                </li>
+              </ul>
+            )}
+          </li>
+        )
+      })}
+    </ul>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════
+     DROPDOWN — Servicios
+══════════════════════════════════════════════════ -->
+<div class="drop-panel" id="drop-servicios" role="region" aria-label="Servicios" aria-hidden="true">
+  <div class="drop-panel__inner">
+    <a href={url('/servicios/')} class="drop-panel__header">Ver todos los servicios →</a>
+    {SERVICES.map((svc) => (
+      <a href={url(`/servicios/#${svc.id}`)} class="drop-panel__link">{svc.label}</a>
+    ))}
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════
+     DROPDOWN — Aplicaciones
+══════════════════════════════════════════════════ -->
+<div class="drop-panel" id="drop-aplicaciones" role="region" aria-label="Aplicaciones" aria-hidden="true">
+  <div class="drop-panel__inner">
+    <a href={url('/aplicaciones/')} class="drop-panel__header">Ver todas las aplicaciones →</a>
+    {APPLICATIONS.map((app) => (
+      <a href={url(app.href)} class="drop-panel__link">{app.label}</a>
+    ))}
+  </div>
+</div>
+
+<!-- Overlay -->
+<div class="hdr-overlay" id="hdr-overlay" aria-hidden="true"></div>
+
+<!-- Mobile Nav -->
+<div class="hdr-mobile-nav" id="hdr-mobile-nav" aria-hidden="true">
+  <nav aria-label="Navegación móvil">
+
+    <!-- Productos accordion -->
+    <div class="mob-item">
+      <button class="mob-item__trigger" aria-expanded="false">
+        <span>Productos</span>
+        <svg class="mob-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+          <polyline points="6 9 12 15 18 9"/>
+        </svg>
+      </button>
+      <div class="mob-item__panel">
+        <a href={url('/productos/')} class="mob-item__all">Ver catálogo completo</a>
+        {PRODUCT_CATEGORIES.map((cat) => (
+          <a href={url(cat.href)} class="mob-item__link">{cat.label}</a>
+        ))}
+      </div>
+    </div>
+
+    <!-- Servicios accordion -->
+    <div class="mob-item">
+      <button class="mob-item__trigger" aria-expanded="false">
+        <span>Servicios</span>
+        <svg class="mob-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+          <polyline points="6 9 12 15 18 9"/>
+        </svg>
+      </button>
+      <div class="mob-item__panel">
+        <a href={url('/servicios/')} class="mob-item__all">Ver todos los servicios</a>
+        {SERVICES.map((svc) => (
+          <a href={url(`/servicios/#${svc.id}`)} class="mob-item__link">{svc.label}</a>
+        ))}
+      </div>
+    </div>
+
+    <!-- Aplicaciones accordion -->
+    <div class="mob-item">
+      <button class="mob-item__trigger" aria-expanded="false">
+        <span>Aplicaciones</span>
+        <svg class="mob-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+          <polyline points="6 9 12 15 18 9"/>
+        </svg>
+      </button>
+      <div class="mob-item__panel">
+        <a href={url('/aplicaciones/')} class="mob-item__all">Ver todas las aplicaciones</a>
+        {APPLICATIONS.map((app) => (
+          <a href={url(app.href)} class="mob-item__link">{app.label}</a>
+        ))}
+      </div>
+    </div>
+
+    <a href={url('/blog/')}     class="mob-direct">Blog</a>
+    <a href={url('/contacto/')} class="mob-direct">Contacto</a>
+
+    <a
+      href={waUrl(WA_MESSAGES.cotizacion)}
+      class="mob-cta"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+      </svg>
+      Cotizar por WhatsApp
+    </a>
+  </nav>
+</div>
+
+<style>
+/* ═══ HEADER BASE ═══════════════════════════════════════════ */
+.site-header {
+  position: sticky;
+  top: var(--topbar-height, 36px);
+  z-index: 500;
+  background: var(--c-bg-2);
+  border-bottom: 1px solid var(--c-border);
+  box-shadow: 0 1px 12px rgba(0,0,0,.4);
+}
+
+.hdr-inner {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  height: var(--header-height, 80px);
+}
+
+/* ─── Logo ─── */
+.hdr-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  flex-shrink: 0;
+  text-decoration: none;
+}
+
+.hdr-logo__icon { flex-shrink: 0; }
+
+.hdr-logo__text {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--c-ink);
+  letter-spacing: -0.02em;
+}
+
+.hdr-logo__accent { color: var(--c-primary); }
+
+/* ═══ NAVEGACIÓN DESKTOP ════════════════════════════════════ */
+.hdr-nav { margin-left: auto; }
+
+.hdr-nav__list {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  list-style: none;
+}
+
+.hdr-nav__item { position: relative; }
+
+.hdr-nav__link {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.5rem 0.875rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--c-ink-2);
+  border-radius: 6px;
+  white-space: nowrap;
+  text-decoration: none;
+  letter-spacing: 0.01em;
+  transition: color 0.15s, background 0.15s;
+}
+
+.hdr-nav__link:hover { color: var(--c-primary); background: var(--c-primary-light); }
+
+.hdr-nav__link--active {
+  color: var(--c-primary);
+  background: var(--c-primary-light);
+  font-weight: 600;
+}
+
+.hdr-chevron { flex-shrink: 0; opacity: 0.5; transition: transform 0.2s; }
+
+.hdr-nav__item.is-open .hdr-chevron   { transform: rotate(180deg); }
+.hdr-nav__item.is-open .hdr-nav__link { color: var(--c-primary); background: var(--c-primary-light); }
+
+/* ═══ MEGA PANEL ════════════════════════════════════════════ */
+.mega-panel {
+  position: fixed;
+  left: 0; right: 0;
+  top: calc(var(--topbar-height, 36px) + var(--header-height, 80px));
+  background: var(--c-bg-2);
+  border-top: 2px solid var(--c-primary);
+  border-bottom: 1px solid var(--c-border);
+  box-shadow: 0 12px 40px rgba(0,0,0,.6);
+  z-index: 490;
+  padding-block: 1.75rem;
+  opacity: 0;
+  transform: translateY(-6px);
+  pointer-events: none;
+  transition: opacity 0.18s ease, transform 0.18s ease;
+}
+
+.mega-panel.is-open {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: all;
+}
+
+.mega-panel__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--c-border);
+}
+
+.mega-panel__label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--c-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.mega-panel__all {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--c-primary);
+}
+.mega-panel__all:hover { color: var(--c-primary-dark); }
+
+.mega-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem 1.5rem;
+  align-items: start;
+  list-style: none;
+}
+
+.mega-col { display: flex; flex-direction: column; }
+
+.mega-col__title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.4375rem 0.625rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--c-ink);
+  border-radius: 5px;
+  text-decoration: none;
+  transition: background 0.15s, color 0.15s;
+}
+.mega-col__title:hover { background: var(--c-primary-light); color: var(--c-primary); }
+
+.mega-col__badge {
+  font-size: 0.625rem;
+  font-weight: 700;
+  color: var(--c-primary);
+  background: var(--c-primary-light);
+  border: 1px solid rgba(var(--c-primary-rgb), 0.2);
+  padding: 0.1rem 0.4rem;
+  border-radius: 100px;
+  flex-shrink: 0;
+}
+
+.mega-sub {
+  display: flex;
+  flex-direction: column;
+  margin-top: 0.25rem;
+  padding-top: 0.25rem;
+  border-top: 1px solid var(--c-border);
+  list-style: none;
+}
+
+.mega-sub__link {
+  display: block;
+  padding: 0.25rem 0.625rem;
+  font-size: 0.8125rem;
+  color: var(--c-muted);
+  border-radius: 4px;
+  text-decoration: none;
+  line-height: 1.5;
+  transition: background 0.12s, color 0.12s;
+}
+.mega-sub__link:hover { background: var(--c-primary-light); color: var(--c-primary); }
+.mega-sub__link--ver-todos { font-weight: 600; color: var(--c-primary); margin-top: 0.125rem; }
+
+/* ═══ DROP PANELS ═══════════════════════════════════════════ */
+.drop-panel {
+  position: fixed;
+  z-index: 490;
+  background: var(--c-bg-2);
+  border: 1px solid var(--c-border);
+  border-radius: 8px;
+  box-shadow: 0 8px 32px rgba(0,0,0,.6);
+  min-width: 220px;
+  opacity: 0;
+  transform: translateY(-6px);
+  pointer-events: none;
+  transition: opacity 0.18s ease, transform 0.18s ease;
+}
+
+.drop-panel.is-open {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: all;
+}
+
+.drop-panel__inner {
+  padding: 0.5rem 0.375rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.drop-panel__header {
+  display: block;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--c-primary);
+  border-bottom: 1px solid var(--c-border);
+  margin-bottom: 0.25rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.drop-panel__link {
+  display: block;
+  padding: 0.4375rem 0.75rem;
+  font-size: 0.875rem;
+  color: var(--c-ink-2);
+  border-radius: 5px;
+  transition: background 0.12s, color 0.12s;
+}
+.drop-panel__link:hover { background: var(--c-primary-light); color: var(--c-primary); }
+
+/* ═══ OVERLAY ═══════════════════════════════════════════════ */
+.hdr-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 480;
+  background: rgba(0,0,0,.55);
+  backdrop-filter: blur(2px);
+}
+.hdr-overlay.is-visible { display: block; }
+
+/* ═══ CTA BOTÓN ═════════════════════════════════════════════ */
+.hdr-cta {
+  display: flex;
+  align-items: center;
+  gap: 0.4375rem;
+  padding: 0.5625rem 1.25rem;
+  background: var(--c-primary);
+  color: #fff;
+  font-size: 0.875rem;
+  font-weight: 600;
+  border-radius: 6px;
+  white-space: nowrap;
+  transition: background 0.15s, transform 0.15s;
+  flex-shrink: 0;
+  text-decoration: none;
+  box-shadow: 0 2px 12px rgba(var(--c-primary-rgb), 0.4);
+}
+.hdr-cta:hover { background: var(--c-primary-dark); color: #fff; transform: translateY(-1px); }
+.hdr-cta:active { transform: translateY(0); }
+
+/* ═══ HAMBURGER ═════════════════════════════════════════════ */
+.hdr-burger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  padding: 0.5rem;
+  margin-left: auto;
+  cursor: pointer;
+  border: 1px solid var(--c-border);
+  background: none;
+  border-radius: 6px;
+  width: 40px;
+  height: 40px;
+}
+.hdr-burger span {
+  display: block;
+  width: 20px;
+  height: 2px;
+  background: var(--c-ink-2);
+  border-radius: 2px;
+  transition: transform 0.25s ease, opacity 0.25s ease;
+  transform-origin: center;
+}
+.hdr-burger[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hdr-burger[aria-expanded="true"] span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.hdr-burger[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* ═══ MOBILE NAV ════════════════════════════════════════════ */
+.hdr-mobile-nav {
+  position: fixed;
+  top: calc(var(--topbar-height, 36px) + var(--header-height, 80px));
+  left: 0; right: 0; bottom: 0;
+  background: var(--c-bg-2);
+  z-index: 490;
+  overflow-y: auto;
+  border-top: 2px solid var(--c-primary);
+  transform: translateY(-10px);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.22s ease, opacity 0.22s ease;
+}
+.hdr-mobile-nav[aria-hidden="false"] {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: all;
+}
+
+.mob-item { border-bottom: 1px solid var(--c-border); }
+
+.mob-item__trigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.25rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--c-ink);
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  transition: color 0.15s;
+}
+.mob-item__trigger:hover { color: var(--c-primary); }
+.mob-item__trigger[aria-expanded="true"] { color: var(--c-primary); }
+.mob-item__trigger[aria-expanded="true"] .mob-chevron { transform: rotate(180deg); }
+
+.mob-chevron { transition: transform 0.2s ease; flex-shrink: 0; opacity: 0.5; }
+
+.mob-item__panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.25s ease;
+  overflow: hidden;
+}
+.mob-item__panel.is-open { grid-template-rows: 1fr; }
+
+.mob-item__panel-inner {
+  padding: 0.25rem 1.25rem 1rem;
+  background: rgba(255,255,255,0.02);
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+
+.mob-item__all {
+  display: block;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--c-primary);
+  border-radius: 5px;
+  margin-bottom: 0.25rem;
+}
+.mob-item__all:hover { background: var(--c-primary-light); }
+
+.mob-item__link {
+  display: block;
+  padding: 0.4375rem 0.75rem;
+  font-size: 0.9375rem;
+  color: var(--c-ink-2);
+  border-radius: 5px;
+  transition: background 0.12s, color 0.12s;
+}
+.mob-item__link:hover { background: var(--c-primary-light); color: var(--c-primary); }
+
+.mob-direct {
+  display: block;
+  padding: 1rem 1.25rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--c-ink);
+  border-bottom: 1px solid var(--c-border);
+  transition: color 0.15s;
+}
+.mob-direct:hover { color: var(--c-primary); }
+
+.mob-cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin: 1.5rem 1.25rem;
+  padding: 1rem 1.5rem;
+  background: var(--c-primary);
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 700;
+  border-radius: 8px;
+  text-decoration: none;
+  box-shadow: 0 4px 16px rgba(var(--c-primary-rgb), 0.4);
+  transition: background 0.15s;
+}
+.mob-cta:hover { background: var(--c-primary-dark); color: #fff; }
+
+/* ═══ RESPONSIVE ════════════════════════════════════════════ */
+@media (max-width: 1024px) {
+  .hdr-nav  { display: none; }
+  .hdr-cta  { display: none; }
+  .hdr-burger { display: flex; }
+}
+
+@media (max-width: 480px) {
+  .hdr-inner { gap: 1rem; }
+  .hdr-logo__text { font-size: 1.1rem; }
+}
+</style>
+
+<script>
+(function () {
+  const CLOSE_DELAY = 120
+
+  const overlay   = document.getElementById('hdr-overlay')!
+  const mobileNav = document.getElementById('hdr-mobile-nav')!
+  const burgerBtn = document.getElementById('hdr-burger-btn')!
+
+  type DropItem = {
+    trigger: HTMLElement
+    link: HTMLElement
+    panel: HTMLElement
+    isMega: boolean
+    timer: ReturnType<typeof setTimeout> | null
+  }
+
+  const items: DropItem[] = []
+
+  document.querySelectorAll<HTMLElement>('[data-dropdown]').forEach((trigger) => {
+    const panelId = trigger.dataset.dropdown!
+    const panel = document.getElementById(panelId)
+    if (!panel) return
+    const link = trigger.querySelector<HTMLElement>('.hdr-nav__link')!
+    items.push({ trigger, link, panel, isMega: panel.classList.contains('mega-panel'), timer: null })
+  })
+
+  function positionPanel(item: DropItem) {
+    if (item.isMega) return
+    const rect = item.trigger.getBoundingClientRect()
+    const panel = item.panel as HTMLElement
+    panel.style.top  = `${rect.bottom + 6}px`
+    panel.style.left = `${rect.left}px`
+    const pw = panel.offsetWidth || 220
+    if (rect.left + pw > window.innerWidth - 12) {
+      panel.style.left = `${window.innerWidth - pw - 12}px`
+    }
+  }
+
+  function openItem(item: DropItem) {
+    if (item.timer) { clearTimeout(item.timer); item.timer = null }
+    items.forEach(other => { if (other !== item) closeItemNow(other) })
+    positionPanel(item)
+    item.panel.classList.add('is-open')
+    item.panel.setAttribute('aria-hidden', 'false')
+    item.trigger.classList.add('is-open')
+    item.link.setAttribute('aria-expanded', 'true')
+    overlay?.classList.add('is-visible')
+  }
+
+  function scheduleClose(item: DropItem) {
+    item.timer = setTimeout(() => closeItemNow(item), CLOSE_DELAY)
+  }
+
+  function closeItemNow(item: DropItem) {
+    if (item.timer) { clearTimeout(item.timer); item.timer = null }
+    item.panel.classList.remove('is-open')
+    item.panel.setAttribute('aria-hidden', 'true')
+    item.trigger.classList.remove('is-open')
+    item.link.setAttribute('aria-expanded', 'false')
+    if (!items.some(i => i.panel.classList.contains('is-open'))) {
+      overlay?.classList.remove('is-visible')
+    }
+  }
+
+  function closeAll() {
+    items.forEach(item => closeItemNow(item))
+    overlay?.classList.remove('is-visible')
+  }
+
+  items.forEach(item => {
+    item.trigger.addEventListener('mouseenter', () => openItem(item))
+    item.trigger.addEventListener('mouseleave', () => scheduleClose(item))
+    item.panel.addEventListener('mouseenter', () => { if (item.timer) { clearTimeout(item.timer); item.timer = null } })
+    item.panel.addEventListener('mouseleave', () => scheduleClose(item))
+  })
+
+  overlay?.addEventListener('click', closeAll)
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeAll() })
+  document.querySelectorAll('.mega-panel a, .drop-panel a').forEach(a => {
+    a.addEventListener('click', () => setTimeout(closeAll, 50))
+  })
+
+  // Mobile
+  function toggleMobileNav() {
+    const isOpen = mobileNav.getAttribute('aria-hidden') === 'false'
+    mobileNav.setAttribute('aria-hidden', isOpen ? 'true' : 'false')
+    burgerBtn.setAttribute('aria-expanded', isOpen ? 'false' : 'true')
+    document.body.style.overflow = isOpen ? '' : 'hidden'
+  }
+
+  burgerBtn?.addEventListener('click', toggleMobileNav)
+
+  document.querySelectorAll<HTMLElement>('.mob-item__trigger').forEach(btn => {
+    const mobItem = btn.closest<HTMLElement>('.mob-item')!
+    const panel = mobItem.querySelector<HTMLElement>('.mob-item__panel')!
+    const inner = document.createElement('div')
+    inner.className = 'mob-item__panel-inner'
+    while (panel.firstChild) inner.appendChild(panel.firstChild)
+    panel.appendChild(inner)
+
+    btn.addEventListener('click', () => {
+      const isOpen = btn.getAttribute('aria-expanded') === 'true'
+      document.querySelectorAll<HTMLElement>('.mob-item__trigger').forEach(other => {
+        if (other !== btn) {
+          other.setAttribute('aria-expanded', 'false')
+          const op = other.closest<HTMLElement>('.mob-item')!.querySelector<HTMLElement>('.mob-item__panel')!
+          op.classList.remove('is-open')
+        }
+      })
+      btn.setAttribute('aria-expanded', isOpen ? 'false' : 'true')
+      panel.classList.toggle('is-open', !isOpen)
+    })
+  })
+
+  mobileNav.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      mobileNav.setAttribute('aria-hidden', 'true')
+      burgerBtn.setAttribute('aria-expanded', 'false')
+      document.body.style.overflow = ''
+    })
+  })
+
+  window.addEventListener('resize', () => {
+    if (window.innerWidth <= 1024) { closeAll(); document.body.style.overflow = '' }
+  })
+})()
+</script>

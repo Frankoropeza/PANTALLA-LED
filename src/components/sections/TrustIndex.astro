@@ -1,0 +1,206 @@
+---
+// TrustIndex.astro — Por qué elegir PantallaLED
+// Layout 2 columnas: sidebar header + grid de razones
+
+import { waUrl, WA_MESSAGES } from '../../config/site'
+import { url } from '../../utils/url'
+
+const razones = [
+  {
+    num: '01',
+    title: 'Proveedor directo',
+    desc: 'Sin intermediarios. Compramos directamente al fabricante para darte el mejor precio con garantía real.',
+  },
+  {
+    num: '02',
+    title: 'Instalación certificada',
+    desc: 'Técnicos especializados con +10 años de experiencia. Instalaciones eléctricas bajo norma NOM.',
+  },
+  {
+    num: '03',
+    title: 'Soporte 24/7',
+    desc: 'Respuesta inmediata ante fallas. Mantenimiento preventivo y correctivo incluido en pólizas anuales.',
+  },
+  {
+    num: '04',
+    title: 'Garantía de 2 años',
+    desc: 'Todos nuestros equipos incluyen garantía de fábrica de 2 años contra defectos y fallas de manufactura.',
+  },
+  {
+    num: '05',
+    title: 'Asesoría técnica gratuita',
+    desc: 'Te ayudamos a elegir la pantalla correcta para tu espacio, resolución, brillo y presupuesto.',
+  },
+  {
+    num: '06',
+    title: 'Cobertura nacional',
+    desc: 'Entrega e instalación en todo México. Flota propia en CDMX y Estado de México.',
+  },
+]
+---
+
+<section class="section section--surface trust-section" id="nosotros" aria-labelledby="trust-heading">
+  <div class="container">
+    <div class="trust-layout">
+
+      <!-- Columna izquierda: sidebar header + CTA -->
+      <div class="trust-sidebar">
+        <p class="sidebar-header__eyebrow">Por qué elegirnos</p>
+        <h2 id="trust-heading" class="sidebar-header__title">
+          Más de 10 años<br/>impulsando negocios<br/>con <span>pantallas LED</span>
+        </h2>
+        <p class="sidebar-header__desc">
+          Somos especialistas en tecnología LED de alta resolución. Desde el asesoramiento inicial
+          hasta la instalación y el mantenimiento, acompañamos cada proyecto con criterio técnico real.
+        </p>
+
+        <div class="trust-ctas">
+          <a href={waUrl(WA_MESSAGES.cotizacion)} class="btn-primary" target="_blank" rel="noopener noreferrer">
+            Solicitar asesoría gratuita
+          </a>
+          <a href={url('/nosotros/')} class="trust-link">
+            Conocer más de nosotros →
+          </a>
+        </div>
+
+        <!-- Métricas destacadas -->
+        <div class="trust-metrics">
+          <div class="trust-metric">
+            <span class="trust-metric__value">+500</span>
+            <span class="trust-metric__label">Proyectos entregados</span>
+          </div>
+          <div class="trust-metric">
+            <span class="trust-metric__value">98%</span>
+            <span class="trust-metric__label">Clientes satisfechos</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Columna derecha: grid de razones -->
+      <div class="trust-grid" role="list">
+        {razones.map((r) => (
+          <article class="trust-item" role="listitem">
+            <span class="trust-item__num" aria-hidden="true">{r.num}</span>
+            <div class="trust-item__body">
+              <h3 class="trust-item__title">{r.title}</h3>
+              <p class="trust-item__desc">{r.desc}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  .trust-section { background: var(--c-bg-2); }
+
+  .trust-layout {
+    display: grid;
+    grid-template-columns: 5fr 7fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  /* ─── Sidebar ─── */
+  .trust-sidebar { position: sticky; top: calc(var(--stack-height) + 2rem); }
+
+  .trust-ctas {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .trust-link {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--c-primary);
+    text-decoration: none;
+    transition: opacity 0.15s;
+  }
+  .trust-link:hover { opacity: 0.8; }
+
+  .trust-metrics {
+    display: flex;
+    gap: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--c-border);
+  }
+
+  .trust-metric { display: flex; flex-direction: column; gap: 0.25rem; }
+
+  .trust-metric__value {
+    font-size: 1.875rem;
+    font-weight: 800;
+    color: var(--c-primary);
+    letter-spacing: -0.03em;
+    line-height: 1;
+  }
+
+  .trust-metric__label {
+    font-size: 0.8125rem;
+    color: var(--c-muted);
+    font-weight: 500;
+  }
+
+  /* ─── Grid razones ─── */
+  .trust-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+  }
+
+  .trust-item {
+    display: flex;
+    gap: 1rem;
+    background: var(--c-surface);
+    border: 1px solid var(--c-border);
+    border-radius: 10px;
+    padding: 1.25rem;
+    align-items: flex-start;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .trust-item:hover {
+    border-color: rgba(0,102,204,0.3);
+    box-shadow: 0 0 16px rgba(0,102,204,0.1);
+  }
+
+  .trust-item__num {
+    font-size: 0.6875rem;
+    font-weight: 800;
+    color: var(--c-primary);
+    letter-spacing: 0.08em;
+    flex-shrink: 0;
+    opacity: 0.8;
+    margin-top: 0.25rem;
+  }
+
+  .trust-item__body { flex: 1; }
+
+  .trust-item__title {
+    font-size: 0.9375rem;
+    font-weight: 700;
+    color: var(--c-ink);
+    margin-bottom: 0.375rem;
+    line-height: 1.25;
+  }
+
+  .trust-item__desc {
+    font-size: 0.8125rem;
+    color: var(--c-muted);
+    line-height: 1.6;
+  }
+
+  /* ─── Responsive ─── */
+  @media (max-width: 1024px) {
+    .trust-layout { grid-template-columns: 1fr; gap: 2.5rem; }
+    .trust-sidebar { position: static; }
+  }
+
+  @media (max-width: 640px) {
+    .trust-grid { grid-template-columns: 1fr; }
+    .trust-metrics { gap: 1.5rem; }
+  }
+</style>

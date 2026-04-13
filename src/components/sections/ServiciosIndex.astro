@@ -1,0 +1,239 @@
+---
+// ServiciosIndex.astro — Servicios completos de PantallaLED
+// Layout 2 columnas: sidebar header + lista numerada
+
+import { waUrl, WA_MESSAGES } from '../../config/site'
+import { url } from '../../utils/url'
+
+const servicios = [
+  {
+    num: '01',
+    id: 'venta',
+    title: 'Venta de Pantallas LED',
+    desc: 'Catálogo completo de pantallas para publicidad exterior, interiores, eventos y aplicaciones especiales. Precios directos de fábrica sin intermediarios.',
+    icon: '📺',
+  },
+  {
+    num: '02',
+    id: 'renta',
+    title: 'Renta para Eventos',
+    desc: 'Módulos LED de alta resolución en renta por día, semana o mes. Ideales para conciertos, convenciones, exposiciones y activaciones de marca.',
+    icon: '🎪',
+  },
+  {
+    num: '03',
+    id: 'instalacion',
+    title: 'Instalación Profesional',
+    desc: 'Ingeniería, montaje y puesta en marcha por técnicos certificados. Instalaciones estructurales, eléctricas y de señal bajo norma.',
+    icon: '🔧',
+  },
+  {
+    num: '04',
+    id: 'mantenimiento',
+    title: 'Mantenimiento y Soporte',
+    desc: 'Pólizas preventivas anuales con visitas periódicas. Servicio correctivo en 24 horas. Reemplazo de módulos y componentes originales.',
+    icon: '🛡️',
+  },
+  {
+    num: '05',
+    id: 'asesoria',
+    title: 'Asesoría Técnica',
+    desc: 'Diagnóstico de requerimientos sin costo. Te ayudamos a definir paso de pixel, brillo, resolución y tipo de pantalla para tu proyecto específico.',
+    icon: '💡',
+  },
+  {
+    num: '06',
+    id: 'contenido',
+    title: 'Gestión de Contenido',
+    desc: 'Configuración del software de control, capacitación de operadores y soporte para reproducción de contenido. Compatible con sistemas Windows, Android y en la nube.',
+    icon: '🖥️',
+  },
+  {
+    num: '07',
+    id: 'diseno',
+    title: 'Diseño de Contenido',
+    desc: 'Creación de piezas visuales optimizadas para pantalla LED. Animaciones, videos, looping y contenido dinámico adaptado a tu marca.',
+    icon: '🎨',
+  },
+  {
+    num: '08',
+    id: 'garantia',
+    title: 'Garantía y Postventa',
+    desc: 'Atención postventa ágil. Gestión de garantías de fábrica. Diagnóstico remoto y en sitio. Refacciones originales en stock.',
+    icon: '✅',
+  },
+]
+---
+
+<section class="section section--dark servicios-section" id="servicios" aria-labelledby="servicios-heading">
+  <div class="container">
+    <div class="servicios-layout">
+
+      <!-- Sidebar header -->
+      <div class="servicios-sidebar">
+        <p class="sidebar-header__eyebrow">Nuestros servicios</p>
+        <h2 id="servicios-heading" class="sidebar-header__title">
+          Todo lo que necesitas<br/>para tu <span>pantalla LED</span>
+        </h2>
+        <p class="sidebar-header__desc">
+          Ofrecemos una solución integral: desde la selección del equipo hasta la instalación,
+          el contenido y el mantenimiento. Un solo proveedor para todo el ciclo de vida de tu pantalla.
+        </p>
+
+        <a href={url('/servicios/')} class="btn-primary servicios-cta">
+          Ver todos los servicios
+        </a>
+
+        <div class="servicios-trust">
+          <div class="servicios-trust__item">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <polyline points="20 6 9 17 4 12"/>
+            </svg>
+            <span>Servicio llave en mano</span>
+          </div>
+          <div class="servicios-trust__item">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <polyline points="20 6 9 17 4 12"/>
+            </svg>
+            <span>Factura electrónica</span>
+          </div>
+          <div class="servicios-trust__item">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <polyline points="20 6 9 17 4 12"/>
+            </svg>
+            <span>Crédito a 30 días</span>
+          </div>
+          <div class="servicios-trust__item">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <polyline points="20 6 9 17 4 12"/>
+            </svg>
+            <span>Cotización el mismo día</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Lista de servicios -->
+      <div class="servicios-lista" role="list">
+        {servicios.map((svc) => (
+          <article class="svc-item" id={svc.id} role="listitem">
+            <span class="svc-item__num" aria-hidden="true">{svc.num}</span>
+            <div class="svc-item__body">
+              <h3 class="svc-item__title">{svc.title}</h3>
+              <p class="svc-item__desc">{svc.desc}</p>
+            </div>
+            <a href={url(`/servicios/#${svc.id}`)} class="svc-item__link" aria-label={`Ver más sobre ${svc.title}`}>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </a>
+          </article>
+        ))}
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  .servicios-section { background: var(--c-bg); }
+
+  .servicios-layout {
+    display: grid;
+    grid-template-columns: 4fr 7fr;
+    gap: 4.5rem;
+    align-items: start;
+  }
+
+  .servicios-sidebar { position: sticky; top: calc(var(--stack-height) + 2rem); }
+
+  .servicios-cta { margin-bottom: 1.75rem; }
+
+  .servicios-trust {
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
+  }
+
+  .servicios-trust__item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    color: var(--c-muted);
+  }
+  .servicios-trust__item svg { color: var(--c-primary); flex-shrink: 0; }
+
+  /* ─── Lista ─── */
+  .servicios-lista {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .svc-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1.25rem 0;
+    border-bottom: 1px solid var(--c-border);
+    transition: background 0.15s;
+    position: relative;
+  }
+
+  .svc-item:first-child { padding-top: 0; }
+  .svc-item:last-child { border-bottom: none; padding-bottom: 0; }
+
+  .svc-item__num {
+    font-size: 0.6875rem;
+    font-weight: 800;
+    color: var(--c-primary);
+    letter-spacing: 0.08em;
+    flex-shrink: 0;
+    margin-top: 0.3rem;
+    min-width: 24px;
+    opacity: 0.75;
+  }
+
+  .svc-item__body { flex: 1; }
+
+  .svc-item__title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--c-ink);
+    margin-bottom: 0.375rem;
+    line-height: 1.25;
+    transition: color 0.15s;
+  }
+  .svc-item:hover .svc-item__title { color: var(--c-primary); }
+
+  .svc-item__desc {
+    font-size: 0.875rem;
+    color: var(--c-muted);
+    line-height: 1.65;
+  }
+
+  .svc-item__link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 1px solid var(--c-border);
+    color: var(--c-muted);
+    flex-shrink: 0;
+    margin-top: 0.25rem;
+    transition: border-color 0.15s, color 0.15s, background 0.15s;
+  }
+  .svc-item:hover .svc-item__link {
+    border-color: var(--c-primary);
+    color: var(--c-primary);
+    background: var(--c-primary-light);
+  }
+
+  /* ─── Responsive ─── */
+  @media (max-width: 1024px) {
+    .servicios-layout { grid-template-columns: 1fr; gap: 2.5rem; }
+    .servicios-sidebar { position: static; }
+  }
+</style>

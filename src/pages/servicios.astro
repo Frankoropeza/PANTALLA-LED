@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { url } from '../utils/url';
 
 const servicios = [
   {
@@ -91,7 +92,7 @@ const servicios = [
                 </li>
               ))}
             </ul>
-            <a href="/contacto" class="btn-primary inline-flex mt-8">Solicitar información</a>
+            <a href={url('/contacto')} class="btn-primary inline-flex mt-8">Solicitar información</a>
           </div>
           <!-- Image placeholder -->
           <div class="aspect-video bg-gray-900 border border-gray-800 rounded-2xl flex items-center justify-center">

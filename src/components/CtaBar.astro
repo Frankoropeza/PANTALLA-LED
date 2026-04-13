@@ -1,0 +1,91 @@
+---
+// CtaBar.astro — Barra de confianza / métricas rápidas
+// Va inmediatamente después del Hero en todas las páginas
+---
+
+<section class="cta-bar" aria-label="Indicadores clave">
+  <div class="container cta-bar__inner">
+    <div class="cta-bar__stat">
+      <span class="cta-bar__value">+500</span>
+      <span class="cta-bar__label">Instalaciones completadas</span>
+    </div>
+    <div class="cta-bar__divider" aria-hidden="true"></div>
+    <div class="cta-bar__stat">
+      <span class="cta-bar__value">+10 años</span>
+      <span class="cta-bar__label">de experiencia en el mercado</span>
+    </div>
+    <div class="cta-bar__divider" aria-hidden="true"></div>
+    <div class="cta-bar__stat">
+      <span class="cta-bar__value">2 años</span>
+      <span class="cta-bar__label">de garantía en todos los equipos</span>
+    </div>
+    <div class="cta-bar__divider" aria-hidden="true"></div>
+    <div class="cta-bar__stat">
+      <span class="cta-bar__value">24/7</span>
+      <span class="cta-bar__label">soporte técnico disponible</span>
+    </div>
+    <div class="cta-bar__divider" aria-hidden="true"></div>
+    <div class="cta-bar__stat">
+      <span class="cta-bar__value">República</span>
+      <span class="cta-bar__label">cobertura en todo México</span>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cta-bar {
+    background: var(--c-primary);
+    padding: 1.25rem 0;
+  }
+
+  .cta-bar__inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    flex-wrap: wrap;
+  }
+
+  .cta-bar__stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 0.625rem 2rem;
+    gap: 0.2rem;
+  }
+
+  .cta-bar__value {
+    font-size: clamp(1.1rem, 2vw, 1.5rem);
+    font-weight: 800;
+    color: #fff;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+
+  .cta-bar__label {
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.75);
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  .cta-bar__divider {
+    width: 1px;
+    height: 36px;
+    background: rgba(255,255,255,0.2);
+    flex-shrink: 0;
+  }
+
+  @media (max-width: 900px) {
+    .cta-bar__inner { gap: 0; }
+    .cta-bar__stat  { padding: 0.5rem 1.25rem; }
+    .cta-bar__divider:nth-child(8) { display: none; }
+  }
+
+  @media (max-width: 640px) {
+    .cta-bar__inner { justify-content: flex-start; overflow-x: auto; flex-wrap: nowrap; padding-bottom: 0.25rem; }
+    .cta-bar__stat  { padding: 0.5rem 1rem; flex-shrink: 0; }
+    .cta-bar__divider { display: none; }
+  }
+</style>

@@ -1,0 +1,133 @@
+---
+// EspecificacionesIndex.astro — Tabla de especificaciones técnicas
+// Guía comparativa de tipos de pantalla por aplicación
+
+import SectionHeader from '../ui/SectionHeader.astro'
+import { url } from '../../utils/url'
+---
+
+<section class="section section--surface specs-section" id="especificaciones" aria-labelledby="specs-heading">
+  <div class="container">
+
+    <SectionHeader
+      eyebrow="Especificaciones técnicas"
+      title="¿Qué tipo de pantalla <span>necesitas?</span>"
+      desc="Guía rápida para elegir el paso de pixel correcto según tu aplicación, distancia de visión y presupuesto."
+    />
+
+    <div class="tabla-responsive" role="region" aria-label="Comparativa de pantallas LED" tabindex="0">
+      <table class="tabla-seo">
+        <thead>
+          <tr>
+            <th scope="col">Tipo de pantalla</th>
+            <th scope="col">Paso de pixel</th>
+            <th scope="col">Distancia mínima</th>
+            <th scope="col">Aplicación ideal</th>
+            <th scope="col">Brillo</th>
+            <th scope="col">Uso</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Ultra HD Interior</strong></td>
+            <td><span class="text-accent">P2 / P2.5</span></td>
+            <td>2 – 4 m</td>
+            <td>Control rooms, TV, exhibiciones</td>
+            <td>800 – 1,200 nits</td>
+            <td>Interior</td>
+          </tr>
+          <tr>
+            <td><strong>Interior Fine Pitch</strong></td>
+            <td><span class="text-accent">P3 / P4</span></td>
+            <td>3 – 6 m</td>
+            <td>Lobbies, hoteles, centros comerciales</td>
+            <td>1,000 – 1,500 nits</td>
+            <td>Interior</td>
+          </tr>
+          <tr>
+            <td><strong>Exterior Urbano</strong></td>
+            <td><span class="text-accent">P4 / P5</span></td>
+            <td>5 – 10 m</td>
+            <td>Fachadas, espectaculares medianos</td>
+            <td>5,000 – 7,000 nits</td>
+            <td>Exterior IP65</td>
+          </tr>
+          <tr>
+            <td><strong>Exterior Gran Formato</strong></td>
+            <td><span class="text-accent">P6 / P8</span></td>
+            <td>8 – 15 m</td>
+            <td>Carreteras, estadios, espectaculares</td>
+            <td>6,000 – 8,000 nits</td>
+            <td>Exterior IP65</td>
+          </tr>
+          <tr>
+            <td><strong>Exterior Autopista</strong></td>
+            <td><span class="text-accent">P10 / P16</span></td>
+            <td>+15 m</td>
+            <td>Autopistas, espacios industriales</td>
+            <td>7,000 – 10,000 nits</td>
+            <td>Exterior IP65</td>
+          </tr>
+          <tr>
+            <td><strong>Eventos / Renta</strong></td>
+            <td><span class="text-accent">P3.9 / P4.8</span></td>
+            <td>4 – 8 m</td>
+            <td>Escenarios, conciertos, exposiciones</td>
+            <td>4,000 – 6,000 nits</td>
+            <td>Indoor / Outdoor</td>
+          </tr>
+          <tr>
+            <td><strong>Piso LED</strong></td>
+            <td><span class="text-accent">P6.25 / P8.9</span></td>
+            <td>1 – 3 m</td>
+            <td>Pistas de baile, shows, eventos</td>
+            <td>2,000 – 3,500 nits</td>
+            <td>Floor (carga 600 kg/m²)</td>
+          </tr>
+          <tr>
+            <td><strong>Transparente</strong></td>
+            <td><span class="text-accent">P7.8 / P10</span></td>
+            <td>3 – 8 m</td>
+            <td>Vitrinas, fachadas de vidrio</td>
+            <td>2,500 – 4,000 nits</td>
+            <td>Interior / fachada</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="specs-nota">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" style="flex-shrink:0; margin-top:2px;">
+        <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+      </svg>
+      ¿Tienes dudas sobre qué pantalla elegir? Nuestros especialistas hacen el diagnóstico sin costo.
+      <a href={url('/contacto/')} class="specs-nota__link">Solicitar asesoría gratuita →</a>
+    </p>
+
+  </div>
+</section>
+
+<style>
+  .specs-section { background: var(--c-bg-2); }
+
+  .specs-nota {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    margin-top: 1.25rem;
+    font-size: 0.875rem;
+    color: var(--c-muted);
+    line-height: 1.6;
+  }
+
+  .specs-nota svg { color: var(--c-primary); }
+
+  .specs-nota__link {
+    color: var(--c-primary);
+    font-weight: 600;
+    text-decoration: none;
+    margin-left: 0.25rem;
+    transition: opacity 0.15s;
+  }
+  .specs-nota__link:hover { opacity: 0.8; }
+</style>

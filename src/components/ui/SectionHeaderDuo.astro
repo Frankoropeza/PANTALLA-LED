@@ -1,0 +1,38 @@
+---
+// SectionHeaderDuo.astro — Encabezado en dos columnas
+// Izquierda: eyebrow + título + desc breve
+// Derecha: dos párrafos editoriales / SEO
+
+interface Props {
+  eyebrow: string
+  title: string
+  desc?: string
+  body1?: string
+  body2?: string
+  dark?: boolean
+}
+
+const { eyebrow, title, desc, body1, body2, dark = false } = Astro.props
+---
+
+<div class:list={['titulo-duo', { 'titulo-duo--dark': dark }]}>
+  <!-- Columna izquierda -->
+  <div class="titulo-duo__left">
+    {eyebrow && (
+      <p class="titulo-duo__eyebrow">
+        <span class="titulo-duo__eyebrow-bar" aria-hidden="true"></span>
+        {eyebrow}
+      </p>
+    )}
+    <h2 class="titulo-duo__title" set:html={title} />
+    {desc && <p class="titulo-duo__desc">{desc}</p>}
+  </div>
+
+  <!-- Columna derecha -->
+  {(body1 || body2) && (
+    <div class="titulo-duo__right">
+      {body1 && <p class="titulo-duo__body">{body1}</p>}
+      {body2 && <p class="titulo-duo__body">{body2}</p>}
+    </div>
+  )}
+</div>

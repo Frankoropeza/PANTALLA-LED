@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import { getCollection, getEntry } from 'astro:content';
+import { url } from '../../utils/url';
 
 export async function getStaticPaths() {
   const productos = await getCollection('productos');
@@ -23,9 +24,9 @@ const { Content } = await producto.render();
 
       <!-- Breadcrumb -->
       <nav class="flex items-center gap-2 text-sm text-gray-500 mb-8">
-        <a href="/" class="hover:text-white transition-colors">Inicio</a>
+        <a href={url('/')} class="hover:text-white transition-colors">Inicio</a>
         <span>/</span>
-        <a href="/productos" class="hover:text-white transition-colors">Productos</a>
+        <a href={url('/productos')} class="hover:text-white transition-colors">Productos</a>
         <span>/</span>
         <span class="text-gray-300">{producto.data.title}</span>
       </nav>
@@ -67,7 +68,7 @@ const { Content } = await producto.render();
             )}
           </dl>
 
-          <a href="/contacto" class="btn-primary inline-flex">Solicitar Cotización</a>
+          <a href={url('/contacto')} class="btn-primary inline-flex">Solicitar Cotización</a>
         </div>
       </div>
 

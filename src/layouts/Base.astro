@@ -4,6 +4,7 @@ import TopBar       from '../components/global/TopBar.astro'
 import Header       from '../components/global/Header.astro'
 import Footer       from '../components/global/Footer.astro'
 import WhatsAppButton from '../components/global/WhatsAppButton.astro'
+import { url } from '../utils/url'
 
 interface Props {
   title: string
@@ -41,8 +42,8 @@ const canonicalURL = canonical || new URL(Astro.url.pathname, Astro.site).href
   {ogImage && <meta name="twitter:image" content={ogImage} />}
 
   <meta name="robots" content="index, follow" />
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-  <link rel="apple-touch-icon"     href="/apple-touch-icon.png" />
+  <link rel="icon" type="image/svg+xml" href={url('/favicon.svg')} />
+  <link rel="apple-touch-icon"     href={url('/apple-touch-icon.png')} />
 
   <!-- Google Fonts — Outfit (mismo que PROYECTORED para coherencia de sistema) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />

@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
+import { url } from '../utils/url';
 
 const productos = await getCollection('productos');
 ---
@@ -61,7 +62,7 @@ const productos = await getCollection('productos');
       ) : (
         <div class="text-center py-20 text-gray-500">
           <p class="text-lg">Catálogo en construcción. ¡Próximamente!</p>
-          <a href="/contacto" class="btn-primary inline-flex mt-6">Contactar para más información</a>
+          <a href={url('/contacto')} class="btn-primary inline-flex mt-6">Contactar para más información</a>
         </div>
       )}
     </div>

@@ -1,0 +1,293 @@
+---
+// CategoriasIndex.astro — Grid de tipos de pantallas LED
+// 6 tarjetas con imagen placeholder, badge, título, descripción y subcategorías
+
+import SectionHeader from '../ui/SectionHeader.astro'
+import { url } from '../../utils/url'
+
+const categorias = [
+  {
+    slug: 'pantallas-exteriores',
+    title: 'Pantallas Exteriores',
+    badge: 'IP65 · Intemperie',
+    desc: 'Alta luminosidad para publicidad al aire libre. Resistentes al agua, polvo y variaciones de temperatura.',
+    specs: ['P4', 'P5', 'P6', 'P8', 'P10'],
+    href: '/productos/pantallas-exteriores/',
+    highlight: true,
+  },
+  {
+    slug: 'pantallas-interiores',
+    title: 'Pantallas Interiores',
+    badge: 'Ultra HD · 4K',
+    desc: 'Resolución y colores premium para lobbies, centros comerciales, restaurantes y hoteles.',
+    specs: ['P2', 'P2.5', 'P3', 'P4'],
+    href: '/productos/pantallas-interiores/',
+    highlight: false,
+  },
+  {
+    slug: 'pantallas-flexibles',
+    title: 'Pantallas Flexibles',
+    badge: 'Curva · Creativa',
+    desc: 'Diseños curvados, cilíndricos y transparentes para arquitectura de vanguardia.',
+    specs: ['Curva', 'Cilíndrica', 'Transparente'],
+    href: '/productos/pantallas-flexibles/',
+    highlight: false,
+  },
+  {
+    slug: 'pantallas-eventos',
+    title: 'Pantallas para Eventos',
+    badge: 'Renta disponible',
+    desc: 'Módulos de alta resolución para escenarios, conciertos, convenciones y exposiciones.',
+    specs: ['Backdrop', 'Escenario', 'Stage LED'],
+    href: '/productos/pantallas-eventos/',
+    highlight: false,
+  },
+  {
+    slug: 'pantallas-piso',
+    title: 'Pantallas de Piso',
+    badge: 'LED Floor',
+    desc: 'Pistas de baile interactivas y pisos visuales para eventos, discotecas y shows.',
+    specs: ['P3.9', 'P6.25', 'Interactivo'],
+    href: '/productos/pantallas-piso/',
+    highlight: false,
+  },
+  {
+    slug: 'pantallas-transparentes',
+    title: 'Pantallas Transparentes',
+    badge: 'Glass LED',
+    desc: 'Transparencia de hasta 85% para vitrinas, fachadas de vidrio y aplicaciones arquitectónicas.',
+    specs: ['P7.8', 'P10', 'P15.6'],
+    href: '/productos/pantallas-transparentes/',
+    highlight: false,
+  },
+]
+---
+
+<section class="section section--dark categorias-section" id="productos" aria-labelledby="categorias-heading">
+  <div class="container">
+
+    <SectionHeader
+      eyebrow="Catálogo de Productos"
+      title="Pantallas LED para <span>cada aplicación</span>"
+      desc="Desde publicidad de gran formato hasta instalaciones creativas. Tecnología SMD y COB de última generación con garantía de 2 años."
+    />
+
+    <div class="categorias-grid">
+      {categorias.map((cat) => (
+        <article class:list={['ccat', { 'ccat--highlight': cat.highlight }]}>
+
+          <!-- Imagen placeholder -->
+          <div class="ccat__image" aria-hidden="true">
+            <div class="ccat__image-placeholder">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.3">
+                <rect x="2" y="3" width="20" height="14" rx="2"/>
+                <line x1="8" y1="21" x2="16" y2="21"/>
+                <line x1="12" y1="17" x2="12" y2="21"/>
+              </svg>
+            </div>
+          </div>
+
+          <div class="ccat__body">
+            <!-- Badge -->
+            <span class="ccat__badge">{cat.badge}</span>
+
+            <!-- Título -->
+            <h3 class="ccat__title">{cat.title}</h3>
+
+            <!-- Descripción -->
+            <p class="ccat__desc">{cat.desc}</p>
+
+            <!-- Specs/variantes -->
+            <div class="ccat__specs" aria-label="Variantes disponibles">
+              {cat.specs.map((s) => (
+                <span class="ccat__spec">{s}</span>
+              ))}
+            </div>
+
+            <!-- CTA -->
+            <a href={url(cat.href)} class="ccat__link" aria-label={`Ver ${cat.title}`}>
+              Ver modelos
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </a>
+          </div>
+        </article>
+      ))}
+    </div>
+
+    <!-- Ver todos -->
+    <div class="categorias-footer">
+      <a href={url('/productos/')} class="btn-outline categorias-cta">
+        Ver catálogo completo
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .categorias-section { background: var(--c-bg); }
+
+  .categorias-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+    margin-bottom: 2.5rem;
+  }
+
+  /* ─── Tarjeta ─── */
+  .ccat {
+    display: flex;
+    flex-direction: column;
+    background: var(--c-surface);
+    border: 1px solid var(--c-border);
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+
+  .ccat::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 12px;
+    border: 1px solid transparent;
+    transition: border-color 0.2s;
+    pointer-events: none;
+  }
+
+  .ccat:hover { box-shadow: 0 0 28px rgba(0,102,204,0.2); }
+  .ccat:hover::after { border-color: var(--c-primary); }
+
+  .ccat--highlight {
+    border-color: rgba(0,102,204,0.35);
+    box-shadow: 0 0 20px rgba(0,102,204,0.1);
+  }
+
+  /* Imagen */
+  .ccat__image {
+    aspect-ratio: 16/9;
+    background: var(--c-bg-2);
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ccat__image-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--c-muted);
+  }
+
+  /* Body */
+  .ccat__body {
+    padding: 1.25rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .ccat__badge {
+    display: inline-block;
+    font-size: 0.625rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--c-primary);
+    background: var(--c-primary-light);
+    border: 1px solid rgba(0,102,204,0.2);
+    border-radius: 100px;
+    padding: 0.2rem 0.625rem;
+    width: fit-content;
+  }
+
+  .ccat__title {
+    font-size: 1.0625rem;
+    font-weight: 700;
+    color: var(--c-ink);
+    line-height: 1.25;
+    letter-spacing: -0.015em;
+    margin-top: 0.25rem;
+  }
+
+  .ccat__desc {
+    font-size: 0.875rem;
+    color: var(--c-muted);
+    line-height: 1.6;
+    flex: 1;
+  }
+
+  .ccat__specs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.375rem;
+    margin-top: 0.25rem;
+  }
+
+  .ccat__spec {
+    font-size: 0.6875rem;
+    font-weight: 500;
+    color: var(--c-muted);
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--c-border);
+    border-radius: 4px;
+    padding: 0.2rem 0.5rem;
+  }
+
+  .ccat__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--c-primary);
+    margin-top: 0.5rem;
+    text-decoration: none;
+    transition: gap 0.15s;
+  }
+  .ccat__link:hover { gap: 0.625rem; }
+  .ccat__link svg { transition: transform 0.15s; }
+  .ccat__link:hover svg { transform: translateX(4px); }
+
+  /* ─── Footer ─── */
+  .categorias-footer {
+    display: flex;
+    justify-content: center;
+  }
+
+  .categorias-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.875rem 2rem;
+    border: 2px solid var(--c-border);
+    color: var(--c-ink-2);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    border-radius: 8px;
+    transition: border-color 0.2s, color 0.2s, background 0.2s;
+  }
+  .categorias-cta:hover {
+    border-color: var(--c-primary);
+    color: var(--c-primary);
+    background: var(--c-primary-light);
+  }
+
+  /* ─── Responsive ─── */
+  @media (max-width: 1024px) {
+    .categorias-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 640px) {
+    .categorias-grid { grid-template-columns: 1fr; }
+  }
+</style>

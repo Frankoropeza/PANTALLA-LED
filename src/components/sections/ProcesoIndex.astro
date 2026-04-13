@@ -1,0 +1,148 @@
+---
+// ProcesoIndex.astro — Proceso de trabajo de PantallaLED
+// 5 pasos con numeración y descripción
+
+import SectionHeader from '../ui/SectionHeader.astro'
+
+const pasos = [
+  {
+    num: '01',
+    title: 'Consulta y diagnóstico',
+    desc: 'Nos cuentas tu proyecto: espacio, objetivo, presupuesto y cronograma. Evaluamos de forma gratuita el tipo de pantalla, brillo y resolución que mejor se adapta.',
+    icon: '💬',
+  },
+  {
+    num: '02',
+    title: 'Propuesta técnica',
+    desc: 'Preparamos una cotización detallada con especificaciones técnicas, planos de instalación, cronograma y condiciones de garantía. Sin costos ocultos.',
+    icon: '📐',
+  },
+  {
+    num: '03',
+    title: 'Fabricación y logística',
+    desc: 'Gestionamos la producción con el fabricante o surtimos desde stock. Coordinamos el traslado para cumplir los tiempos acordados en tu proyecto.',
+    icon: '📦',
+  },
+  {
+    num: '04',
+    title: 'Instalación y puesta en marcha',
+    desc: 'Nuestros técnicos realizan el montaje estructural, cableado y calibración. Configuramos el sistema de control y validamos colores, brillo y uniformidad.',
+    icon: '🔧',
+  },
+  {
+    num: '05',
+    title: 'Capacitación y soporte',
+    desc: 'Capacitamos a tu equipo para operar el software de contenido. Dejamos todo documentado y activamos el plan de mantenimiento preventivo.',
+    icon: '🎓',
+  },
+]
+---
+
+<section class="section section--dark proceso-section" id="proceso" aria-labelledby="proceso-heading">
+  <div class="container">
+
+    <SectionHeader
+      eyebrow="Cómo trabajamos"
+      title="Un proceso claro de principio a <span>fin</span>"
+      desc="Sin sorpresas. Cada proyecto de pantalla LED sigue un flujo de trabajo estructurado para garantizar calidad, tiempos y satisfacción."
+    />
+
+    <div class="proceso-grid" role="list">
+      {pasos.map((paso, i) => (
+        <article class="proceso-paso" role="listitem">
+          <!-- Número + línea conectora -->
+          <div class="proceso-paso__track" aria-hidden="true">
+            <div class="proceso-paso__num">{paso.num}</div>
+            {i < pasos.length - 1 && <div class="proceso-paso__line"></div>}
+          </div>
+
+          <!-- Contenido -->
+          <div class="proceso-paso__body">
+            <h3 class="proceso-paso__title">{paso.title}</h3>
+            <p class="proceso-paso__desc">{paso.desc}</p>
+          </div>
+        </article>
+      ))}
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .proceso-section { background: var(--c-bg); }
+
+  .proceso-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  .proceso-paso {
+    display: flex;
+    gap: 1.5rem;
+    align-items: flex-start;
+  }
+
+  .proceso-paso__track {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  .proceso-paso__num {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--c-primary-light);
+    border: 2px solid var(--c-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 800;
+    color: var(--c-primary);
+    letter-spacing: 0.05em;
+    flex-shrink: 0;
+  }
+
+  .proceso-paso__line {
+    width: 2px;
+    flex: 1;
+    min-height: 2rem;
+    background: linear-gradient(to bottom, var(--c-primary), var(--c-border));
+    margin-top: 0.25rem;
+    margin-bottom: 0;
+    opacity: 0.4;
+  }
+
+  .proceso-paso__body {
+    padding-bottom: 2.5rem;
+    flex: 1;
+    padding-top: 0.625rem;
+  }
+
+  .proceso-paso:last-child .proceso-paso__body { padding-bottom: 0; }
+
+  .proceso-paso__title {
+    font-size: 1.0625rem;
+    font-weight: 700;
+    color: var(--c-ink);
+    margin-bottom: 0.5rem;
+    line-height: 1.25;
+  }
+
+  .proceso-paso__desc {
+    font-size: 0.9rem;
+    color: var(--c-muted);
+    line-height: 1.7;
+  }
+
+  @media (max-width: 640px) {
+    .proceso-paso { gap: 1rem; }
+    .proceso-paso__num { width: 36px; height: 36px; font-size: 0.7rem; }
+    .proceso-paso__body { padding-bottom: 1.75rem; padding-top: 0.375rem; }
+  }
+</style>

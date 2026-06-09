@@ -5,7 +5,7 @@
  */
 
 import Base from '../layouts/Base.astro'
-import QuickNavIndex from '../components/sections/QuickNavIndex.astro'
+import QuickNav from '../components/sections/QuickNav.astro'
 import HeroIndex from '../components/sections/HeroIndex.astro'
 import CategoriasIndex from '../components/sections/CategoriasIndex.astro'
 import TrustIndex from '../components/sections/TrustIndex.astro'
@@ -17,8 +17,19 @@ import CoberturaIndex from '../components/sections/CoberturaIndex.astro'
 import FaqCotizacionIndex from '../components/sections/FaqCotizacionIndex.astro'
 import CTAFinalIndex from '../components/sections/CTAFinalIndex.astro'
 
-import { SITE, CONTACT } from '../config/site'
+import { SITE, CONTACT, WA_MESSAGES } from '../config/site'
 import { FAQS } from '../config/faqs'
+
+// ─── Navegación rápida del index ──────────────────────────────────────────────
+const quickNavEnlaces = [
+  { label: 'Catálogo LED', href: '#productos' },
+  { label: 'Servicios', href: '#servicios' },
+  { label: 'Especificaciones', href: '#especificaciones' },
+  { label: 'Cómo trabajamos', href: '#proceso' },
+  { label: 'Testimonios', href: '#testimonios' },
+  { label: 'Cobertura', href: '#cobertura' },
+  { label: 'Preguntas frecuentes', href: '#faq' },
+]
 
 // ─── JSON-LD: LocalBusiness ───────────────────────────────────────────────────
 const schemaLocalBusiness = {
@@ -130,7 +141,7 @@ const canonical = SITE.url
 
   <!-- ─── Secciones ────────────────────────────────────────────────────── -->
   <HeroIndex />
-  <QuickNavIndex />
+  <QuickNav enlaces={quickNavEnlaces} ctaMessage={WA_MESSAGES.cotizacion} />
   <CategoriasIndex />
   <TrustIndex />
   <ServiciosIndex />

@@ -1,6 +1,8 @@
 ---
-// PageHero.astro — Hero compacto para páginas L2 (productos, servicios…)
-// Breadcrumb + eyebrow + H1 SEO + descripción + slot opcional de acciones.
+// PageHero.astro — Hero editorial para páginas L2/L3
+// Mismo lenguaje que el hero del index: dos columnas separadas por
+// línea vertical — izquierda eyebrow pill + H1 (+ stats opcionales),
+// derecha párrafos SEO + slot de acciones. Breadcrumb arriba.
 // El schema BreadcrumbList lo emite cada página (ver vault: SEO y Datos).
 
 import { url } from '../../utils/url'
@@ -10,14 +12,22 @@ interface Crumb {
   href?: string // sin href = página actual
 }
 
+interface Stat {
+  value: string
+  label: string
+}
+
 interface Props {
   eyebrow: string
   title: string // admite <span> para keyword acentuada
-  desc: string
+  desc: string // párrafo principal (columna derecha)
+  body2?: string // segundo párrafo opcional
+  kicker?: string // mini-título uppercase sobre los párrafos
+  stats?: Stat[] // métricas bajo el título (columna izquierda)
   crumbs: Crumb[]
 }
 
-const { eyebrow, title, desc, crumbs } = Astro.props
+const { eyebrow, title, desc, body2, kicker, stats = [], crumbs } = Astro.props
 ---
 
 <!-- Breadcrumb -->
@@ -42,21 +52,48 @@ const { eyebrow, title, desc, crumbs } = Astro.props
   </nav>
 </div>
 
-<!-- Hero -->
+<!-- Hero editorial 2 columnas -->
 <section class="page-hero" aria-labelledby="page-hero-heading">
   <div class="page-hero__bg" aria-hidden="true">
     <div class="page-hero__grid"></div>
-    <div class="page-hero__glow"></div>
+    <div class="page-hero__glow page-hero__glow--tl"></div>
+    <div class="page-hero__glow page-hero__glow--br"></div>
   </div>
 
   <div class="container page-hero__inner">
-    <p class="page-hero__eyebrow">
-      <span class="page-hero__eyebrow-bar" aria-hidden="true"></span>
-      {eyebrow}
-    </p>
-    <h1 id="page-hero-heading" class="page-hero__title" set:html={title} />
-    <p class="page-hero__desc">{desc}</p>
-    <slot name="actions" />
+
+    <!-- ══ Columna 1 — Título ══ -->
+    <div class="page-hero__col page-hero__col--title">
+      <p class="page-hero__eyebrow">
+        <span class="page-hero__eyebrow-dot" aria-hidden="true"></span>
+        {eyebrow}
+      </p>
+
+      <h1 id="page-hero-heading" class="page-hero__title" set:html={title} />
+
+      {stats.length > 0 && (
+        <div class="stat-row page-hero__stats" aria-label="Datos clave">
+          {stats.map((s) => (
+            <div class="stat">
+              <span class="stat__value">{s.value}</span>
+              <span class="stat__label">{s.label}</span>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+
+    <!-- Separador vertical -->
+    <div class="page-hero__divider" aria-hidden="true"></div>
+
+    <!-- ══ Columna 2 — Cuerpo ══ -->
+    <div class="page-hero__col page-hero__col--body">
+      {kicker && <span class="page-hero__kicker">{kicker}</span>}
+      <p class="page-hero__p">{desc}</p>
+      {body2 && <p class="page-hero__p">{body2}</p>}
+      <slot name="actions" />
+    </div>
+
   </div>
 </section>
 
@@ -78,67 +115,106 @@ const { eyebrow, title, desc, crumbs } = Astro.props
       linear-gradient(90deg, rgba(var(--c-primary-rgb), 1) 1px, transparent 1px);
     background-size: 72px 72px;
   }
-  .page-hero__glow {
-    position: absolute;
-    top: -40%; left: -5%;
-    width: 50vw; height: 120%;
-    border-radius: 50%;
-    filter: blur(120px);
+  .page-hero__glow { position: absolute; border-radius: 50%; filter: blur(120px); }
+  .page-hero__glow--tl {
+    top: -40%; left: -8%;
+    width: 45vw; height: 130%;
     background: radial-gradient(ellipse, rgba(var(--c-primary-rgb), 0.18) 0%, transparent 70%);
   }
+  .page-hero__glow--br {
+    bottom: -50%; right: 0;
+    width: 32vw; height: 100%;
+    background: radial-gradient(ellipse, rgba(0, 60, 180, 0.12) 0%, transparent 70%);
+  }
 
-  /* ─── Contenido ─── */
+  /* ─── Grid principal ─── */
   .page-hero__inner {
     position: relative; z-index: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 1.125rem;
-  }
-
-  .page-hero__eyebrow {
-    display: inline-flex;
+    display: grid;
+    grid-template-columns: 1.05fr 1px 1fr;
+    column-gap: clamp(2.5rem, 4.5vw, 4.5rem);
     align-items: center;
-    gap: 0.625rem;
-    font-size: 0.75rem;
-    font-weight: var(--weight-semibold);
-    color: var(--c-primary);
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-  }
-  .page-hero__eyebrow-bar {
-    display: block;
-    width: 28px; height: 2px;
-    background: var(--c-primary);
-    border-radius: 2px;
-    flex-shrink: 0;
   }
 
+  .page-hero__divider {
+    width: 1px;
+    align-self: stretch;
+    min-height: 180px;
+    background: linear-gradient(
+      to bottom,
+      transparent 0%,
+      var(--c-border) 18%,
+      var(--c-border-2) 50%,
+      var(--c-border) 82%,
+      transparent 100%
+    );
+  }
+
+  .page-hero__col { display: flex; flex-direction: column; }
+  .page-hero__col--title { gap: 1.5rem; }
+  .page-hero__col--body  { gap: 1.125rem; }
+
+  /* ─── Eyebrow pill (como el hero L1) ─── */
+  .page-hero__eyebrow {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: rgba(var(--c-primary-rgb), 0.08);
+    border: 1px solid rgba(var(--c-primary-rgb), 0.25);
+    color: rgba(140, 195, 255, 0.9);
+    font-size: 0.8rem; font-weight: var(--weight-medium);
+    padding: 0.4rem 1rem; border-radius: var(--radius-full);
+    letter-spacing: 0.02em; width: fit-content;
+  }
+  .page-hero__eyebrow-dot {
+    width: 7px; height: 7px; background: var(--c-primary);
+    border-radius: 50%; flex-shrink: 0;
+    animation: page-hero-pulse 2.2s ease-in-out infinite;
+  }
+  @keyframes page-hero-pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50%      { opacity: .4; transform: scale(.7); }
+  }
+
+  /* ─── Título ─── */
   .page-hero__title {
-    font-size: clamp(2.25rem, 4.5vw, 3.75rem);
+    font-size: clamp(2.25rem, 4.2vw, 3.75rem);
     font-weight: var(--weight-black);
     color: var(--c-ink);
     line-height: 1.05;
     letter-spacing: -0.03em;
-    max-width: 18ch;
   }
   .page-hero__title :global(span) { color: var(--c-primary); }
 
-  .page-hero__desc {
+  /* ─── Stats (sistema .stat-row) ─── */
+  .page-hero__stats { padding-top: 1.25rem; }
+
+  /* ─── Cuerpo ─── */
+  .page-hero__kicker {
+    font-size: 0.75rem;
+    font-weight: var(--weight-semibold);
+    color: var(--c-primary);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .page-hero__p {
     font-size: clamp(0.9375rem, 1.1vw, 1.0625rem);
     color: var(--c-ink-2);
-    line-height: 1.8;
-    max-width: 62ch;
+    line-height: 1.85;
   }
 
-  /* ─── Breadcrumb item (lista global en global.css) ─── */
-  .breadcrumb__item {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--sp-1);
+  /* ─── Responsive (mismo colapso que el hero L1) ─── */
+  @media (max-width: 1024px) {
+    .page-hero__inner {
+      grid-template-columns: 1fr;
+      column-gap: 0;
+      row-gap: 2.25rem;
+    }
+    .page-hero__divider { display: none; }
+    .page-hero__col--title { align-items: center; text-align: center; }
+    .page-hero__col--body  { align-items: center; text-align: center; }
+    .page-hero__stats { justify-content: center; }
+    .page-hero__p { max-width: 58ch; }
   }
 
-  /* ─── Responsive ─── */
   @media (max-width: 640px) {
     .page-hero { padding-block: 2.5rem 3rem; }
     .page-hero__title { font-size: clamp(1.875rem, 8vw, 2.5rem); }

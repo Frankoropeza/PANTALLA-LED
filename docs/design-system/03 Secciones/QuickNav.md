@@ -1,19 +1,30 @@
 # QuickNav (navegación rápida)
 
-**Archivo:** `src/components/sections/QuickNavIndex.astro` · **Orden:** inmediatamente después del [[Hero]] (sustituyó a la [[CtaBar]]).
+**Archivo:** `src/components/sections/QuickNav.astro` — componente **genérico** (props), va inmediatamente después del hero de cada página (sustituyó a la [[CtaBar]]).
+
+## Uso
+
+```astro
+<QuickNav
+  label="Explora el catálogo"           <!-- default: "Explora el sitio" -->
+  enlaces={[{ label: 'Exteriores', href: '#pantallas-exteriores' }, …]}
+  ctaLabel="Cotizar catálogo"           <!-- default: "Cotizar ahora" -->
+  ctaMessage={WA_MESSAGES.productos}
+/>
+```
 
 ## Diseño
 
-Franja `--c-bg-2` con borde inferior: label uppercase "Explora el sitio" + pills hacia las 7 secciones del index (anclas `#productos`, `#servicios`, `#especificaciones`, `#proceso`, `#testimonios`, `#cobertura`, `#faq`) + pill CTA verde "Cotizar ahora" (WhatsApp, `waUrl`).
+Franja `--c-bg-2` con borde inferior: label uppercase + pills (anclas o rutas) + pill CTA verde WhatsApp (`waUrl(ctaMessage)`).
 
-- Pills: borde `--c-border`, hover azul (`--c-primary` + `--c-primary-light`).
-- CTA: variante verde translúcida (mismo lenguaje que `.btn--whatsapp-soft`).
-- ≤900: label arriba, pills debajo. ≤640: carrusel horizontal sin scrollbar, touch 38px+.
+- Pills: borde `--c-border`, hover azul; CTA verde translúcido.
+- ≤900: label arriba. ≤640: carrusel horizontal sin scrollbar, touch 38px+.
+
+## Dónde se usa
+
+- **Index:** 7 anclas de sección (array en `index.astro`).
+- **/productos/:** 6 categorías (anclas `#<slug>` — [[Tarjetas|CategoryCard]] expone `id={cat.slug}`) + Fichas técnicas + Guía de pixel.
 
 ## Soporte global
 
-`global.css` define `[id] { scroll-margin-top: calc(var(--stack-height) + 1rem) }` — toda ancla del sitio queda visible bajo el header sticky (válido también para menú y footer).
-
-## Reuso
-
-En páginas L2 largas puede adaptarse con anclas propias (tabla de contenido horizontal). Datos en array `enlaces` del frontmatter.
+`global.css`: `[id] { scroll-margin-top: calc(var(--stack-height) + 1rem) }` — toda ancla queda visible bajo el header sticky.

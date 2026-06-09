@@ -16,7 +16,7 @@ interface Props {
 const { categoria: cat } = Astro.props
 ---
 
-<article class:list={['ccat', `ccat--${cat.visual}`, { 'ccat--highlight': cat.highlight }]}>
+<article id={cat.slug} class:list={['ccat', `ccat--${cat.visual}`, { 'ccat--highlight': cat.highlight }]}>
 
   <!-- Thumbnail visual temático -->
   <div class="ccat__thumb" aria-hidden="true">

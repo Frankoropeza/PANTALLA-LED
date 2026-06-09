@@ -10,15 +10,23 @@ import { getCollection } from 'astro:content'
 
 import Base from '../layouts/Base.astro'
 import PageHero from '../components/sections/PageHero.astro'
+import QuickNav from '../components/sections/QuickNav.astro'
 import SectionHeaderDuo from '../components/ui/SectionHeaderDuo.astro'
 import CategoryCard from '../components/ui/CategoryCard.astro'
 import EspecificacionesIndex from '../components/sections/EspecificacionesIndex.astro'
 import CTAFinalIndex from '../components/sections/CTAFinalIndex.astro'
 import IconArrowRight from '../components/ui/icons/IconArrowRight.astro'
 
-import { SITE } from '../config/site'
+import { SITE, WA_MESSAGES } from '../config/site'
 import { CATEGORIAS } from '../config/categorias'
 import { url } from '../utils/url'
+
+// ─── Navegación rápida: una pill por categoría + secciones de la página ──────
+const quickNavEnlaces = [
+  ...CATEGORIAS.map((cat) => ({ label: cat.title.replace('Pantallas ', ''), href: `#${cat.slug}` })),
+  { label: 'Fichas técnicas', href: '#modelos' },
+  { label: 'Guía de pixel', href: '#especificaciones' },
+]
 
 // ─── Modelos destacados (colección markdown) ─────────────────────────────────
 const modelos = (await getCollection('productos')).sort(
@@ -58,15 +66,29 @@ const schemaItemList = {
 
 <Base {title} {description} {canonical}>
 
-  <!-- ─── Hero L2 ──────────────────────────────────────────────────────── -->
+  <!-- ─── Hero L2 editorial ────────────────────────────────────────────── -->
   <PageHero
-    eyebrow="Catálogo 2026"
-    title="Catálogo de <span>Pantallas LED</span>"
-    desc="Seis líneas de producto con tecnología SMD y COB: desde espectaculares exteriores IP65 de alta luminosidad hasta interiores Ultra HD, módulos para eventos y soluciones arquitectónicas. Venta directa de fábrica con garantía de 2 años e instalación certificada en toda la República Mexicana."
+    eyebrow="Catálogo 2026 · Proveedor directo"
+    title="Catálogo de<br/>Pantallas <span>LED</span>"
+    kicker="Tecnología SMD & COB · P2 a P10"
+    desc="Seis líneas de producto que cubren todo el espectro: espectaculares exteriores IP65 de hasta 10,000 nits, interiores Ultra HD con color de nivel broadcast, módulos flexibles para arquitectura creativa, pantallas de piso, transparentes y módulos de renta para eventos."
+    body2="Venta directa de fábrica sin intermediarios: mejor precio por metro cuadrado, garantía real de 2 años, refacciones en stock e instalación certificada en toda la República Mexicana."
+    stats={[
+      { value: '6', label: 'Líneas de producto' },
+      { value: 'P2–P10', label: 'Pasos de pixel' },
+      { value: '2 años', label: 'Garantía de fábrica' },
+    ]}
     crumbs={[
       { label: 'Inicio', href: '/' },
       { label: 'Productos' },
     ]}
+  />
+
+  <QuickNav
+    label="Explora el catálogo"
+    enlaces={quickNavEnlaces}
+    ctaLabel="Cotizar catálogo"
+    ctaMessage={WA_MESSAGES.productos}
   />
 
   <!-- ─── Catálogo por categoría ───────────────────────────────────────── -->

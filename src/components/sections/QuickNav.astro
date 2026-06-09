@@ -1,20 +1,29 @@
 ---
-// QuickNavIndex.astro — Navegación rápida del index
-// Franja de pills hacia las secciones clave + CTA de cotización.
-// Va inmediatamente después del CtaBar (patrón "explora el catálogo").
+// QuickNav.astro — Franja de navegación rápida (pills + CTA WhatsApp)
+// Reutilizable en cualquier página: va inmediatamente después del hero.
+// Props: label, enlaces (anclas o rutas) y mensaje del CTA.
 
-import { waUrl, WA_MESSAGES } from '../../config/site'
+import { waUrl } from '../../config/site'
 import IconWhatsApp from '../ui/icons/IconWhatsApp.astro'
 
-const enlaces = [
-  { label: 'Catálogo LED', href: '#productos' },
-  { label: 'Servicios', href: '#servicios' },
-  { label: 'Especificaciones', href: '#especificaciones' },
-  { label: 'Cómo trabajamos', href: '#proceso' },
-  { label: 'Testimonios', href: '#testimonios' },
-  { label: 'Cobertura', href: '#cobertura' },
-  { label: 'Preguntas frecuentes', href: '#faq' },
-]
+interface Enlace {
+  label: string
+  href: string
+}
+
+interface Props {
+  label?: string
+  enlaces: Enlace[]
+  ctaLabel?: string
+  ctaMessage: string
+}
+
+const {
+  label = 'Explora el sitio',
+  enlaces,
+  ctaLabel = 'Cotizar ahora',
+  ctaMessage,
+} = Astro.props
 ---
 
 <nav class="quicknav" aria-label="Navegación rápida de secciones">
@@ -22,7 +31,7 @@ const enlaces = [
 
     <p class="quicknav__label">
       <span class="quicknav__label-bar" aria-hidden="true"></span>
-      Explora el sitio
+      {label}
     </p>
 
     <ul class="quicknav__list">
@@ -33,13 +42,13 @@ const enlaces = [
       ))}
       <li>
         <a
-          href={waUrl(WA_MESSAGES.cotizacion)}
+          href={waUrl(ctaMessage)}
           class="quicknav__pill quicknav__pill--cta"
           target="_blank"
           rel="noopener noreferrer"
         >
           <IconWhatsApp size={14} />
-          Cotizar ahora
+          {ctaLabel}
         </a>
       </li>
     </ul>

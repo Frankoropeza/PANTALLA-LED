@@ -1,7 +1,8 @@
 ---
 // SectionHeaderDuo.astro — Encabezado en dos columnas
-// Izquierda: eyebrow + título + desc breve
-// Derecha: dos párrafos editoriales / SEO
+// Izquierda: eyebrow + título SEO + desc breve
+// Derecha: dos párrafos editoriales / SEO de marketing
+// `id` se aplica al <h2> para aria-labelledby de la sección.
 
 interface Props {
   eyebrow: string
@@ -9,13 +10,13 @@ interface Props {
   desc?: string
   body1?: string
   body2?: string
-  dark?: boolean
+  id?: string
 }
 
-const { eyebrow, title, desc, body1, body2, dark = false } = Astro.props
+const { eyebrow, title, desc, body1, body2, id } = Astro.props
 ---
 
-<div class:list={['titulo-duo', { 'titulo-duo--dark': dark }]}>
+<div class="titulo-duo">
   <!-- Columna izquierda -->
   <div class="titulo-duo__left">
     {eyebrow && (
@@ -24,7 +25,7 @@ const { eyebrow, title, desc, body1, body2, dark = false } = Astro.props
         {eyebrow}
       </p>
     )}
-    <h2 class="titulo-duo__title" set:html={title} />
+    <h2 class="titulo-duo__title" id={id} set:html={title} />
     {desc && <p class="titulo-duo__desc">{desc}</p>}
   </div>
 

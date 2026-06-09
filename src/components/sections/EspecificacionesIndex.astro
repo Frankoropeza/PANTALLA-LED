@@ -2,7 +2,7 @@
 // EspecificacionesIndex.astro — Tabla de especificaciones técnicas
 // Guía comparativa de tipos de pantalla por aplicación
 
-import SectionHeader from '../ui/SectionHeader.astro'
+import SectionHeaderDuo from '../ui/SectionHeaderDuo.astro'
 import IconInfo from '../ui/icons/IconInfo.astro'
 import { url } from '../../utils/url'
 ---
@@ -10,11 +10,13 @@ import { url } from '../../utils/url'
 <section class="section section--surface specs-section" id="especificaciones" aria-labelledby="specs-heading">
   <div class="container">
 
-    <SectionHeader
+    <SectionHeaderDuo
       id="specs-heading"
       eyebrow="Especificaciones técnicas"
-      title="¿Qué tipo de pantalla <span>necesitas?</span>"
-      desc="Guía rápida para elegir el paso de pixel correcto según tu aplicación, distancia de visión y presupuesto."
+      title="¿Qué tipo de pantalla LED <span>necesitas?</span>"
+      desc="Comparativa de paso de pixel, brillo y distancia de visión para cada aplicación."
+      body1="El paso de pixel (pixel pitch) define la resolución y la distancia mínima de visión de una pantalla LED: a menor número, mayor densidad de pixeles y más cerca puede estar tu audiencia. Elegirlo bien es la diferencia entre una inversión rentable y una pantalla sobredimensionada."
+      body2="Esta tabla resume los estándares que instalamos en México: desde Ultra HD P2 para control rooms y retail de lujo, hasta P10 para espectaculares de autopista. Si tu proyecto está entre dos opciones, nuestros ingenieros hacen el cálculo exacto de resolución y brillo sin costo."
     />
 
     <div class="tabla-responsive" role="region" aria-label="Comparativa de pantallas LED" tabindex="0">

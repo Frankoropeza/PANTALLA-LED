@@ -2,7 +2,7 @@
 // ReviewsIndex.astro — Testimonios de clientes
 // Grid de 6 reseñas verificadas
 
-import SectionHeader from '../ui/SectionHeader.astro'
+import SectionHeaderDuo from '../ui/SectionHeaderDuo.astro'
 
 const reviews = [
   {
@@ -53,11 +53,13 @@ const reviews = [
 <section class="section section--surface reviews-section" id="testimonios" aria-labelledby="reviews-heading">
   <div class="container">
 
-    <SectionHeader
+    <SectionHeaderDuo
       id="reviews-heading"
       eyebrow="Testimonios"
       title="Lo que dicen nuestros <span>clientes</span>"
-      desc="Más de 500 proyectos entregados en toda la República Mexicana. Aquí algunos testimonios reales."
+      desc="Reseñas verificadas de proyectos reales en toda la República Mexicana."
+      body1="Agencias de publicidad, centros comerciales, productoras de eventos, restaurantes, estadios y universidades confían en nosotros para sus pantallas LED. Más de 500 proyectos entregados nos respaldan en CDMX, Guadalajara, Monterrey y el resto del país."
+      body2="Lo que más valoran nuestros clientes: cotización en horas y no en semanas, instalación que respeta el cronograma y soporte técnico que sí contesta cuando lo necesitas. Sin testimonios fabricados — cada reseña corresponde a un proyecto verificable."
     />
 
     <div class="reviews-grid" role="list">

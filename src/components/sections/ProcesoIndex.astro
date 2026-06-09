@@ -2,7 +2,7 @@
 // ProcesoIndex.astro — Proceso de trabajo de PantallaLED
 // 5 pasos con numeración y descripción
 
-import SectionHeader from '../ui/SectionHeader.astro'
+import SectionHeaderDuo from '../ui/SectionHeaderDuo.astro'
 
 const pasos = [
   {
@@ -36,11 +36,13 @@ const pasos = [
 <section class="section section--dark proceso-section" id="proceso" aria-labelledby="proceso-heading">
   <div class="container">
 
-    <SectionHeader
+    <SectionHeaderDuo
       id="proceso-heading"
       eyebrow="Cómo trabajamos"
       title="Un proceso claro de principio a <span>fin</span>"
-      desc="Sin sorpresas. Cada proyecto de pantalla LED sigue un flujo de trabajo estructurado para garantizar calidad, tiempos y satisfacción."
+      desc="Cinco etapas documentadas, un solo proveedor responsable de todo el proyecto."
+      body1="Cada instalación de pantalla LED sigue una metodología probada en más de 500 proyectos: diagnóstico técnico gratuito, propuesta con especificaciones y cronograma cerrado, fabricación o surtido desde stock, instalación certificada bajo norma y capacitación de tu equipo."
+      body2="Sin sorpresas ni costos ocultos: sabes qué recibes, cuándo se entrega y quién responde después de la venta. Al terminar activamos el plan de mantenimiento preventivo y dejas de depender de terceros para operar tu pantalla."
     />
 
     <div class="proceso-grid" role="list">

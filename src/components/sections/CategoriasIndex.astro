@@ -2,7 +2,7 @@
 // CategoriasIndex.astro — Grid de tipos de pantallas LED
 // Tarjetas con visuales CSS temáticos por categoría
 
-import SectionHeader from '../ui/SectionHeader.astro'
+import SectionHeaderDuo from '../ui/SectionHeaderDuo.astro'
 import IconArrowRight from '../ui/icons/IconArrowRight.astro'
 import { url } from '../../utils/url'
 
@@ -73,11 +73,13 @@ const categorias = [
 <section class="section section--dark categorias-section" id="productos" aria-labelledby="categorias-heading">
   <div class="container">
 
-    <SectionHeader
+    <SectionHeaderDuo
       id="categorias-heading"
       eyebrow="Catálogo de Productos"
       title="Pantallas LED para <span>cada aplicación</span>"
-      desc="Desde publicidad de gran formato hasta instalaciones creativas. Tecnología SMD y COB de última generación con garantía de 2 años en todos los equipos."
+      desc="Seis líneas de producto que cubren publicidad exterior, interiores premium, eventos y arquitectura creativa."
+      body1="Trabajamos con tecnología SMD y COB de última generación en pasos de pixel desde P2 hasta P10: pantallas exteriores IP65 de hasta 10,000 nits para espectaculares y fachadas, e interiores Ultra HD con reproducción de color de nivel broadcast para lobbies, retail y corporativos."
+      body2="Como proveedores directos de fábrica eliminamos intermediarios: mejor precio por metro cuadrado, garantía real de 2 años en todos los equipos y stock disponible en México. Cada línea incluye asesoría técnica para elegir la resolución correcta según tu distancia de visión y presupuesto."
     />
 
     <div class="categorias-grid">

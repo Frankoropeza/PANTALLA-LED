@@ -112,7 +112,8 @@
   margin-bottom: 1.25rem;
 }
 
-.titulo-duo__accent {
+.titulo-duo__accent,
+.titulo-duo__title span {
   color: var(--c-primary);
 }
 

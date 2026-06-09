@@ -80,7 +80,14 @@ const reviews = [
               {r.name.charAt(0)}
             </div>
             <div class="review-card__author-info">
-              <span class="review-card__name">{r.name}</span>
+              <span class="review-card__name">
+                {r.name}
+                <span class="review-card__verified" title="Cliente verificado" aria-label="Cliente verificado">
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                  </svg>
+                </span>
+              </span>
               <span class="review-card__role">{r.role} · {r.company}</span>
             </div>
           </footer>
@@ -174,6 +181,17 @@ const reviews = [
     font-size: 0.875rem;
     font-weight: 600;
     color: var(--c-ink);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+  }
+
+  .review-card__verified {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #22c55e;
+    flex-shrink: 0;
   }
 
   .review-card__role {

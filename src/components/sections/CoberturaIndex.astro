@@ -1,0 +1,372 @@
+---
+// CoberturaIndex.astro — Cobertura nacional de instalación y entrega
+// Muestra las ciudades con servicio activo y la promesa de cobertura nacional
+
+import { url } from '../../utils/url'
+
+const zonas = [
+  {
+    type: 'flagship',
+    ciudad: 'Ciudad de México',
+    region: 'Valle de México',
+    desc: 'Base de operaciones principal. Instalación, mantenimiento y atención presencial.',
+    turnaround: 'Mismo día',
+  },
+  {
+    type: 'flagship',
+    ciudad: 'Estado de México',
+    region: 'Valle de México',
+    desc: 'Cobertura completa en 125 municipios del EdoMex. Flota de servicio propia.',
+    turnaround: 'Mismo día',
+  },
+  {
+    type: 'comercial',
+    ciudad: 'Guadalajara',
+    region: 'Occidente',
+    desc: 'Instaladores certificados con base en la ZMG. Servicio completo en la región.',
+    turnaround: '24–48 hrs',
+  },
+  {
+    type: 'comercial',
+    ciudad: 'Monterrey',
+    region: 'Noreste',
+    desc: 'Red de soporte en el área metropolitana de Monterrey y ciudades cercanas.',
+    turnaround: '24–48 hrs',
+  },
+  {
+    type: 'comercial',
+    ciudad: 'Puebla',
+    region: 'Centro-Sur',
+    desc: 'Cobertura en la ciudad y zona metropolitana con técnicos en sitio.',
+    turnaround: '24–48 hrs',
+  },
+  {
+    type: 'comercial',
+    ciudad: 'Cancún',
+    region: 'Sureste',
+    desc: 'Servicio activo en Cancún y Rivera Maya para proyectos hoteleros y comerciales.',
+    turnaround: '48–72 hrs',
+  },
+]
+
+const stats = [
+  { value: '32', label: 'Estados con entrega' },
+  { value: '+500', label: 'Proyectos en México' },
+  { value: '10+', label: 'Años de experiencia' },
+]
+---
+
+<section class="section section--surface cobertura-section" id="cobertura" aria-labelledby="cobertura-heading">
+  <div class="container">
+
+    <div class="cobertura-layout">
+
+      <!-- Columna izquierda: header + stats -->
+      <div class="cobertura-left">
+        <p class="section-header__eyebrow">Cobertura nacional</p>
+        <h2 id="cobertura-heading" class="cobertura-title">
+          Instalamos en todo<br/><span>México</span>
+        </h2>
+        <p class="cobertura-desc">
+          Con base en Ciudad de México y red de instaladores certificados en las principales ciudades del país,
+          llevamos tecnología LED profesional a cualquier rincón de la República.
+        </p>
+
+        <!-- Estadísticas -->
+        <div class="cobertura-stats" role="list">
+          {stats.map((s) => (
+            <div class="cobertura-stat" role="listitem">
+              <span class="cobertura-stat__val">{s.value}</span>
+              <span class="cobertura-stat__lbl">{s.label}</span>
+            </div>
+          ))}
+        </div>
+
+        <a href={url('/contacto/')} class="btn btn--primary cobertura-cta">
+          Verificar cobertura en mi ciudad
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </a>
+
+        <!-- Nota nacional -->
+        <p class="cobertura-note">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="12" y1="8" x2="12" y2="12"/>
+            <line x1="12" y1="16" x2="12.01" y2="16"/>
+          </svg>
+          Entrega a todo México. Coordina instalación local o envía con guía prepagada.
+        </p>
+      </div>
+
+      <!-- Columna derecha: tarjetas de zonas -->
+      <div class="cobertura-right">
+
+        <!-- Visual mapa estilizado -->
+        <div class="cobertura-map-visual" aria-hidden="true">
+          <div class="cmap__grid"></div>
+          <div class="cmap__glow"></div>
+          <div class="cmap__label">México</div>
+          <div class="cmap__dots">
+            <!-- Puntos estilizados representando ciudades -->
+            <div class="cmap__dot cmap__dot--cdmx" data-city="CDMX">
+              <div class="cmap__dot-ring"></div>
+            </div>
+            <div class="cmap__dot cmap__dot--gdl" data-city="GDL"></div>
+            <div class="cmap__dot cmap__dot--mty" data-city="MTY"></div>
+            <div class="cmap__dot cmap__dot--pue" data-city="PUE"></div>
+            <div class="cmap__dot cmap__dot--can" data-city="CUN"></div>
+          </div>
+        </div>
+
+        <!-- Grid de ciudades -->
+        <div class="cobertura-grid">
+          {zonas.map((z) => (
+            <div class:list={['czona', `czona--${z.type}`]}>
+              <div class="czona__header">
+                <div class="czona__city-info">
+                  <span class="czona__city">{z.ciudad}</span>
+                  <span class="czona__region">{z.region}</span>
+                </div>
+                <span class:list={['czona__badge', `czona__badge--${z.type}`]}>
+                  {z.type === 'flagship' ? 'Base' : 'Red'}
+                </span>
+              </div>
+              <p class="czona__desc">{z.desc}</p>
+              <div class="czona__footer">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <circle cx="12" cy="12" r="10"/>
+                  <polyline points="12 6 12 12 16 14"/>
+                </svg>
+                <span>Respuesta: <strong>{z.turnaround}</strong></span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  .cobertura-section { background: var(--c-bg-2); }
+
+  .cobertura-layout {
+    display: grid;
+    grid-template-columns: 5fr 7fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  /* ─── Columna izquierda ─── */
+  .cobertura-left { position: sticky; top: calc(var(--stack-height) + 2rem); }
+
+  .cobertura-title {
+    font-size: clamp(2rem, 3.5vw, 2.75rem);
+    font-weight: 800;
+    color: var(--c-ink);
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    margin-top: 0.75rem;
+    margin-bottom: 1rem;
+  }
+  .cobertura-title span { color: var(--c-primary); }
+
+  .cobertura-desc {
+    font-size: 0.9375rem;
+    color: var(--c-muted);
+    line-height: 1.7;
+    margin-bottom: 2rem;
+  }
+
+  .cobertura-stats {
+    display: flex;
+    gap: 1.75rem;
+    padding: 1.25rem 0;
+    border-top: 1px solid var(--c-border);
+    border-bottom: 1px solid var(--c-border);
+    margin-bottom: 1.75rem;
+  }
+  .cobertura-stat { display: flex; flex-direction: column; gap: 0.2rem; }
+  .cobertura-stat__val {
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: var(--c-ink);
+    letter-spacing: -0.03em;
+    line-height: 1;
+  }
+  .cobertura-stat__lbl {
+    font-size: 0.75rem;
+    color: var(--c-muted);
+    font-weight: 500;
+  }
+
+  .cobertura-cta { margin-bottom: 1rem; }
+
+  .cobertura-note {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.4rem;
+    font-size: 0.8125rem;
+    color: var(--c-muted);
+    line-height: 1.5;
+  }
+  .cobertura-note svg { flex-shrink: 0; margin-top: 0.1rem; }
+
+  /* ─── Mapa visual ─── */
+  .cobertura-map-visual {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16/5;
+    background: var(--c-surface);
+    border: 1px solid var(--c-border);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .cmap__grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+    background-size: 28px 28px;
+  }
+  .cmap__glow {
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 55% 55%, rgba(0,102,204,0.18) 0%, transparent 65%);
+  }
+  .cmap__label {
+    font-size: 0.625rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.2);
+    z-index: 2;
+  }
+
+  /* Puntos ciudades */
+  .cmap__dots { position: absolute; inset: 0; }
+  .cmap__dot {
+    position: absolute;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--c-primary);
+    transform: translate(-50%, -50%);
+  }
+  .cmap__dot--cdmx  { left: 55%; top: 62%; width: 12px; height: 12px;
+    box-shadow: 0 0 12px var(--c-primary); }
+  .cmap__dot--gdl   { left: 38%; top: 55%; }
+  .cmap__dot--mty   { left: 52%; top: 38%; }
+  .cmap__dot--pue   { left: 59%; top: 66%; }
+  .cmap__dot--can   { left: 80%; top: 72%; background: rgba(0,102,204,0.6); }
+
+  .cmap__dot-ring {
+    position: absolute;
+    inset: -6px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(0,102,204,0.4);
+    animation: pulse-ring 2.4s ease-out infinite;
+  }
+  @keyframes pulse-ring {
+    0%   { transform: scale(0.8); opacity: 1; }
+    100% { transform: scale(2.2); opacity: 0; }
+  }
+
+  /* ─── Grid ciudades ─── */
+  .cobertura-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+  }
+
+  .czona {
+    background: var(--c-surface);
+    border: 1px solid var(--c-border);
+    border-radius: 10px;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    transition: border-color .2s, box-shadow .2s;
+  }
+  .czona--flagship {
+    border-color: rgba(0,102,204,0.25);
+    background: linear-gradient(135deg, var(--c-surface) 0%, rgba(0,102,204,0.05) 100%);
+  }
+  .czona:hover {
+    border-color: rgba(0,102,204,0.35);
+    box-shadow: 0 0 16px rgba(0,102,204,0.1);
+  }
+
+  .czona__header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 0.5rem;
+  }
+  .czona__city-info { display: flex; flex-direction: column; gap: 0.1rem; }
+  .czona__city {
+    font-size: 0.9375rem;
+    font-weight: 700;
+    color: var(--c-ink);
+    line-height: 1.2;
+  }
+  .czona__region {
+    font-size: 0.6875rem;
+    color: var(--c-muted);
+    font-weight: 500;
+  }
+
+  .czona__badge {
+    font-size: 0.5625rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.2rem 0.55rem;
+    border-radius: 100px;
+    flex-shrink: 0;
+  }
+  .czona__badge--flagship {
+    background: rgba(0,102,204,0.15);
+    color: #60a5fa;
+    border: 1px solid rgba(0,102,204,0.3);
+  }
+  .czona__badge--comercial {
+    background: rgba(255,255,255,0.05);
+    color: var(--c-muted);
+    border: 1px solid var(--c-border);
+  }
+
+  .czona__desc {
+    font-size: 0.8125rem;
+    color: var(--c-muted);
+    line-height: 1.55;
+    flex: 1;
+  }
+
+  .czona__footer {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.75rem;
+    color: var(--c-muted);
+    padding-top: 0.5rem;
+    border-top: 1px solid var(--c-border);
+  }
+  .czona__footer strong { color: var(--c-ink-2); font-weight: 600; }
+  .czona__footer svg { flex-shrink: 0; }
+
+  @media (max-width: 1024px) {
+    .cobertura-layout { grid-template-columns: 1fr; gap: 2.5rem; }
+    .cobertura-left { position: static; }
+  }
+  @media (max-width: 640px) {
+    .cobertura-grid { grid-template-columns: 1fr; }
+    .cobertura-stats { gap: 1.25rem; }
+  }
+</style>

@@ -2,8 +2,9 @@
 // ServiciosIndex.astro — Servicios completos de PantallaLED
 // Layout 2 columnas: sidebar header + lista numerada
 
-import { waUrl, WA_MESSAGES } from '../../config/site'
 import { url } from '../../utils/url'
+import IconCheck from '../ui/icons/IconCheck.astro'
+import IconArrowRight from '../ui/icons/IconArrowRight.astro'
 
 const servicios = [
   {
@@ -11,66 +12,65 @@ const servicios = [
     id: 'venta',
     title: 'Venta de Pantallas LED',
     desc: 'Catálogo completo de pantallas para publicidad exterior, interiores, eventos y aplicaciones especiales. Precios directos de fábrica sin intermediarios.',
-    icon: '📺',
   },
   {
     num: '02',
     id: 'renta',
     title: 'Renta para Eventos',
     desc: 'Módulos LED de alta resolución en renta por día, semana o mes. Ideales para conciertos, convenciones, exposiciones y activaciones de marca.',
-    icon: '🎪',
   },
   {
     num: '03',
     id: 'instalacion',
     title: 'Instalación Profesional',
     desc: 'Ingeniería, montaje y puesta en marcha por técnicos certificados. Instalaciones estructurales, eléctricas y de señal bajo norma.',
-    icon: '🔧',
   },
   {
     num: '04',
     id: 'mantenimiento',
     title: 'Mantenimiento y Soporte',
     desc: 'Pólizas preventivas anuales con visitas periódicas. Servicio correctivo en 24 horas. Reemplazo de módulos y componentes originales.',
-    icon: '🛡️',
   },
   {
     num: '05',
     id: 'asesoria',
     title: 'Asesoría Técnica',
     desc: 'Diagnóstico de requerimientos sin costo. Te ayudamos a definir paso de pixel, brillo, resolución y tipo de pantalla para tu proyecto específico.',
-    icon: '💡',
   },
   {
     num: '06',
     id: 'contenido',
     title: 'Gestión de Contenido',
     desc: 'Configuración del software de control, capacitación de operadores y soporte para reproducción de contenido. Compatible con sistemas Windows, Android y en la nube.',
-    icon: '🖥️',
   },
   {
     num: '07',
     id: 'diseno',
     title: 'Diseño de Contenido',
     desc: 'Creación de piezas visuales optimizadas para pantalla LED. Animaciones, videos, looping y contenido dinámico adaptado a tu marca.',
-    icon: '🎨',
   },
   {
     num: '08',
     id: 'garantia',
     title: 'Garantía y Postventa',
     desc: 'Atención postventa ágil. Gestión de garantías de fábrica. Diagnóstico remoto y en sitio. Refacciones originales en stock.',
-    icon: '✅',
   },
+]
+
+const garantias = [
+  'Servicio llave en mano',
+  'Factura electrónica',
+  'Crédito a 30 días',
+  'Cotización el mismo día',
 ]
 ---
 
 <section class="section section--dark servicios-section" id="servicios" aria-labelledby="servicios-heading">
   <div class="container">
-    <div class="servicios-layout">
+    <div class="split-layout split-layout--narrow servicios-layout">
 
       <!-- Sidebar header -->
-      <div class="servicios-sidebar">
+      <div class="split-layout__sidebar servicios-sidebar">
         <p class="sidebar-header__eyebrow">Nuestros servicios</p>
         <h2 id="servicios-heading" class="sidebar-header__title">
           Todo lo que necesitas<br/>para tu <span>pantalla LED</span>
@@ -80,35 +80,17 @@ const servicios = [
           el contenido y el mantenimiento. Un solo proveedor para todo el ciclo de vida de tu pantalla.
         </p>
 
-        <a href={url('/servicios/')} class="btn-primary servicios-cta">
+        <a href={url('/servicios/')} class="btn btn--primary servicios-cta">
           Ver todos los servicios
         </a>
 
         <div class="servicios-trust">
-          <div class="servicios-trust__item">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-              <polyline points="20 6 9 17 4 12"/>
-            </svg>
-            <span>Servicio llave en mano</span>
-          </div>
-          <div class="servicios-trust__item">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-              <polyline points="20 6 9 17 4 12"/>
-            </svg>
-            <span>Factura electrónica</span>
-          </div>
-          <div class="servicios-trust__item">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-              <polyline points="20 6 9 17 4 12"/>
-            </svg>
-            <span>Crédito a 30 días</span>
-          </div>
-          <div class="servicios-trust__item">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-              <polyline points="20 6 9 17 4 12"/>
-            </svg>
-            <span>Cotización el mismo día</span>
-          </div>
+          {garantias.map((g) => (
+            <div class="servicios-trust__item">
+              <IconCheck size={18} strokeWidth={2} />
+              <span>{g}</span>
+            </div>
+          ))}
         </div>
       </div>
 
@@ -122,9 +104,7 @@ const servicios = [
               <p class="svc-item__desc">{svc.desc}</p>
             </div>
             <a href={url(`/servicios/#${svc.id}`)} class="svc-item__link" aria-label={`Ver más sobre ${svc.title}`}>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M5 12h14M12 5l7 7-7 7"/>
-              </svg>
+              <IconArrowRight size={16} />
             </a>
           </article>
         ))}
@@ -135,16 +115,7 @@ const servicios = [
 </section>
 
 <style>
-  .servicios-section { background: var(--c-bg); }
-
-  .servicios-layout {
-    display: grid;
-    grid-template-columns: 36% 1fr;
-    gap: clamp(3rem, 5%, 6rem);
-    align-items: start;
-  }
-
-  .servicios-sidebar { position: sticky; top: calc(var(--stack-height) + 2rem); }
+  /* Fondo: .section--dark · Layout: .split-layout--narrow (sistema global) */
 
   .servicios-cta { margin-bottom: 1.75rem; }
 
@@ -231,9 +202,5 @@ const servicios = [
     background: var(--c-primary-light);
   }
 
-  /* ─── Responsive ─── */
-  @media (max-width: 1024px) {
-    .servicios-layout { grid-template-columns: 1fr; gap: 2.5rem; }
-    .servicios-sidebar { position: static; }
-  }
+  /* Responsive: el colapso 2-col → 1-col lo maneja .split-layout (sistema global) */
 </style>

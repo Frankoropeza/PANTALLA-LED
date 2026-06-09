@@ -3,6 +3,7 @@
 // Tarjetas con visuales CSS temáticos por categoría
 
 import SectionHeader from '../ui/SectionHeader.astro'
+import IconArrowRight from '../ui/icons/IconArrowRight.astro'
 import { url } from '../../utils/url'
 
 const categorias = [
@@ -73,6 +74,7 @@ const categorias = [
   <div class="container">
 
     <SectionHeader
+      id="categorias-heading"
       eyebrow="Catálogo de Productos"
       title="Pantallas LED para <span>cada aplicación</span>"
       desc="Desde publicidad de gran formato hasta instalaciones creativas. Tecnología SMD y COB de última generación con garantía de 2 años en todos los equipos."
@@ -160,11 +162,9 @@ const categorias = [
               ))}
             </div>
 
-            <a href={url(cat.href)} class="ccat__link" aria-label={`Ver modelos de ${cat.title}`}>
+            <a href={url(cat.href)} class="link-arrow ccat__link" aria-label={`Ver modelos de ${cat.title}`}>
               Ver modelos
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M5 12h14M12 5l7 7-7 7"/>
-              </svg>
+              <IconArrowRight size={14} />
             </a>
           </div>
         </article>
@@ -172,11 +172,9 @@ const categorias = [
     </div>
 
     <div class="categorias-footer">
-      <a href={url('/productos/')} class="categorias-cta">
+      <a href={url('/productos/')} class="btn btn--outline btn--lg">
         Ver catálogo completo
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M5 12h14M12 5l7 7-7 7"/>
-        </svg>
+        <IconArrowRight size={16} />
       </a>
     </div>
 
@@ -184,7 +182,7 @@ const categorias = [
 </section>
 
 <style>
-  .categorias-section { background: var(--c-bg); }
+  /* El fondo lo aporta .section--dark (sistema global) */
 
   .categorias-grid {
     display: grid;
@@ -203,17 +201,17 @@ const categorias = [
     display: flex; flex-direction: column;
     background: var(--c-surface);
     border: 1px solid var(--c-border);
-    border-radius: 12px; overflow: hidden;
+    border-radius: var(--radius-lg); overflow: hidden;
     transition: border-color .22s, box-shadow .22s, transform .22s;
   }
   .ccat:hover {
     border-color: var(--c-primary);
-    box-shadow: 0 0 32px rgba(0,102,204,0.2);
+    box-shadow: 0 0 32px rgba(var(--c-primary-rgb), 0.2);
     transform: translateY(-3px);
   }
   .ccat--highlight {
-    border-color: rgba(0,102,204,0.38);
-    box-shadow: 0 0 24px rgba(0,102,204,0.12);
+    border-color: rgba(var(--c-primary-rgb), 0.38);
+    box-shadow: 0 0 24px rgba(var(--c-primary-rgb), 0.12);
   }
 
   /* ─── Thumbnail ─── */
@@ -241,10 +239,14 @@ const categorias = [
     text-transform: uppercase; color: rgba(255,255,255,0.92);
     background: rgba(0,0,0,0.55); border: 1px solid rgba(255,255,255,0.15);
     backdrop-filter: blur(4px);
-    padding: 0.2rem 0.6rem; border-radius: 100px;
+    padding: 0.2rem 0.6rem; border-radius: var(--radius-full);
   }
 
-  /* ─── Colores por categoría ─── */
+  /*
+    ─── Colores por categoría ───
+    Acentos temáticos intencionales (fuera de la paleta de tokens):
+    cada categoría tiene su propia identidad cromática en el thumbnail.
+  */
   .ccat--exterior .ccat__thumb {
     background: linear-gradient(135deg, #0a1628 0%, #0e2040 100%);
   }
@@ -314,29 +316,12 @@ const categorias = [
     border: 1px solid var(--c-border);
     border-radius: 4px; padding: .2rem .5rem;
   }
-  .ccat__link {
-    display: inline-flex; align-items: center; gap: .375rem;
-    font-size: .8125rem; font-weight: 600; color: var(--c-primary);
-    margin-top: .5rem; transition: gap .15s;
-  }
-  .ccat__link:hover { gap: .65rem; }
-  .ccat__link svg { transition: transform .15s; }
-  .ccat__link:hover svg { transform: translateX(4px); }
+  /* Hereda .link-arrow (sistema global); solo ajuste de posición */
+  .ccat__link { margin-top: .5rem; }
 
   /* ─── Footer ─── */
+  /* El CTA usa .btn .btn--outline .btn--lg (sistema global) */
   .categorias-footer { display: flex; justify-content: center; }
-  .categorias-cta {
-    display: inline-flex; align-items: center; gap: .5rem;
-    padding: .875rem 2rem;
-    border: 2px solid var(--c-border);
-    color: var(--c-ink-2); font-size: .9375rem; font-weight: 600;
-    border-radius: 8px;
-    transition: border-color .2s, color .2s, background .2s;
-  }
-  .categorias-cta:hover {
-    border-color: var(--c-primary); color: var(--c-primary);
-    background: var(--c-primary-light);
-  }
 
   @media (max-width: 1024px) { .categorias-grid { grid-template-columns: repeat(2,1fr); } }
   @media (max-width: 640px)  { .categorias-grid { grid-template-columns: 1fr; } }

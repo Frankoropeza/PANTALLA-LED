@@ -124,10 +124,9 @@
     text-align: center;
   }
   .hero__eyebrow { margin: 0 auto !important; }
-  .hero__desc    { max-width: 100% !important; }
+  .hero__p       { max-width: 100% !important; }
   .hero__ctas    { justify-content: center !important; }
   .hero__trust   { justify-content: center !important; }
-  .hero__visual  { max-width: 520px !important; margin: 0 auto !important; }
 }
 
 @media (max-width: 640px) {
@@ -138,7 +137,7 @@
     font-size: clamp(2rem, 8vw, 2.75rem) !important;
     line-height: 1.08 !important;
   }
-  .hero__desc {
+  .hero__p {
     font-size: 0.9375rem !important;
     line-height: 1.7 !important;
   }
@@ -154,7 +153,6 @@
     padding: 0.875rem 1.25rem !important;
     min-height: 48px;
   }
-  .hero__visual { max-width: 340px !important; }
 }
 
 
@@ -208,15 +206,16 @@
 
 
 /* ──────────────────────────────────────────────────────────────────
-   7. TRUST INDEX — layout 2-col → 1-col
+   7. SPLIT LAYOUT (Trust / Servicios / Cobertura) — 2-col → 1-col
    ────────────────────────────────────────────────────────────────── */
 @media (max-width: 1024px) {
-  .trust-layout {
+  .split-layout,
+  .split-layout--narrow {
     grid-template-columns: 1fr !important;
     gap: 2rem !important;
   }
-  .trust-sidebar { position: static !important; }
-  .trust-grid    { grid-template-columns: repeat(2, 1fr) !important; }
+  .split-layout__sidebar { position: static !important; }
+  .trust-grid { grid-template-columns: repeat(2, 1fr) !important; }
 }
 
 @media (max-width: 640px) {
@@ -224,25 +223,16 @@
     grid-template-columns: 1fr !important;
   }
   .trust-ctas { flex-direction: column !important; }
-  .trust-metrics { gap: 1.25rem !important; }
+  .stat-row { gap: 1.25rem !important; }
 }
 
 
 /* ──────────────────────────────────────────────────────────────────
-   8. SERVICIOS INDEX — layout 2-col → 1-col
+   8. SERVICIOS INDEX — lista compacta
    ────────────────────────────────────────────────────────────────── */
-@media (max-width: 1024px) {
-  .servicios-layout {
-    grid-template-columns: 1fr !important;
-    gap: 2rem !important;
-  }
-  .servicios-sidebar { position: static !important; }
-}
-
 @media (max-width: 640px) {
-  .servicios-ctas { flex-direction: column !important; }
-  .servicios-item {
-    padding: 1rem !important;
+  .svc-item {
+    padding: 1rem 0 !important;
     gap: 0.75rem !important;
   }
 }
@@ -265,14 +255,9 @@
 
 
 /* ──────────────────────────────────────────────────────────────────
-   10. COBERTURA — layout 2-col → 1-col (refuerzo) + city grid
+   10. COBERTURA — city grid (el split layout colapsa en §7)
    ────────────────────────────────────────────────────────────────── */
 @media (max-width: 1024px) {
-  .cobertura-layout {
-    grid-template-columns: 1fr !important;
-    gap: 2rem !important;
-  }
-  .cobertura-left { position: static !important; }
   .cobertura-grid { grid-template-columns: repeat(2, 1fr) !important; }
 }
 
@@ -281,23 +266,16 @@
     grid-template-columns: 1fr !important;
     gap: 0.75rem !important;
   }
-  .cobertura-stats {
-    flex-wrap: wrap !important;
-    gap: 1rem !important;
-  }
-  .cobertura-stat__val { font-size: 1.5rem !important; }
   .cobertura-map-visual { aspect-ratio: 16/7 !important; }
 }
 
 
 /* ──────────────────────────────────────────────────────────────────
    11. ESPECIFICACIONES / TABLA — scroll horizontal
+   (.tabla-responsive ya gestiona el overflow del propio componente)
    ────────────────────────────────────────────────────────────────── */
 @media (max-width: 1024px) {
-  .specs-section .container {
-    overflow-x: auto !important;
-  }
-  .specs-table {
+  .tabla-seo {
     min-width: 640px;
   }
 }
@@ -314,20 +292,11 @@
 
 
 /* ──────────────────────────────────────────────────────────────────
-   12. PROCESO — pasos en columna (refuerzo)
+   12. PROCESO — pasos compactos en móvil
+   (el componente ya maneja su breakpoint 640; aquí solo refuerzo táctil)
    ────────────────────────────────────────────────────────────────── */
-@media (max-width: 768px) {
-  .proceso-layout {
-    grid-template-columns: 1fr !important;
-    gap: 0 !important;
-  }
-  .proceso-sidebar { position: static !important; }
-  .proceso-item {
-    border-right: none !important;
-    border-bottom: 1px solid var(--c-border);
-    padding: 1.25rem 0 !important;
-  }
-  .proceso-item:last-child { border-bottom: none; }
+@media (max-width: 640px) {
+  .proceso-paso { gap: 1rem !important; }
 }
 
 
@@ -335,27 +304,18 @@
    13. FAQ + COTIZACIÓN — apilado vertical
    ────────────────────────────────────────────────────────────────── */
 @media (max-width: 1024px) {
-  .faq-cot-index {
+  .faq-layout {
     grid-template-columns: 1fr !important;
     gap: 2rem !important;
   }
-  .cot-card { position: static !important; }
+  .cotizacion-card { position: static !important; }
 }
 
 @media (max-width: 640px) {
-  .faq-cot-index { padding: 2.5rem 1rem !important; }
-
-  /* iOS no-zoom en inputs */
-  .cot-field input,
-  .cot-field select,
-  .cot-field textarea {
-    font-size: 16px !important;
-    min-height: 48px;
-  }
-
-  .faq-item summary {
-    padding: 1rem !important;
+  .faq-item__question {
+    padding: 1rem 0 !important;
     font-size: 0.9375rem !important;
+    min-height: 44px;
   }
 }
 

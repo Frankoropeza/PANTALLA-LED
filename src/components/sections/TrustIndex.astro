@@ -4,6 +4,7 @@
 
 import { waUrl, WA_MESSAGES } from '../../config/site'
 import { url } from '../../utils/url'
+import IconArrowRight from '../ui/icons/IconArrowRight.astro'
 
 const razones = [
   {
@@ -41,10 +42,10 @@ const razones = [
 
 <section class="section section--surface trust-section" id="nosotros" aria-labelledby="trust-heading">
   <div class="container">
-    <div class="trust-layout">
+    <div class="split-layout trust-layout">
 
       <!-- Columna izquierda: sidebar header + CTA -->
-      <div class="trust-sidebar">
+      <div class="split-layout__sidebar trust-sidebar">
         <p class="sidebar-header__eyebrow">Por qué elegirnos</p>
         <h2 id="trust-heading" class="sidebar-header__title">
           Más de 10 años<br/>impulsando negocios<br/>con <span>pantallas LED</span>
@@ -55,23 +56,24 @@ const razones = [
         </p>
 
         <div class="trust-ctas">
-          <a href={waUrl(WA_MESSAGES.cotizacion)} class="btn-primary" target="_blank" rel="noopener noreferrer">
+          <a href={waUrl(WA_MESSAGES.cotizacion)} class="btn btn--primary" target="_blank" rel="noopener noreferrer">
             Solicitar asesoría gratuita
           </a>
-          <a href={url('/nosotros/')} class="trust-link">
-            Conocer más de nosotros →
+          <a href={url('/nosotros/')} class="link-arrow">
+            Conocer más de nosotros
+            <IconArrowRight size={14} />
           </a>
         </div>
 
         <!-- Métricas destacadas -->
-        <div class="trust-metrics">
-          <div class="trust-metric">
-            <span class="trust-metric__value">+500</span>
-            <span class="trust-metric__label">Proyectos entregados</span>
+        <div class="stat-row trust-metrics">
+          <div class="stat">
+            <span class="stat__value stat__value--accent">+500</span>
+            <span class="stat__label">Proyectos entregados</span>
           </div>
-          <div class="trust-metric">
-            <span class="trust-metric__value">98%</span>
-            <span class="trust-metric__label">Clientes satisfechos</span>
+          <div class="stat">
+            <span class="stat__value stat__value--accent">98%</span>
+            <span class="stat__label">Clientes satisfechos</span>
           </div>
         </div>
       </div>
@@ -94,55 +96,14 @@ const razones = [
 </section>
 
 <style>
-  .trust-section { background: var(--c-bg-2); }
-
-  .trust-layout {
-    display: grid;
-    grid-template-columns: 38% 1fr;
-    gap: clamp(3rem, 5%, 6rem);
-    align-items: start;
-  }
-
-  /* ─── Sidebar ─── */
-  .trust-sidebar { position: sticky; top: calc(var(--stack-height) + 2rem); }
+  /* Fondo: .section--surface · Layout: .split-layout (sistema global) */
 
   .trust-ctas {
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
     gap: 1rem;
     margin-bottom: 2rem;
-  }
-
-  .trust-link {
-    font-size: 0.875rem;
-    font-weight: 600;
-    color: var(--c-primary);
-    text-decoration: none;
-    transition: opacity 0.15s;
-  }
-  .trust-link:hover { opacity: 0.8; }
-
-  .trust-metrics {
-    display: flex;
-    gap: 2rem;
-    padding-top: 1.5rem;
-    border-top: 1px solid var(--c-border);
-  }
-
-  .trust-metric { display: flex; flex-direction: column; gap: 0.25rem; }
-
-  .trust-metric__value {
-    font-size: 1.875rem;
-    font-weight: 800;
-    color: var(--c-primary);
-    letter-spacing: -0.03em;
-    line-height: 1;
-  }
-
-  .trust-metric__label {
-    font-size: 0.8125rem;
-    color: var(--c-muted);
-    font-weight: 500;
   }
 
   /* ─── Grid razones ─── */
@@ -161,14 +122,14 @@ const razones = [
     gap: 1rem;
     background: var(--c-surface);
     border: 1px solid var(--c-border);
-    border-radius: 10px;
+    border-radius: var(--radius-lg);
     padding: 1.25rem;
     align-items: flex-start;
     transition: border-color 0.2s, box-shadow 0.2s;
   }
   .trust-item:hover {
-    border-color: rgba(0,102,204,0.3);
-    box-shadow: 0 0 16px rgba(0,102,204,0.1);
+    border-color: rgba(var(--c-primary-rgb), 0.3);
+    box-shadow: 0 0 16px rgba(var(--c-primary-rgb), 0.1);
   }
 
   .trust-item__num {
@@ -198,13 +159,8 @@ const razones = [
   }
 
   /* ─── Responsive ─── */
-  @media (max-width: 1024px) {
-    .trust-layout { grid-template-columns: 1fr; gap: 2.5rem; }
-    .trust-sidebar { position: static; }
-  }
-
+  /* El colapso del layout 2-col lo maneja .split-layout (sistema global) */
   @media (max-width: 640px) {
     .trust-grid { grid-template-columns: 1fr; }
-    .trust-metrics { gap: 1.5rem; }
   }
 </style>

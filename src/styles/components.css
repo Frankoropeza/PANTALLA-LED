@@ -243,131 +243,101 @@
 
 
 /* ══════════════════════════════════════════════════════════════
-   CCARD — Tarjeta de categoría/producto
-   Usado en: CategoriasIndex
+   SPLIT LAYOUT — 2 columnas: sidebar sticky + contenido
+   Usado en: TrustIndex, ServiciosIndex, CoberturaIndex
    ══════════════════════════════════════════════════════════════ */
 
-.ccard {
-  display: flex;
-  flex-direction: column;
-  background: var(--c-surface);
-  border: 1px solid var(--c-border);
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  position: relative;
+.split-layout {
+  display: grid;
+  grid-template-columns: 38% 1fr;
+  gap: clamp(3rem, 5%, 6rem);
+  align-items: start;
 }
 
-.ccard::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: var(--radius-lg);
-  border: 1px solid transparent;
-  transition: border-color var(--transition);
-  pointer-events: none;
+.split-layout--narrow {
+  grid-template-columns: 36% 1fr;
 }
 
-.ccard:hover::before {
-  border-color: var(--c-primary);
+.split-layout__sidebar {
+  position: sticky;
+  top: calc(var(--stack-height) + 2rem);
 }
 
-.ccard:hover {
-  box-shadow: var(--shadow-glow);
-}
-
-.ccard__image {
-  width: 100%;
-  aspect-ratio: 16/9;
-  background: var(--c-bg-2);
-  overflow: hidden;
-  position: relative;
-}
-
-.ccard__image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform var(--transition-slow);
-}
-
-.ccard__body {
-  padding: 1.25rem 1.25rem 1rem;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-}
-
-.ccard__badge {
-  display: inline-block;
-  font-size: 0.625rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--c-primary);
-  background: var(--c-primary-light);
-  border: 1px solid rgba(var(--c-primary-rgb), 0.2);
-  border-radius: var(--radius-full);
-  padding: 0.2rem 0.6rem;
-  margin-bottom: 0.75rem;
-  width: fit-content;
-}
-
-.ccard__title {
-  font-size: 1rem;
-  font-weight: 700;
-  color: var(--c-ink);
-  line-height: 1.3;
-  margin-bottom: 0.5rem;
-  letter-spacing: -0.015em;
-}
-
-.ccard__desc {
-  font-size: 0.875rem;
-  color: var(--c-muted);
-  line-height: 1.6;
-  flex: 1;
-  margin-bottom: 1rem;
-}
-
-.ccard__subs {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.375rem;
-  margin-bottom: 1rem;
-}
-
-.ccard__sub {
-  font-size: 0.7rem;
-  font-weight: 500;
-  color: var(--c-muted);
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid var(--c-border);
-  border-radius: var(--radius-sm);
-  padding: 0.2rem 0.5rem;
-}
-
-.ccard__link-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  font-size: 0.8125rem;
-  font-weight: 600;
-  color: var(--c-primary);
-  text-decoration: none;
-  margin-top: auto;
-}
-
-.ccard__link-btn svg {
-  transition: transform var(--transition);
-}
-
-.ccard__link-btn:hover svg {
-  transform: translateX(4px);
+@media (max-width: 1024px) {
+  .split-layout,
+  .split-layout--narrow {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+  .split-layout__sidebar { position: static; }
 }
 
 
 /* ══════════════════════════════════════════════════════════════
-   RESPONSIVE共通
+   LINK ARROW — Enlace inline con flecha animada
+   Usado en: CategoriasIndex, TrustIndex, EspecificacionesIndex
+   ══════════════════════════════════════════════════════════════ */
+
+.link-arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: 0.8125rem;
+  font-weight: var(--weight-semibold);
+  color: var(--c-primary);
+  text-decoration: none;
+}
+
+.link-arrow svg {
+  flex-shrink: 0;
+  transition: transform var(--transition);
+}
+
+.link-arrow:hover svg { transform: translateX(4px); }
+
+
+/* ══════════════════════════════════════════════════════════════
+   STAT — Métrica con valor + etiqueta
+   Usado en: HeroIndex, TrustIndex, CoberturaIndex
+   ══════════════════════════════════════════════════════════════ */
+
+.stat-row {
+  display: flex;
+  gap: 1.75rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--c-border);
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.stat__value {
+  font-size: 1.75rem;
+  font-weight: var(--weight-black);
+  color: var(--c-ink);
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+.stat__value--accent { color: var(--c-primary); }
+
+.stat__label {
+  font-size: 0.75rem;
+  color: var(--c-muted);
+  font-weight: var(--weight-medium);
+}
+
+@media (max-width: 640px) {
+  .stat-row { flex-wrap: wrap; gap: 1.25rem; }
+  .stat__value { font-size: 1.5rem; }
+}
+
+
+/* ══════════════════════════════════════════════════════════════
+   RESPONSIVE COMPARTIDO
    ══════════════════════════════════════════════════════════════ */
 
 @media (max-width: 900px) {

@@ -3,6 +3,8 @@
 // Muestra las ciudades con servicio activo y la promesa de cobertura nacional
 
 import { url } from '../../utils/url'
+import IconArrowRight from '../ui/icons/IconArrowRight.astro'
+import IconInfo from '../ui/icons/IconInfo.astro'
 
 const zonas = [
   {
@@ -59,43 +61,37 @@ const stats = [
 <section class="section section--surface cobertura-section" id="cobertura" aria-labelledby="cobertura-heading">
   <div class="container">
 
-    <div class="cobertura-layout">
+    <div class="split-layout cobertura-layout">
 
       <!-- Columna izquierda: header + stats -->
-      <div class="cobertura-left">
-        <p class="section-header__eyebrow">Cobertura nacional</p>
-        <h2 id="cobertura-heading" class="cobertura-title">
+      <div class="split-layout__sidebar cobertura-left">
+        <p class="sidebar-header__eyebrow">Cobertura nacional</p>
+        <h2 id="cobertura-heading" class="sidebar-header__title">
           Instalamos en todo<br/><span>México</span>
         </h2>
-        <p class="cobertura-desc">
+        <p class="sidebar-header__desc">
           Con base en Ciudad de México y red de instaladores certificados en las principales ciudades del país,
           llevamos tecnología LED profesional a cualquier rincón de la República.
         </p>
 
         <!-- Estadísticas -->
-        <div class="cobertura-stats" role="list">
+        <div class="stat-row cobertura-stats" role="list">
           {stats.map((s) => (
-            <div class="cobertura-stat" role="listitem">
-              <span class="cobertura-stat__val">{s.value}</span>
-              <span class="cobertura-stat__lbl">{s.label}</span>
+            <div class="stat" role="listitem">
+              <span class="stat__value">{s.value}</span>
+              <span class="stat__label">{s.label}</span>
             </div>
           ))}
         </div>
 
         <a href={url('/contacto/')} class="btn btn--primary cobertura-cta">
           Verificar cobertura en mi ciudad
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M5 12h14M12 5l7 7-7 7"/>
-          </svg>
+          <IconArrowRight size={16} />
         </a>
 
         <!-- Nota nacional -->
         <p class="cobertura-note">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-            <circle cx="12" cy="12" r="10"/>
-            <line x1="12" y1="8" x2="12" y2="12"/>
-            <line x1="12" y1="16" x2="12.01" y2="16"/>
-          </svg>
+          <IconInfo size={14} />
           Entrega a todo México. Coordina instalación local o envía con guía prepagada.
         </p>
       </div>
@@ -151,56 +147,13 @@ const stats = [
 </section>
 
 <style>
-  .cobertura-section { background: var(--c-bg-2); }
-
-  .cobertura-layout {
-    display: grid;
-    grid-template-columns: 38% 1fr;
-    gap: clamp(3rem, 5%, 6rem);
-    align-items: start;
-  }
-
-  /* ─── Columna izquierda ─── */
-  .cobertura-left { position: sticky; top: calc(var(--stack-height) + 2rem); }
-
-  .cobertura-title {
-    font-size: clamp(2rem, 3.5vw, 2.75rem);
-    font-weight: 800;
-    color: var(--c-ink);
-    line-height: 1.1;
-    letter-spacing: -0.03em;
-    margin-top: 0.75rem;
-    margin-bottom: 1rem;
-  }
-  .cobertura-title span { color: var(--c-primary); }
-
-  .cobertura-desc {
-    font-size: 0.9375rem;
-    color: var(--c-muted);
-    line-height: 1.7;
-    margin-bottom: 2rem;
-  }
+  /* Fondo: .section--surface · Layout: .split-layout · Header: .sidebar-header
+     Stats: .stat-row / .stat — todo del sistema global */
 
   .cobertura-stats {
-    display: flex;
-    gap: 1.75rem;
-    padding: 1.25rem 0;
-    border-top: 1px solid var(--c-border);
+    padding-bottom: 1.25rem;
     border-bottom: 1px solid var(--c-border);
     margin-bottom: 1.75rem;
-  }
-  .cobertura-stat { display: flex; flex-direction: column; gap: 0.2rem; }
-  .cobertura-stat__val {
-    font-size: 1.75rem;
-    font-weight: 800;
-    color: var(--c-ink);
-    letter-spacing: -0.03em;
-    line-height: 1;
-  }
-  .cobertura-stat__lbl {
-    font-size: 0.75rem;
-    color: var(--c-muted);
-    font-weight: 500;
   }
 
   .cobertura-cta { margin-bottom: 1rem; }
@@ -238,7 +191,7 @@ const stats = [
   }
   .cmap__glow {
     position: absolute; inset: 0;
-    background: radial-gradient(ellipse at 55% 55%, rgba(0,102,204,0.18) 0%, transparent 65%);
+    background: radial-gradient(ellipse at 55% 55%, rgba(var(--c-primary-rgb), 0.18) 0%, transparent 65%);
   }
   .cmap__label {
     font-size: 0.625rem;
@@ -263,13 +216,13 @@ const stats = [
   .cmap__dot--gdl   { left: 38%; top: 55%; }
   .cmap__dot--mty   { left: 52%; top: 38%; }
   .cmap__dot--pue   { left: 59%; top: 66%; }
-  .cmap__dot--can   { left: 80%; top: 72%; background: rgba(0,102,204,0.6); }
+  .cmap__dot--can   { left: 80%; top: 72%; background: rgba(var(--c-primary-rgb), 0.6); }
 
   .cmap__dot-ring {
     position: absolute;
     inset: -6px;
     border-radius: 50%;
-    border: 1.5px solid rgba(0,102,204,0.4);
+    border: 1.5px solid rgba(var(--c-primary-rgb), 0.4);
     animation: pulse-ring 2.4s ease-out infinite;
   }
   @keyframes pulse-ring {
@@ -291,7 +244,7 @@ const stats = [
   .czona {
     background: var(--c-surface);
     border: 1px solid var(--c-border);
-    border-radius: 10px;
+    border-radius: var(--radius-lg);
     padding: 1rem;
     display: flex;
     flex-direction: column;
@@ -299,12 +252,12 @@ const stats = [
     transition: border-color .2s, box-shadow .2s;
   }
   .czona--flagship {
-    border-color: rgba(0,102,204,0.25);
-    background: linear-gradient(135deg, var(--c-surface) 0%, rgba(0,102,204,0.05) 100%);
+    border-color: rgba(var(--c-primary-rgb), 0.25);
+    background: linear-gradient(135deg, var(--c-surface) 0%, rgba(var(--c-primary-rgb), 0.05) 100%);
   }
   .czona:hover {
-    border-color: rgba(0,102,204,0.35);
-    box-shadow: 0 0 16px rgba(0,102,204,0.1);
+    border-color: rgba(var(--c-primary-rgb), 0.35);
+    box-shadow: 0 0 16px rgba(var(--c-primary-rgb), 0.1);
   }
 
   .czona__header {
@@ -332,13 +285,13 @@ const stats = [
     letter-spacing: 0.08em;
     text-transform: uppercase;
     padding: 0.2rem 0.55rem;
-    border-radius: 100px;
+    border-radius: var(--radius-full);
     flex-shrink: 0;
   }
   .czona__badge--flagship {
-    background: rgba(0,102,204,0.15);
-    color: #60a5fa;
-    border: 1px solid rgba(0,102,204,0.3);
+    background: rgba(var(--c-primary-rgb), 0.15);
+    color: var(--c-primary-soft);
+    border: 1px solid rgba(var(--c-primary-rgb), 0.3);
   }
   .czona__badge--comercial {
     background: rgba(255,255,255,0.05);
@@ -365,12 +318,8 @@ const stats = [
   .czona__footer strong { color: var(--c-ink-2); font-weight: 600; }
   .czona__footer svg { flex-shrink: 0; }
 
-  @media (max-width: 1024px) {
-    .cobertura-layout { grid-template-columns: 1fr; gap: 2.5rem; }
-    .cobertura-left { position: static; }
-  }
+  /* El colapso del layout 2-col lo maneja .split-layout (sistema global) */
   @media (max-width: 640px) {
     .cobertura-grid { grid-template-columns: 1fr; }
-    .cobertura-stats { gap: 1.25rem; }
   }
 </style>

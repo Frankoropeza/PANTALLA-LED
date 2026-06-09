@@ -9,6 +9,8 @@
 
 /* ---- Design Tokens ---------------------------------------- */
 :root {
+  color-scheme: dark;
+
   /* Colores primarios */
   --c-primary:       #0066CC;
   --c-primary-dark:  #004499;
@@ -24,6 +26,12 @@
   /* Acento secundario (naranja LED) */
   --c-accent:      #FF6600;
   --c-accent-dark: #CC5200;
+
+  /* Semánticos */
+  --c-success:      #22C55E;
+  --c-success-rgb:  34, 197, 94;
+  --c-star:         #F59E0B;
+  --c-primary-soft: #60A5FA;
 
   /* Backgrounds (dark theme) */
   --c-bg:      #080C18;
@@ -86,7 +94,7 @@
   /* Layout — full-width, percentage-based */
   --max-w:         100%;
   --container-px:  clamp(1.5rem, 5%, 5rem);
-  --section-py:    clamp(5rem, 8vw, 7rem);
+  --section-py:    clamp(4rem, 6vw, 5.5rem);
   --section-py-sm: clamp(3rem, 5vw, 4rem);
 
   /* Border radius */
@@ -283,6 +291,128 @@ button {
   background: rgba(255, 255, 255, 0.06);
   border-color: rgba(255, 255, 255, 0.5);
   color: var(--c-white);
+}
+
+/* Tamaño grande — CTAs de hero y cierres de página */
+.btn--lg {
+  padding: 0.9375rem 1.875rem;
+  font-size: 0.9375rem;
+  font-weight: var(--weight-bold);
+}
+
+/* WhatsApp sólido — CTA de conversión principal */
+.btn--whatsapp {
+  background: var(--color-whatsapp);
+  color: var(--c-white);
+  box-shadow: 0 4px 16px rgba(37, 211, 102, 0.3);
+}
+.btn--whatsapp:hover {
+  background: var(--color-whatsapp-hover);
+  color: var(--c-white);
+  box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+  transform: translateY(-1px);
+}
+.btn--whatsapp:active { transform: translateY(0); }
+
+/* WhatsApp suave — variante translúcida para fondos oscuros */
+.btn--whatsapp-soft {
+  background: rgba(37, 211, 102, 0.07);
+  border-color: rgba(37, 211, 102, 0.28);
+  color: var(--color-whatsapp);
+}
+.btn--whatsapp-soft:hover {
+  background: rgba(37, 211, 102, 0.14);
+  border-color: rgba(37, 211, 102, 0.5);
+  color: var(--color-whatsapp);
+  transform: translateY(-1px);
+}
+
+/* ---- Botones legacy (páginas con Layout.astro) ------------- */
+/* DEPRECADOS: usar .btn .btn--primary / .btn--outline-white / .btn--outline.
+   Se conservan mientras contacto/productos/servicios migran a Base.astro. */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--c-primary);
+  color: var(--c-white);
+  padding: 0.875rem 1.75rem;
+  border-radius: var(--radius-md);
+  font-weight: var(--weight-semibold);
+  font-size: 0.9375rem;
+  font-family: var(--font-sans);
+  transition: background var(--transition), box-shadow var(--transition), transform 150ms var(--ease);
+  white-space: nowrap;
+  box-shadow: 0 4px 16px rgba(var(--c-primary-rgb), 0.35);
+}
+.btn-primary:hover {
+  background: var(--c-primary-dark);
+  color: var(--c-white);
+  box-shadow: 0 6px 20px rgba(var(--c-primary-rgb), 0.45);
+  transform: translateY(-1px);
+}
+.btn-primary:active { transform: translateY(0); }
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: 2px solid rgba(255, 255, 255, 0.25);
+  color: var(--c-white);
+  padding: 0.8125rem 1.75rem;
+  border-radius: var(--radius-md);
+  font-weight: var(--weight-semibold);
+  font-size: 0.9375rem;
+  font-family: var(--font-sans);
+  white-space: nowrap;
+  transition: border-color var(--transition), background var(--transition);
+}
+.btn-secondary:hover {
+  border-color: rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--c-white);
+}
+
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: 2px solid var(--c-primary);
+  color: var(--c-primary);
+  padding: 0.8125rem 1.75rem;
+  border-radius: var(--radius-md);
+  font-weight: var(--weight-semibold);
+  font-size: 0.9375rem;
+  font-family: var(--font-sans);
+  white-space: nowrap;
+  transition: background var(--transition), color var(--transition);
+}
+.btn-outline:hover { background: var(--c-primary); color: var(--c-white); }
+
+/* ---- Tokens responsive de navegación ----------------------- */
+@media (max-width: 1024px) {
+  :root {
+    --header-height: 72px;
+    --stack-height: calc(var(--topbar-height) + 72px);
+    --section-py: clamp(3rem, 5vw, 4rem);
+  }
+}
+@media (max-width: 640px) {
+  :root {
+    --topbar-height: 32px;
+    --header-height: 64px;
+    --stack-height: calc(32px + 64px);
+    --section-py: 3rem;
+  }
+}
+@media (max-width: 480px) {
+  :root { --section-py: 2.5rem; }
+}
+@media (max-width: 380px) {
+  :root {
+    --header-height: 60px;
+    --stack-height: calc(32px + 60px);
+  }
 }
 
 /* ---- Breadcrumb bar --------------------------------------- */

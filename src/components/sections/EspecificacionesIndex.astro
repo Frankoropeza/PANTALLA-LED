@@ -3,6 +3,7 @@
 // Guía comparativa de tipos de pantalla por aplicación
 
 import SectionHeader from '../ui/SectionHeader.astro'
+import IconInfo from '../ui/icons/IconInfo.astro'
 import { url } from '../../utils/url'
 ---
 
@@ -10,6 +11,7 @@ import { url } from '../../utils/url'
   <div class="container">
 
     <SectionHeader
+      id="specs-heading"
       eyebrow="Especificaciones técnicas"
       title="¿Qué tipo de pantalla <span>necesitas?</span>"
       desc="Guía rápida para elegir el paso de pixel correcto según tu aplicación, distancia de visión y presupuesto."
@@ -97,9 +99,7 @@ import { url } from '../../utils/url'
     </div>
 
     <p class="specs-nota">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" style="flex-shrink:0; margin-top:2px;">
-        <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
-      </svg>
+      <IconInfo size={16} />
       ¿Tienes dudas sobre qué pantalla elegir? Nuestros especialistas hacen el diagnóstico sin costo.
       <a href={url('/contacto/')} class="specs-nota__link">Solicitar asesoría gratuita →</a>
     </p>
@@ -108,7 +108,7 @@ import { url } from '../../utils/url'
 </section>
 
 <style>
-  .specs-section { background: var(--c-bg-2); }
+  /* El fondo lo aporta .section--surface (sistema global) */
 
   .specs-nota {
     display: flex;
@@ -120,7 +120,7 @@ import { url } from '../../utils/url'
     line-height: 1.6;
   }
 
-  .specs-nota svg { color: var(--c-primary); }
+  .specs-nota svg { color: var(--c-primary); flex-shrink: 0; margin-top: 2px; }
 
   .specs-nota__link {
     color: var(--c-primary);

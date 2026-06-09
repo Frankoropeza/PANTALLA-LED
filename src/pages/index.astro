@@ -18,6 +18,7 @@ import FaqCotizacionIndex from '../components/sections/FaqCotizacionIndex.astro'
 import CTAFinalIndex from '../components/sections/CTAFinalIndex.astro'
 
 import { SITE, CONTACT } from '../config/site'
+import { FAQS } from '../config/faqs'
 
 // ─── JSON-LD: LocalBusiness ───────────────────────────────────────────────────
 const schemaLocalBusiness = {
@@ -71,59 +72,19 @@ const schemaLocalBusiness = {
 }
 
 // ─── JSON-LD: FAQPage ─────────────────────────────────────────────────────────
+// Generado desde src/config/faqs.ts — misma fuente que FaqCotizacionIndex,
+// el schema y la UI nunca se desincronizan.
 const schemaFaq = {
   '@context': 'https://schema.org',
   '@type': 'FAQPage',
-  mainEntity: [
-    {
-      '@type': 'Question',
-      name: '¿Cuánto cuesta una pantalla LED en México?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'El precio depende del tamaño, paso de pixel y tipo (interior/exterior). Una pantalla exterior de 2m × 3m con P6 parte desde $25,000 MXN. Las interiores Ultra HD con P2 pueden superar $80,000 MXN para proyectos de mayor formato. Contáctanos para cotización exacta según tu proyecto.',
-      },
+  mainEntity: FAQS.map((faq) => ({
+    '@type': 'Question',
+    name: faq.q,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: faq.a,
     },
-    {
-      '@type': 'Question',
-      name: '¿Qué paso de pixel necesito para mi pantalla?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'Depende de la distancia de visión. Para distancias de 3-6 metros usamos P2 o P3 (interior). Para 5-10 metros en exteriores, P4 o P5. Para espectaculares en calles principales, P6 a P10. En eventos, P3.9 o P4.8 son los estándares.',
-      },
-    },
-    {
-      '@type': 'Question',
-      name: '¿Cuánto tiempo tarda la instalación?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'Una pantalla interior de tamaño estándar se instala en 1-2 días. Un espectacular exterior de 10m² toma de 2 a 4 días incluyendo estructura. Proyectos mayores o en estadios pueden tomar 1-3 semanas.',
-      },
-    },
-    {
-      '@type': 'Question',
-      name: '¿Las pantallas incluyen garantía?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'Sí. Todos nuestros equipos tienen garantía de fábrica de 2 años que cubre defectos de manufactura, módulos LED, tarjetas de recepción y fuentes de poder. El servicio de garantía se brinda en sitio, sin costos de traslado adicionales en CDMX y área metropolitana.',
-      },
-    },
-    {
-      '@type': 'Question',
-      name: '¿Hacen instalaciones en toda la República?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'Sí. Contamos con operación propia en CDMX y Estado de México, y cobertura comercial en toda la República Mexicana. Coordinamos instalaciones en Guadalajara, Monterrey, Puebla, Cancún y otras ciudades con aliados técnicos certificados.',
-      },
-    },
-    {
-      '@type': 'Question',
-      name: '¿Rentan pantallas para eventos de un día?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'Sí. Ofrecemos renta de módulos LED por día, fin de semana o semana completa. El servicio incluye transporte, armado, operador durante el evento y desarmado. Ideal para conciertos, convenciones, bodas y activaciones de marca.',
-      },
-    },
-  ],
+  })),
 }
 
 // ─── JSON-LD: WebSite ─────────────────────────────────────────────────────────

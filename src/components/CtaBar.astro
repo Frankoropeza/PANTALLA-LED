@@ -57,30 +57,30 @@
 
   .cta-bar__value {
     font-size: clamp(1.1rem, 2vw, 1.5rem);
-    font-weight: 800;
-    color: #fff;
+    font-weight: var(--weight-black);
+    color: var(--c-white);
     letter-spacing: -0.02em;
     line-height: 1.1;
   }
 
   .cta-bar__label {
     font-size: 0.75rem;
-    color: rgba(255,255,255,0.75);
-    font-weight: 500;
+    color: rgba(255, 255, 255, 0.75);
+    font-weight: var(--weight-medium);
     white-space: nowrap;
   }
 
   .cta-bar__divider {
     width: 1px;
     height: 36px;
-    background: rgba(255,255,255,0.2);
+    background: rgba(255, 255, 255, 0.2);
     flex-shrink: 0;
   }
 
+  /* Al envolver en 2 filas los divisores pierden sentido visual */
   @media (max-width: 900px) {
-    .cta-bar__inner { gap: 0; }
-    .cta-bar__stat  { padding: 0.5rem 1.25rem; }
-    .cta-bar__divider:nth-child(8) { display: none; }
+    .cta-bar__stat    { padding: 0.5rem 1.25rem; }
+    .cta-bar__divider { display: none; }
   }
 
   @media (max-width: 640px) {

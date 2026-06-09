@@ -9,31 +9,26 @@ const pasos = [
     num: '01',
     title: 'Consulta y diagnóstico',
     desc: 'Nos cuentas tu proyecto: espacio, objetivo, presupuesto y cronograma. Evaluamos de forma gratuita el tipo de pantalla, brillo y resolución que mejor se adapta.',
-    icon: '💬',
   },
   {
     num: '02',
     title: 'Propuesta técnica',
     desc: 'Preparamos una cotización detallada con especificaciones técnicas, planos de instalación, cronograma y condiciones de garantía. Sin costos ocultos.',
-    icon: '📐',
   },
   {
     num: '03',
     title: 'Fabricación y logística',
     desc: 'Gestionamos la producción con el fabricante o surtimos desde stock. Coordinamos el traslado para cumplir los tiempos acordados en tu proyecto.',
-    icon: '📦',
   },
   {
     num: '04',
     title: 'Instalación y puesta en marcha',
     desc: 'Nuestros técnicos realizan el montaje estructural, cableado y calibración. Configuramos el sistema de control y validamos colores, brillo y uniformidad.',
-    icon: '🔧',
   },
   {
     num: '05',
     title: 'Capacitación y soporte',
     desc: 'Capacitamos a tu equipo para operar el software de contenido. Dejamos todo documentado y activamos el plan de mantenimiento preventivo.',
-    icon: '🎓',
   },
 ]
 ---
@@ -42,6 +37,7 @@ const pasos = [
   <div class="container">
 
     <SectionHeader
+      id="proceso-heading"
       eyebrow="Cómo trabajamos"
       title="Un proceso claro de principio a <span>fin</span>"
       desc="Sin sorpresas. Cada proyecto de pantalla LED sigue un flujo de trabajo estructurado para garantizar calidad, tiempos y satisfacción."
@@ -69,7 +65,7 @@ const pasos = [
 </section>
 
 <style>
-  .proceso-section { background: var(--c-bg); }
+  /* El fondo lo aporta .section--dark (sistema global) */
 
   .proceso-grid {
     display: flex;

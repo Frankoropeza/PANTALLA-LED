@@ -1,19 +1,22 @@
 ---
 // SectionHeader.astro — Encabezado de sección, columna única centrada
-// Props: eyebrow, title (con HTML <span> para acento), desc, align
+// Props: eyebrow, title (con HTML <span> para acento), desc, align, id
+// `id` se aplica al <h2> para que la sección pueda referenciarlo
+// con aria-labelledby.
 
 interface Props {
   eyebrow: string
   title: string
   desc?: string
   align?: 'center' | 'left'
+  id?: string
 }
 
-const { eyebrow, title, desc, align = 'center' } = Astro.props
+const { eyebrow, title, desc, align = 'center', id } = Astro.props
 ---
 
 <div class:list={['section-header', { 'section-header--left': align === 'left' }]}>
   {eyebrow && <p class="section-header__eyebrow">{eyebrow}</p>}
-  <h2 class="section-header__title" set:html={title} />
+  <h2 class="section-header__title" id={id} set:html={title} />
   {desc && <p class="section-header__desc">{desc}</p>}
 </div>

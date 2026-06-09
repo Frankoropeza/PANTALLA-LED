@@ -54,6 +54,7 @@ const reviews = [
   <div class="container">
 
     <SectionHeader
+      id="reviews-heading"
       eyebrow="Testimonios"
       title="Lo que dicen nuestros <span>clientes</span>"
       desc="Más de 500 proyectos entregados en toda la República Mexicana. Aquí algunos testimonios reales."
@@ -110,7 +111,7 @@ const reviews = [
 </section>
 
 <style>
-  .reviews-section { background: var(--c-bg-2); }
+  /* El fondo lo aporta .section--surface (sistema global) */
 
   .reviews-grid {
     display: grid;
@@ -120,13 +121,13 @@ const reviews = [
   }
 
   @media (min-width: 1400px) {
-    .reviews-grid { grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+    .reviews-grid { gap: 2rem; }
   }
 
   .review-card {
     background: var(--c-surface);
     border: 1px solid var(--c-border);
-    border-radius: 12px;
+    border-radius: var(--radius-lg);
     padding: 1.5rem;
     display: flex;
     flex-direction: column;
@@ -134,14 +135,14 @@ const reviews = [
     transition: border-color 0.2s, box-shadow 0.2s;
   }
   .review-card:hover {
-    border-color: rgba(0,102,204,0.25);
-    box-shadow: 0 0 20px rgba(0,102,204,0.08);
+    border-color: rgba(var(--c-primary-rgb), 0.25);
+    box-shadow: 0 0 20px rgba(var(--c-primary-rgb), 0.08);
   }
 
   .review-card__stars {
     display: flex;
     gap: 0.25rem;
-    color: #F59E0B;
+    color: var(--c-star);
   }
 
   .review-card__text {
@@ -165,7 +166,7 @@ const reviews = [
     height: 36px;
     border-radius: 50%;
     background: var(--c-primary-light);
-    border: 1px solid rgba(0,102,204,0.3);
+    border: 1px solid rgba(var(--c-primary-rgb), 0.3);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -194,7 +195,7 @@ const reviews = [
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    color: #22c55e;
+    color: var(--c-success);
     flex-shrink: 0;
   }
 
@@ -215,7 +216,7 @@ const reviews = [
     font-size: 0.8125rem;
     color: var(--c-muted);
   }
-  .reviews-badge svg { color: #22c55e; }
+  .reviews-badge svg { color: var(--c-success); }
 
   @media (max-width: 1024px) {
     .reviews-grid { grid-template-columns: repeat(2, 1fr); }

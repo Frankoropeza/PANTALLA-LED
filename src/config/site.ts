@@ -15,7 +15,7 @@ export const CONTACT = {
   phone: '55 0000 0000',
   phoneRaw: '5500000000',
   whatsapp: '525500000000',
-  email: 'contacto@pantalla-led.com.mx',
+  email: 'contacto@pantalla-led.com',
   address: 'Ciudad de México, México',
   mapsUrl: 'https://maps.google.com/?q=Ciudad+de+Mexico',
 

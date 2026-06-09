@@ -1,18 +1,9 @@
-# CtaBar
+# CtaBar — RETIRADA (jun 2026)
 
-**Archivo:** `src/components/CtaBar.astro` · **Orden:** 2º — **regla de layout:** va inmediatamente después del Hero en TODAS las páginas (comentario en `Base.astro`); no insertar nada entre ambos.
+La banda azul de métricas (+500 instalaciones · +10 años · 2 años garantía · 24/7 · República) **fue eliminada del sitio** a petición de Frank: duplicaba los stats del [[Hero]] y restaba protagonismo a la franja [[QuickNav]].
 
-## Diseño
+- Componente borrado: `src/components/CtaBar.astro`
+- Sustituto funcional bajo el hero: [[QuickNav]] (navegación rápida con pills)
+- Las cifras comerciales siguen visibles en: stats del [[Hero]], [[Trust]] y [[Cobertura]]
 
-Banda azul sólida (`--c-primary`) con 5 métricas separadas por divisores verticales blancos translúcidos:
-
-+500 instalaciones · +10 años · 2 años garantía · 24/7 soporte · República (cobertura).
-
-- Valor: `clamp(1.1rem, 2vw, 1.5rem)` 800 blanco; label `0.75rem` blanco 75%.
-- ≤900: divisores ocultos, stats envuelven en 2 filas.
-- ≤640: scroll horizontal (`overflow-x: auto`, `flex-wrap: nowrap`).
-
-## Notas
-
-- Es intencionalmente redundante con los stats del [[Hero]] (refuerzo de confianza above-the-fold); las cifras deben coincidir siempre.
-- Para páginas interiores se reusa tal cual — es estático, sin props.
+Esta nota se conserva como registro histórico — si se quiere recuperar, está en git (`git log -- src/components/CtaBar.astro`).

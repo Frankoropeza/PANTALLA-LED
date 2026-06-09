@@ -22,9 +22,9 @@ Vault de documentación del sistema de diseño y arquitectura del sitio [pantall
 - [[Utilidades]] — link-arrow, stat-row, tabla-seo, chips y badges
 
 ### 03 · Secciones del index
-- [[Hero]] · [[CtaBar]] · [[Categorías]] · [[Trust]] · [[Servicios]]
+- [[Hero]] · [[QuickNav]] · [[Categorías]] · [[Trust]] · [[Servicios]]
 - [[Especificaciones]] · [[Proceso]] · [[Reviews]] · [[Cobertura]]
-- [[FAQ y Cotización]] · [[CTA Final]]
+- [[FAQ y Cotización]] · [[CTA Final]] · ([[CtaBar]] — retirada)
 
 ### 04 · Arquitectura
 - [[Estructura del Proyecto]] — árbol de archivos y responsabilidades

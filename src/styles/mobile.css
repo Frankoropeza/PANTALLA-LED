@@ -157,26 +157,8 @@
 
 
 /* ──────────────────────────────────────────────────────────────────
-   5. STATS / CTA BAR — apilado en mobile
+   5. (libre) — la CtaBar de métricas fue retirada del sitio (jun 2026)
    ────────────────────────────────────────────────────────────────── */
-@media (max-width: 768px) {
-  .cta-bar__inner,
-  .stats-bar__inner {
-    flex-wrap: wrap !important;
-    gap: 1rem !important;
-    justify-content: center !important;
-  }
-  .cta-bar__stat,
-  .stats-item {
-    min-width: calc(50% - 0.5rem);
-    text-align: center;
-  }
-}
-
-@media (max-width: 480px) {
-  .cta-bar__value,
-  .stats-value { font-size: 1.5rem !important; }
-}
 
 
 /* ──────────────────────────────────────────────────────────────────

@@ -6,7 +6,7 @@
 export const SITE = {
   name: 'PantallaLED',
   tagline: 'Especialistas en pantallas LED para exteriores e interiores — Venta · Renta · Instalación',
-  url: 'https://pantalla-led.com.mx',
+  url: 'https://pantalla-led.com',
   description: 'Proveedor especializado en pantallas LED de alta resolución. Venta, renta e instalación para publicidad exterior, eventos, comercios e interiores. Cobertura en toda la República Mexicana.',
   locale: 'es_MX',
 } as const

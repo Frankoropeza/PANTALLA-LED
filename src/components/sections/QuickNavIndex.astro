@@ -1,0 +1,145 @@
+---
+// QuickNavIndex.astro — Navegación rápida del index
+// Franja de pills hacia las secciones clave + CTA de cotización.
+// Va inmediatamente después del CtaBar (patrón "explora el catálogo").
+
+import { waUrl, WA_MESSAGES } from '../../config/site'
+import IconWhatsApp from '../ui/icons/IconWhatsApp.astro'
+
+const enlaces = [
+  { label: 'Catálogo LED', href: '#productos' },
+  { label: 'Servicios', href: '#servicios' },
+  { label: 'Especificaciones', href: '#especificaciones' },
+  { label: 'Cómo trabajamos', href: '#proceso' },
+  { label: 'Testimonios', href: '#testimonios' },
+  { label: 'Cobertura', href: '#cobertura' },
+  { label: 'Preguntas frecuentes', href: '#faq' },
+]
+---
+
+<nav class="quicknav" aria-label="Navegación rápida de secciones">
+  <div class="container quicknav__inner">
+
+    <p class="quicknav__label">
+      <span class="quicknav__label-bar" aria-hidden="true"></span>
+      Explora el sitio
+    </p>
+
+    <ul class="quicknav__list">
+      {enlaces.map((e) => (
+        <li>
+          <a href={e.href} class="quicknav__pill">{e.label}</a>
+        </li>
+      ))}
+      <li>
+        <a
+          href={waUrl(WA_MESSAGES.cotizacion)}
+          class="quicknav__pill quicknav__pill--cta"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <IconWhatsApp size={14} />
+          Cotizar ahora
+        </a>
+      </li>
+    </ul>
+
+  </div>
+</nav>
+
+<style>
+  .quicknav {
+    background: var(--c-bg-2);
+    border-bottom: 1px solid var(--c-border);
+    padding-block: 1rem;
+  }
+
+  .quicknav__inner {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .quicknav__label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.625rem;
+    font-size: 0.6875rem;
+    font-weight: var(--weight-semibold);
+    color: var(--c-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .quicknav__label-bar {
+    display: block;
+    width: 20px;
+    height: 2px;
+    background: var(--c-primary);
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+
+  .quicknav__list {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .quicknav__pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.8125rem;
+    font-weight: var(--weight-medium);
+    color: var(--c-ink-2);
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--c-border);
+    border-radius: var(--radius-full);
+    padding: 0.45rem 1rem;
+    white-space: nowrap;
+    transition: border-color var(--transition), color var(--transition), background var(--transition);
+  }
+  .quicknav__pill:hover {
+    border-color: var(--c-primary);
+    color: var(--c-primary);
+    background: var(--c-primary-light);
+  }
+
+  .quicknav__pill--cta {
+    color: var(--color-whatsapp);
+    background: rgba(37, 211, 102, 0.07);
+    border-color: rgba(37, 211, 102, 0.28);
+    font-weight: var(--weight-semibold);
+  }
+  .quicknav__pill--cta:hover {
+    color: var(--color-whatsapp);
+    background: rgba(37, 211, 102, 0.14);
+    border-color: rgba(37, 211, 102, 0.5);
+  }
+  .quicknav__pill--cta svg { flex-shrink: 0; }
+
+  /* ─── Responsive: scroll horizontal en móvil ─── */
+  @media (max-width: 900px) {
+    .quicknav__inner {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.75rem;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .quicknav__list {
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      width: 100%;
+      padding-bottom: 0.25rem;
+      scrollbar-width: none;
+    }
+    .quicknav__list::-webkit-scrollbar { display: none; }
+    .quicknav__pill { padding: 0.5rem 1rem; min-height: 38px; }
+  }
+</style>

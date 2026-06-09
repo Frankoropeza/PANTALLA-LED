@@ -145,6 +145,11 @@ html {
   overflow-x: hidden;
 }
 
+/* Las anclas (#productos, #faq…) no quedan bajo el header sticky */
+[id] {
+  scroll-margin-top: calc(var(--stack-height) + 1rem);
+}
+
 body {
   font-family: var(--font-sans);
   font-size: var(--text-base);

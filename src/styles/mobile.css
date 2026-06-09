@@ -258,9 +258,8 @@
 @media (max-width: 640px) {
   .cobertura-grid {
     grid-template-columns: 1fr !important;
-    gap: 0.75rem !important;
+    gap: 1rem !important;
   }
-  .cobertura-map-visual { aspect-ratio: 16/7 !important; }
 }
 
 

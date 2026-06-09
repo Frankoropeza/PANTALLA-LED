@@ -184,24 +184,18 @@
    ────────────────────────────────────────────────────────────────── */
 @media (max-width: 1024px) {
   .categorias-grid {
-    grid-template-columns: repeat(3, 1fr) !important;
-  }
-}
-
-@media (max-width: 768px) {
-  .categorias-grid {
     grid-template-columns: repeat(2, 1fr) !important;
-    gap: 1rem !important;
+    gap: 1.25rem !important;
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 640px) {
   .categorias-grid {
     grid-template-columns: 1fr !important;
-    gap: 0.875rem !important;
+    gap: 1rem !important;
   }
-  .ccat__thumb { aspect-ratio: 16 / 7 !important; }
-  .ccat__body  { padding: 1rem 1.125rem !important; }
+  .ccat__thumb { aspect-ratio: 16 / 8 !important; }
+  .ccat__body  { padding: 1.125rem 1.25rem 1.25rem !important; }
 }
 
 

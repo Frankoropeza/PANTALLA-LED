@@ -162,9 +162,11 @@ const categorias = [
               ))}
             </div>
 
-            <a href={url(cat.href)} class="link-arrow ccat__link" aria-label={`Ver modelos de ${cat.title}`}>
-              Ver modelos
-              <IconArrowRight size={14} />
+            <a href={url(cat.href)} class="ccat__footer" aria-label={`Ver modelos de ${cat.title}`}>
+              <span class="ccat__footer-label">Ver modelos</span>
+              <span class="ccat__footer-arrow" aria-hidden="true">
+                <IconArrowRight size={14} />
+              </span>
             </a>
           </div>
         </article>
@@ -184,30 +186,29 @@ const categorias = [
 <style>
   /* El fondo lo aporta .section--dark (sistema global) */
 
+  /* Grid fijo: 3 cards por fila en desktop */
   .categorias-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
-    margin-bottom: 3rem;
-  }
-
-  @media (min-width: 1440px) {
-    .categorias-grid { grid-template-columns: repeat(6, 1fr); gap: 1rem; }
-    .ccat__body { padding: 1rem; }
+    gap: 1.75rem;
+    margin-bottom: 3.5rem;
   }
 
   /* ─── Tarjeta base ─── */
   .ccat {
+    position: relative;
     display: flex; flex-direction: column;
-    background: var(--c-surface);
+    background: linear-gradient(180deg, var(--c-surface) 0%, var(--c-bg-2) 100%);
     border: 1px solid var(--c-border);
-    border-radius: var(--radius-lg); overflow: hidden;
-    transition: border-color .22s, box-shadow .22s, transform .22s;
+    border-radius: var(--radius-xl); overflow: hidden;
+    transition: border-color .25s var(--ease), box-shadow .25s var(--ease), transform .25s var(--ease);
   }
   .ccat:hover {
-    border-color: var(--c-primary);
-    box-shadow: 0 0 32px rgba(var(--c-primary-rgb), 0.2);
-    transform: translateY(-3px);
+    border-color: rgba(var(--c-primary-rgb), 0.55);
+    box-shadow:
+      0 16px 40px rgba(0, 0, 0, 0.45),
+      0 0 32px rgba(var(--c-primary-rgb), 0.16);
+    transform: translateY(-5px);
   }
   .ccat--highlight {
     border-color: rgba(var(--c-primary-rgb), 0.38);
@@ -217,29 +218,41 @@ const categorias = [
   /* ─── Thumbnail ─── */
   .ccat__thumb {
     position: relative;
-    aspect-ratio: 16/7; overflow: hidden;
+    aspect-ratio: 16/9; overflow: hidden;
     display: flex; align-items: center; justify-content: center;
+  }
+  .ccat__thumb::after {
+    /* Fade hacia el cuerpo: integra el visual con la tarjeta */
+    content: '';
+    position: absolute; inset: auto 0 0 0; height: 45%;
+    background: linear-gradient(180deg, transparent 0%, rgba(8, 12, 24, 0.55) 100%);
+    z-index: 2; pointer-events: none;
   }
   .ccat__thumb-pixels {
     position: absolute; inset: 0;
     background-image: radial-gradient(circle, rgba(255,255,255,0.14) 1px, transparent 1px);
     background-size: 6px 6px; opacity: 0.7;
   }
-  .ccat__thumb-glow { position: absolute; inset: 0; opacity: .9; }
+  .ccat__thumb-glow {
+    position: absolute; inset: 0; opacity: .85;
+    transition: opacity .25s var(--ease), transform .35s var(--ease);
+  }
+  .ccat:hover .ccat__thumb-glow { opacity: 1; transform: scale(1.06); }
   .ccat__thumb-icon {
     position: relative; z-index: 2;
-    filter: drop-shadow(0 0 10px currentColor);
-    transition: transform .22s;
+    filter: drop-shadow(0 0 12px currentColor);
+    transition: transform .25s var(--ease);
   }
-  .ccat:hover .ccat__thumb-icon { transform: scale(1.1); }
+  .ccat:hover .ccat__thumb-icon { transform: scale(1.12) translateY(-2px); }
+  .ccat__thumb-icon svg { width: 44px; height: 44px; }
 
   .ccat__thumb-badge {
-    position: absolute; top: 9px; left: 9px; z-index: 3;
-    font-size: 0.6rem; font-weight: 700; letter-spacing: 0.07em;
-    text-transform: uppercase; color: rgba(255,255,255,0.92);
-    background: rgba(0,0,0,0.55); border: 1px solid rgba(255,255,255,0.15);
-    backdrop-filter: blur(4px);
-    padding: 0.2rem 0.6rem; border-radius: var(--radius-full);
+    position: absolute; top: 12px; left: 12px; z-index: 3;
+    font-size: 0.625rem; font-weight: 700; letter-spacing: 0.08em;
+    text-transform: uppercase; color: rgba(255,255,255,0.95);
+    background: rgba(8, 12, 24, 0.65); border: 1px solid rgba(255,255,255,0.18);
+    backdrop-filter: blur(8px);
+    padding: 0.3rem 0.7rem; border-radius: var(--radius-full);
   }
 
   /*
@@ -297,32 +310,72 @@ const categorias = [
 
   /* ─── Body ─── */
   .ccat__body {
-    padding: 1.25rem; flex: 1;
-    display: flex; flex-direction: column; gap: 0.5rem;
+    padding: 1.375rem 1.5rem 1.5rem; flex: 1;
+    display: flex; flex-direction: column; gap: 0.625rem;
   }
   .ccat__title {
-    font-size: 1.0625rem; font-weight: 700;
-    color: var(--c-ink); line-height: 1.25; letter-spacing: -.015em;
+    font-size: 1.125rem; font-weight: 700;
+    color: var(--c-ink); line-height: 1.25; letter-spacing: -.02em;
+    transition: color .2s var(--ease);
   }
+  .ccat:hover .ccat__title { color: var(--c-primary-soft); }
   .ccat__desc {
     font-size: 0.875rem; color: var(--c-muted); line-height: 1.65; flex: 1;
   }
   .ccat__specs {
-    display: flex; flex-wrap: wrap; gap: .375rem; margin-top: .25rem;
+    display: flex; flex-wrap: wrap; gap: .4rem; margin-top: .375rem;
   }
   .ccat__spec {
-    font-size: .6875rem; font-weight: 600; color: var(--c-muted);
-    background: rgba(255,255,255,.04);
-    border: 1px solid var(--c-border);
-    border-radius: 4px; padding: .2rem .5rem;
+    font-size: .6875rem; font-weight: 600; letter-spacing: .03em;
+    color: var(--c-ink-2);
+    background: rgba(var(--c-primary-rgb), .08);
+    border: 1px solid rgba(var(--c-primary-rgb), .18);
+    border-radius: var(--radius-full); padding: .25rem .65rem;
+    transition: background .2s var(--ease), border-color .2s var(--ease);
   }
-  /* Hereda .link-arrow (sistema global); solo ajuste de posición */
-  .ccat__link { margin-top: .5rem; }
+  .ccat:hover .ccat__spec {
+    background: rgba(var(--c-primary-rgb), .12);
+    border-color: rgba(var(--c-primary-rgb), .3);
+  }
 
-  /* ─── Footer ─── */
+  /* ─── Footer de tarjeta: enlace con flecha circular ─── */
+  .ccat__footer {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-top: 1.125rem; padding-top: 1rem;
+    border-top: 1px solid var(--c-border);
+  }
+  .ccat__footer::after {
+    /* Extiende el área clickeable a toda la tarjeta */
+    content: '';
+    position: absolute; inset: 0; z-index: 1;
+  }
+  .ccat__footer-label {
+    font-size: .8125rem; font-weight: 600;
+    color: var(--c-primary);
+    letter-spacing: .01em;
+    transition: color .2s var(--ease);
+  }
+  .ccat:hover .ccat__footer-label { color: var(--c-primary-soft); }
+  .ccat__footer-arrow {
+    display: flex; align-items: center; justify-content: center;
+    width: 32px; height: 32px; border-radius: 50%;
+    border: 1px solid var(--c-border);
+    color: var(--c-muted);
+    transition: border-color .2s var(--ease), color .2s var(--ease),
+                background .2s var(--ease), transform .2s var(--ease);
+  }
+  .ccat:hover .ccat__footer-arrow {
+    border-color: var(--c-primary);
+    background: var(--c-primary);
+    color: var(--c-white);
+    transform: translateX(3px);
+  }
+
+  /* ─── Footer de sección ─── */
   /* El CTA usa .btn .btn--outline .btn--lg (sistema global) */
   .categorias-footer { display: flex; justify-content: center; }
 
-  @media (max-width: 1024px) { .categorias-grid { grid-template-columns: repeat(2,1fr); } }
+  /* ─── Responsive: 3 → 2 → 1 ─── */
+  @media (max-width: 1024px) { .categorias-grid { grid-template-columns: repeat(2,1fr); gap: 1.25rem; } }
   @media (max-width: 640px)  { .categorias-grid { grid-template-columns: 1fr; } }
 </style>

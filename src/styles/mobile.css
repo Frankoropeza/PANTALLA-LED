@@ -286,12 +286,9 @@
 
 
 /* ──────────────────────────────────────────────────────────────────
-   12. PROCESO — pasos compactos en móvil
-   (el componente ya maneja su breakpoint 640; aquí solo refuerzo táctil)
+   12. PROCESO — el componente maneja su propio responsive
+   (grid 2-col → 1-col en 768; tarjetas compactas en 640)
    ────────────────────────────────────────────────────────────────── */
-@media (max-width: 640px) {
-  .proceso-paso { gap: 1rem !important; }
-}
 
 
 /* ──────────────────────────────────────────────────────────────────

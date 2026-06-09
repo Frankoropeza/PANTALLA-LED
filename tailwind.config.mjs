@@ -1,6 +1,10 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ['./src/**/*.{astro,html,js,jsx,md,mdx,ts,tsx}'],
+  corePlugins: {
+    // Disable Tailwind's .container — we use our own full-width version
+    container: false,
+  },
   theme: {
     extend: {
       colors: {
@@ -17,8 +21,7 @@ export default {
         dark: '#0A0A0A',
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'],
-        heading: ['Montserrat', 'sans-serif'],
+        sans: ['Outfit', 'system-ui', 'sans-serif'],
       },
     },
   },

@@ -28,3 +28,6 @@ pnpm-debug.log*
 # IDE
 .vscode/
 .idea/
+
+# analysis output
+graphify-out/

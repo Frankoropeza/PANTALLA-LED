@@ -1,6 +1,6 @@
 ---
-// HeroIndex.astro — Hero principal del sitio
-// Layout split: texto izquierda + panel LED visual derecha
+// HeroIndex.astro — Hero principal
+// Dos columnas: título grande (izq) · párrafos + CTAs (der)
 
 import { waUrl, WA_MESSAGES } from '../../config/site'
 import { url } from '../../utils/url'
@@ -8,6 +8,7 @@ import { url } from '../../utils/url'
 
 <section class="hero" aria-labelledby="hero-heading">
 
+  <!-- Fondo decorativo -->
   <div class="hero__bg" aria-hidden="true">
     <div class="hero__grid"></div>
     <div class="hero__glow hero__glow--tl"></div>
@@ -16,24 +17,61 @@ import { url } from '../../utils/url'
 
   <div class="container hero__inner">
 
-    <!-- ── Columna de texto ── -->
-    <div class="hero__content">
+    <!-- ══ Columna 1 — Título ══ -->
+    <div class="hero__col hero__col--title">
 
       <p class="hero__eyebrow">
         <span class="hero__eyebrow-dot" aria-hidden="true"></span>
-        Proveedor directo · Sin intermediarios · Garantía 2 años
+        Proveedor directo · Sin intermediarios
       </p>
 
       <h1 id="hero-heading" class="hero__title">
-        Pantallas LED de<br/>
-        Alta Resolución<br/>
-        <span class="hero__title-accent">para México</span>
+        Pantallas<br/>
+        LED de<br/>
+        Alta<br/>
+        <span class="hero__title-accent">Resolución</span>
       </h1>
 
-      <p class="hero__desc">
-        Venta, renta e instalación de pantallas LED para publicidad exterior,
-        interiores, eventos y espectaculares. Tecnología SMD y COB con cotización
-        gratuita el mismo día en toda la República Mexicana.
+      <div class="hero__stats" aria-label="Métricas del negocio">
+        <div class="hero__stat">
+          <strong class="hero__stat-val">+500</strong>
+          <span class="hero__stat-lbl">Instalaciones</span>
+        </div>
+        <div class="hero__stat-sep" aria-hidden="true"></div>
+        <div class="hero__stat">
+          <strong class="hero__stat-val">10+</strong>
+          <span class="hero__stat-lbl">Años de exp.</span>
+        </div>
+        <div class="hero__stat-sep" aria-hidden="true"></div>
+        <div class="hero__stat">
+          <strong class="hero__stat-val">2</strong>
+          <span class="hero__stat-lbl">Años garantía</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Separador vertical -->
+    <div class="hero__divider" aria-hidden="true"></div>
+
+    <!-- ══ Columna 2 — Cuerpo ══ -->
+    <div class="hero__col hero__col--body">
+
+      <span class="hero__kicker">Para México · Tecnología SMD &amp; COB</span>
+
+      <p class="hero__p">
+        Somos proveedores directos de pantallas LED de alta resolución para
+        publicidad exterior, interiores y eventos. Equipos IP65 con hasta
+        10,000 nits para exteriores e interiores Ultra HD desde P2 — sin
+        intermediarios, con cotización gratuita el mismo día en toda la
+        República Mexicana.
+      </p>
+
+      <p class="hero__p">
+        Instalación certificada por técnicos especializados con más de 10 años
+        de experiencia. Garantía real de fábrica de 2 años, soporte técnico
+        24/7 y respuesta garantizada en menos de 2 horas. Un solo proveedor
+        para todo el ciclo de vida de tu pantalla LED.
       </p>
 
       <div class="hero__ctas">
@@ -58,340 +96,263 @@ import { url } from '../../utils/url'
 
       <div class="hero__trust">
         <span class="hero__trust-item">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
           Garantía 2 años
         </span>
         <span class="hero__trust-item">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
           Entrega en todo México
         </span>
         <span class="hero__trust-item">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
           Instalación certificada
         </span>
         <span class="hero__trust-item">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
           Soporte 24/7
         </span>
       </div>
-    </div>
 
-    <!-- ── Visual: panel LED simulado ── -->
-    <div class="hero__visual" aria-hidden="true">
-      <div class="led-panel">
-
-        <!-- Marco exterior -->
-        <div class="led-panel__bezel">
-
-          <!-- Pantalla interior -->
-          <div class="led-panel__screen">
-            <div class="led-panel__pixels"></div>
-            <div class="led-panel__scan"></div>
-
-            <!-- Contenido del panel -->
-            <div class="led-panel__content">
-              <span class="led-text led-text--sm">PANTALLA LED</span>
-              <span class="led-text led-text--lg">P4</span>
-              <span class="led-text led-text--sm">5,000 NITS · IP65</span>
-              <div class="led-bar">
-                <div class="led-bar__fill"></div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Indicadores -->
-          <div class="led-indicators">
-            <span class="led-dot led-dot--green"></span>
-            <span class="led-dot led-dot--blue"></span>
-            <span class="led-dot led-dot--amber"></span>
-          </div>
-        </div>
-
-        <!-- Specs flotantes -->
-        <div class="led-spec led-spec--tl">
-          <span class="led-spec__badge">IP65</span>
-          Intemperie
-        </div>
-        <div class="led-spec led-spec--tr">
-          <span class="led-spec__badge">SMD</span>
-          Alta res.
-        </div>
-        <div class="led-spec led-spec--bl">
-          <span class="led-spec__badge">COB</span>
-          10 Bits
-        </div>
-        <div class="led-spec led-spec--br">
-          <span class="led-spec__badge">24/7</span>
-          Soporte
-        </div>
-
-        <!-- Glow ambiental -->
-        <div class="led-panel__glow"></div>
-      </div>
     </div>
 
   </div>
 </section>
 
 <style>
-  /* ─── Sección ─── */
+  /* ─── Sección ─────────────────────────────────────── */
   .hero {
     position: relative;
-    min-height: 92vh;
+    min-height: 88vh;
     display: flex;
     align-items: center;
     overflow: hidden;
     padding-block: clamp(5rem, 8vw, 7rem);
   }
 
-  /* ─── Fondo ─── */
+  /* ─── Fondo ─────────────────────────────────────────── */
   .hero__bg { position: absolute; inset: 0; pointer-events: none; }
 
   .hero__grid {
     position: absolute; inset: 0;
-    opacity: 0.05;
+    opacity: 0.035;
     background-image:
       linear-gradient(rgba(0,102,204,1) 1px, transparent 1px),
       linear-gradient(90deg, rgba(0,102,204,1) 1px, transparent 1px);
-    background-size: 64px 64px;
+    background-size: 72px 72px;
   }
 
-  .hero__glow {
-    position: absolute; border-radius: 50%; filter: blur(120px);
-  }
+  .hero__glow { position: absolute; border-radius: 50%; filter: blur(140px); }
   .hero__glow--tl {
-    top: -20%; left: -5%;
-    width: 50vw; height: 60vh;
-    background: radial-gradient(ellipse, rgba(0,102,204,0.22) 0%, transparent 70%);
+    top: -20%; left: -8%;
+    width: 55vw; height: 65vh;
+    background: radial-gradient(ellipse, rgba(0,102,204,0.22) 0%, transparent 68%);
   }
   .hero__glow--br {
-    bottom: -15%; right: 10%;
+    bottom: -20%; right: 5%;
     width: 40vw; height: 50vh;
-    background: radial-gradient(ellipse, rgba(0,60,180,0.16) 0%, transparent 70%);
+    background: radial-gradient(ellipse, rgba(0,60,180,0.15) 0%, transparent 70%);
   }
 
-  /* ─── Layout ─── */
+  /* ─── Grid principal ─────────────────────────────── */
   .hero__inner {
     position: relative; z-index: 1;
     display: grid;
-    grid-template-columns: 55% 1fr;
-    gap: clamp(3rem, 6vw, 6rem);
+    grid-template-columns: 1fr 1px 1fr;
+    column-gap: clamp(2.5rem, 4.5vw, 4.5rem);
     align-items: center;
     width: 100%;
   }
 
-  /* ─── Contenido ─── */
-  .hero__content { display: flex; flex-direction: column; gap: 2rem; }
+  /* ─── Separador vertical ──────────────────────────── */
+  .hero__divider {
+    width: 1px;
+    align-self: stretch;
+    min-height: 420px;
+    background: linear-gradient(
+      to bottom,
+      transparent 0%,
+      var(--c-border) 18%,
+      var(--c-border-2) 50%,
+      var(--c-border) 82%,
+      transparent 100%
+    );
+  }
 
+  /* ─── Columnas ────────────────────────────────────── */
+  .hero__col {
+    display: flex;
+    flex-direction: column;
+  }
+  .hero__col--title { gap: 2.25rem; }
+  .hero__col--body  { gap: 1.625rem; }
+
+  /* ─── Eyebrow ─────────────────────────────────────── */
   .hero__eyebrow {
     display: inline-flex; align-items: center; gap: 0.5rem;
-    background: rgba(0,102,204,0.1);
-    border: 1px solid rgba(0,102,204,0.28);
-    color: rgba(150,200,255,0.9);
-    font-size: 0.8125rem; font-weight: 500;
-    padding: 0.4rem 1.1rem; border-radius: 100px;
+    background: rgba(0,102,204,0.08);
+    border: 1px solid rgba(0,102,204,0.25);
+    color: rgba(140,195,255,0.9);
+    font-size: 0.8rem; font-weight: 500;
+    padding: 0.4rem 1rem; border-radius: 100px;
     letter-spacing: 0.02em; width: fit-content;
   }
   .hero__eyebrow-dot {
     width: 7px; height: 7px; background: var(--c-primary);
-    border-radius: 50%; animation: pulse 2s ease-in-out infinite; flex-shrink: 0;
+    border-radius: 50%; flex-shrink: 0;
+    animation: pulse 2.2s ease-in-out infinite;
   }
-  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(.78)} }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50%       { opacity: .4; transform: scale(.7); }
+  }
 
+  /* ─── Título ──────────────────────────────────────── */
   .hero__title {
-    font-size: clamp(2.75rem, 5.5vw, 5.5rem);
-    font-weight: 800; color: var(--c-ink);
-    line-height: 1.04; letter-spacing: -0.035em;
+    font-size: clamp(2.875rem, 5.5vw, 5.5rem);
+    font-weight: 800;
+    color: var(--c-ink);
+    line-height: 1.02;
+    letter-spacing: -0.035em;
   }
   .hero__title-accent {
-    background: linear-gradient(135deg, #60b4ff 0%, #0066cc 55%);
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    background: linear-gradient(130deg, #72c6ff 0%, #1a7fe8 45%, #0050b8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
 
-  .hero__desc {
-    font-size: clamp(1rem, 1.3vw, 1.125rem);
-    color: var(--c-ink-2); line-height: 1.8;
-    max-width: 56ch;
+  /* ─── Stats ───────────────────────────────────────── */
+  .hero__stats {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding-top: 1.75rem;
+    border-top: 1px solid var(--c-border);
+  }
+  .hero__stat {
+    display: flex; flex-direction: column; gap: 0.2rem;
+  }
+  .hero__stat-val {
+    font-size: clamp(1.375rem, 2vw, 1.75rem);
+    font-weight: 800; color: var(--c-ink);
+    line-height: 1; letter-spacing: -0.02em;
+  }
+  .hero__stat-lbl {
+    font-size: 0.725rem; color: var(--c-muted);
+    font-weight: 500; letter-spacing: 0.025em;
+  }
+  .hero__stat-sep {
+    width: 1px; height: 36px;
+    background: var(--c-border); flex-shrink: 0;
   }
 
-  /* ─── CTAs ─── */
-  .hero__ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
+  /* ─── Kicker ──────────────────────────────────────── */
+  .hero__kicker {
+    font-size: 0.75rem; font-weight: 600;
+    color: var(--c-primary);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  /* ─── Párrafos ────────────────────────────────────── */
+  .hero__p {
+    font-size: clamp(0.9375rem, 1.1vw, 1.0625rem);
+    color: var(--c-ink-2);
+    line-height: 1.85;
+  }
+
+  /* ─── CTAs ────────────────────────────────────────── */
+  .hero__ctas {
+    display: flex; gap: 0.875rem; flex-wrap: wrap;
+    padding-top: 0.375rem;
+  }
 
   .hero__btn-primary {
     display: inline-flex; align-items: center; gap: 0.5rem;
     background: var(--c-primary); color: #fff;
-    padding: 1rem 2rem; border-radius: 8px;
-    font-size: 1rem; font-weight: 700;
-    box-shadow: 0 4px 24px rgba(0,102,204,0.45);
+    padding: 0.9375rem 1.875rem; border-radius: 8px;
+    font-size: 0.9375rem; font-weight: 700;
+    box-shadow: 0 4px 20px rgba(0,102,204,0.4);
     transition: background .2s, transform .15s, box-shadow .2s;
+    white-space: nowrap;
   }
   .hero__btn-primary:hover {
     background: var(--c-primary-dark); color: #fff;
-    transform: translateY(-2px); box-shadow: 0 8px 32px rgba(0,102,204,0.55);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(0,102,204,0.5);
   }
+  .hero__btn-primary:active { transform: translateY(0); }
 
   .hero__btn-wa {
     display: inline-flex; align-items: center; gap: 0.5rem;
-    background: rgba(37,211,102,0.1);
-    border: 1.5px solid rgba(37,211,102,0.35);
+    background: rgba(37,211,102,0.07);
+    border: 1.5px solid rgba(37,211,102,0.28);
     color: #25D366;
-    padding: 1rem 2rem; border-radius: 8px;
-    font-size: 1rem; font-weight: 600;
+    padding: 0.9375rem 1.875rem; border-radius: 8px;
+    font-size: 0.9375rem; font-weight: 600;
     transition: background .2s, border-color .2s, transform .15s;
+    white-space: nowrap;
   }
   .hero__btn-wa:hover {
-    background: rgba(37,211,102,0.18);
-    border-color: rgba(37,211,102,0.6);
-    transform: translateY(-1px); color: #25D366;
+    background: rgba(37,211,102,0.14);
+    border-color: rgba(37,211,102,0.5);
+    color: #25D366;
+    transform: translateY(-1px);
   }
+  .hero__btn-wa:active { transform: translateY(0); }
 
-  /* ─── Trust ─── */
+  /* ─── Trust ───────────────────────────────────────── */
   .hero__trust {
-    display: flex; flex-wrap: wrap; gap: 1.5rem;
-    padding-top: 1rem; border-top: 1px solid var(--c-border);
+    display: flex; flex-wrap: wrap; gap: 1.125rem;
+    padding-top: 0.25rem;
+    border-top: 1px solid rgba(30,45,80,0.6);
   }
   .hero__trust-item {
     display: flex; align-items: center; gap: 0.375rem;
-    font-size: 0.875rem; color: var(--c-muted); font-weight: 500;
+    font-size: 0.8125rem; color: var(--c-muted); font-weight: 500;
   }
   .hero__trust-item svg { color: var(--c-primary); flex-shrink: 0; }
 
-  /* ─── Visual LED Panel ─── */
-  .hero__visual { display: flex; align-items: center; justify-content: center; }
-
-  .led-panel { position: relative; width: 100%; padding: 24px 0; }
-
-  .led-panel__bezel {
-    position: relative;
-    background: #070c1a;
-    border: 2.5px solid #1c2e52;
-    border-radius: 12px;
-    padding: 7px;
-    box-shadow:
-      0 0 0 1px rgba(0,50,120,0.3),
-      0 24px 60px rgba(0,0,0,0.75),
-      0 0 100px rgba(0,70,200,0.15);
-    aspect-ratio: 16/9;
-    overflow: visible;
-  }
-
-  .led-panel__screen {
-    position: relative; width: 100%; height: 100%;
-    background: #020508;
-    border-radius: 7px; overflow: hidden;
-  }
-
-  .led-panel__pixels {
-    position: absolute; inset: 0;
-    background-image: radial-gradient(circle, rgba(0,120,255,0.5) 1.1px, transparent 1.1px);
-    background-size: 5px 5px;
-    animation: led-breathe 4s ease-in-out infinite;
-  }
-  @keyframes led-breathe { 0%,100%{opacity:.5} 50%{opacity:1} }
-
-  .led-panel__scan {
-    position: absolute; inset: 0;
-    background: linear-gradient(
-      180deg,
-      transparent 0%,
-      rgba(0,120,255,0.07) 48%,
-      rgba(0,160,255,0.16) 50%,
-      rgba(0,120,255,0.07) 52%,
-      transparent 100%
-    );
-    animation: scan 3.5s linear infinite;
-    pointer-events: none;
-  }
-  @keyframes scan { 0%{transform:translateY(-110%)} 100%{transform:translateY(110%)} }
-
-  .led-panel__content {
-    position: absolute; inset: 0;
-    display: flex; flex-direction: column;
-    align-items: center; justify-content: center; gap: 0.4rem;
-    z-index: 2;
-  }
-
-  .led-text {
-    font-family: 'Courier New', monospace; font-weight: 700;
-    color: rgba(0,180,255,0.9); letter-spacing: 0.15em;
-    text-shadow: 0 0 12px rgba(0,150,255,0.8), 0 0 24px rgba(0,100,200,0.4);
-    line-height: 1;
-  }
-  .led-text--sm { font-size: clamp(0.5rem, 1vw, 0.7rem); opacity: 0.75; }
-  .led-text--lg {
-    font-size: clamp(2rem, 5vw, 3.5rem); color: #fff;
-    text-shadow: 0 0 20px rgba(0,150,255,1), 0 0 40px rgba(0,100,200,0.7);
-    animation: flicker 8s ease-in-out infinite;
-  }
-  @keyframes flicker { 0%,94%,100%{opacity:1} 95%{opacity:.88} 96%{opacity:1} 97%{opacity:.92} }
-
-  .led-bar {
-    width: 70px; height: 3px;
-    background: rgba(255,255,255,0.1);
-    border-radius: 2px; overflow: hidden; margin-top: 0.3rem;
-  }
-  .led-bar__fill {
-    height: 100%;
-    background: linear-gradient(90deg, #0055cc, #00aaff);
-    border-radius: 2px;
-    animation: bar 2.8s ease-in-out infinite alternate;
-  }
-  @keyframes bar { from{width:55%} to{width:88%} }
-
-  .led-indicators {
-    position: absolute; bottom: 8px; right: 10px;
-    display: flex; gap: 5px;
-  }
-  .led-dot {
-    width: 6px; height: 6px; border-radius: 50%;
-    animation: blink 2.2s ease-in-out infinite;
-  }
-  .led-dot--green { background: #22c55e; }
-  .led-dot--blue  { background: #3b82f6; animation-delay: .65s; }
-  .led-dot--amber { background: #f59e0b; animation-delay: 1.3s; }
-  @keyframes blink { 0%,75%,100%{opacity:1} 85%{opacity:.25} }
-
-  .led-panel__glow {
-    position: absolute; inset: -24px;
-    background: radial-gradient(ellipse at 50% 50%, rgba(0,80,200,0.22) 0%, transparent 65%);
-    filter: blur(16px);
-    pointer-events: none; z-index: -1; border-radius: 20px;
-  }
-
-  /* Specs flotantes */
-  .led-spec {
-    position: absolute;
-    display: flex; flex-direction: column; align-items: center; gap: 3px;
-    font-size: 0.6rem; font-weight: 600;
-    color: rgba(160,200,255,0.75); text-align: center; letter-spacing: 0.04em;
-  }
-  .led-spec--tl { top: -2px; left: -4px; }
-  .led-spec--tr { top: -2px; right: -4px; }
-  .led-spec--bl { bottom: -2px; left: -4px; }
-  .led-spec--br { bottom: -2px; right: -4px; }
-
-  .led-spec__badge {
-    display: block;
-    background: rgba(0,102,204,0.2);
-    border: 1px solid rgba(0,102,204,0.4);
-    color: rgba(100,180,255,0.95);
-    padding: 0.1rem 0.45rem;
-    border-radius: 4px; font-size: 0.6rem; font-weight: 700; letter-spacing: 0.06em;
-  }
-
-  /* ─── Responsive ─── */
+  /* ─── Responsive ──────────────────────────────────── */
   @media (max-width: 1024px) {
-    .hero__inner { grid-template-columns: 1fr; gap: 3.5rem; text-align: center; }
-    .hero__eyebrow { margin: 0 auto; }
-    .hero__desc { max-width: 100%; }
-    .hero__ctas { justify-content: center; }
-    .hero__trust { justify-content: center; }
-    .hero__visual { max-width: 520px; margin: 0 auto; }
-    .led-spec { display: none; }
+    .hero__inner {
+      grid-template-columns: 1fr;
+      column-gap: 0;
+      row-gap: 3rem;
+    }
+    .hero__divider { display: none; }
+    .hero__col--title { align-items: center; text-align: center; }
+    .hero__col--body  { align-items: center; text-align: center; }
+    .hero__stats      { justify-content: center; }
+    .hero__ctas       { justify-content: center; }
+    .hero__trust      { justify-content: center; }
+    .hero__p          { max-width: 58ch; }
   }
+
   @media (max-width: 640px) {
-    .hero { min-height: auto; padding-block: 4rem 3rem; }
-    .hero__btn-primary, .hero__btn-wa { flex: 1; justify-content: center; }
-    .hero__visual { max-width: 360px; }
+    .hero {
+      min-height: auto;
+      padding-block: 3.5rem 3rem;
+    }
+    .hero__title { font-size: clamp(2.5rem, 10vw, 3.25rem); }
+    .hero__ctas {
+      flex-direction: column;
+      width: 100%;
+      gap: 0.75rem;
+    }
+    .hero__btn-primary,
+    .hero__btn-wa {
+      width: 100%;
+      justify-content: center;
+      padding: 1rem 1.25rem;
+    }
+    .hero__stats { gap: 1.125rem; }
+    .hero__stat-val { font-size: 1.25rem; }
+    .hero__p { font-size: 0.9375rem; line-height: 1.8; }
+  }
+
+  @media (max-width: 380px) {
+    .hero__title { font-size: 2.25rem; }
+    .hero__eyebrow { font-size: 0.75rem; padding: 0.35rem 0.85rem; }
   }
 </style>

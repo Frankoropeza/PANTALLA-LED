@@ -15,8 +15,9 @@ Vault de documentación del sistema de diseño y arquitectura del sitio [pantall
 ### 02 · Componentes reutilizables
 - [[Botones]] — `.btn` y todas sus variantes
 - [[Encabezados de Sección]] — SectionHeaderDuo, SectionHeader, sidebar-header
+- [[Page Hero]] — hero compacto + breadcrumb para páginas L2
 - [[Split Layout]] — layout 2 columnas con sidebar sticky
-- [[Tarjetas]] — el patrón card unificado del sitio
+- [[Tarjetas]] — el patrón card unificado del sitio (incluye CategoryCard)
 - [[Iconos]] — componentes Astro de `ui/icons/`
 - [[Utilidades]] — link-arrow, stat-row, tabla-seo, chips y badges
 
@@ -35,11 +36,15 @@ Vault de documentación del sistema de diseño y arquitectura del sitio [pantall
 - [[Crear una Página Nueva]] — checklist completo
 - [[Crear una Sección Nueva]] — receta paso a paso reusando el sistema
 
+### 06 · Páginas L2
+- [[Productos]] — /productos/ (plantilla de referencia L2)
+
 ## Estado actual
 
 | Área | Estado |
 |---|---|
 | Index (`/`) | ✅ Homologado al sistema (jun 2026) |
-| `/productos`, `/servicios`, `/contacto` | ⚠️ Legacy — usan `Layout.astro` viejo, pendiente migrar a `Base.astro` |
+| `/productos/` | ✅ Migrada a Base + sistema (jun 2026) — referencia L2 |
+| `/servicios`, `/contacto`, `/productos/[slug]` | ⚠️ Legacy — usan `Layout.astro` viejo, pendiente migrar |
 | Páginas de categoría de producto | ❌ No existen aún (los CTAs ya apuntan a ellas) |
 | `/nosotros` | ❌ No existe (TrustIndex enlaza a ella) |

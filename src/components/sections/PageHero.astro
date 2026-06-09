@@ -1,0 +1,146 @@
+---
+// PageHero.astro — Hero compacto para páginas L2 (productos, servicios…)
+// Breadcrumb + eyebrow + H1 SEO + descripción + slot opcional de acciones.
+// El schema BreadcrumbList lo emite cada página (ver vault: SEO y Datos).
+
+import { url } from '../../utils/url'
+
+interface Crumb {
+  label: string
+  href?: string // sin href = página actual
+}
+
+interface Props {
+  eyebrow: string
+  title: string // admite <span> para keyword acentuada
+  desc: string
+  crumbs: Crumb[]
+}
+
+const { eyebrow, title, desc, crumbs } = Astro.props
+---
+
+<!-- Breadcrumb -->
+<div class="breadcrumb-bar">
+  <nav class="container" aria-label="Migas de pan">
+    <ol class="breadcrumb__list">
+      {crumbs.map((crumb, i) => (
+        <li class="breadcrumb__item">
+          {crumb.href ? (
+            <a href={url(crumb.href)} class="breadcrumb__link">{crumb.label}</a>
+          ) : (
+            <span class="breadcrumb__current" aria-current="page">{crumb.label}</span>
+          )}
+          {i < crumbs.length - 1 && (
+            <svg class="breadcrumb__sep" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+              <polyline points="9 18 15 12 9 6"/>
+            </svg>
+          )}
+        </li>
+      ))}
+    </ol>
+  </nav>
+</div>
+
+<!-- Hero -->
+<section class="page-hero" aria-labelledby="page-hero-heading">
+  <div class="page-hero__bg" aria-hidden="true">
+    <div class="page-hero__grid"></div>
+    <div class="page-hero__glow"></div>
+  </div>
+
+  <div class="container page-hero__inner">
+    <p class="page-hero__eyebrow">
+      <span class="page-hero__eyebrow-bar" aria-hidden="true"></span>
+      {eyebrow}
+    </p>
+    <h1 id="page-hero-heading" class="page-hero__title" set:html={title} />
+    <p class="page-hero__desc">{desc}</p>
+    <slot name="actions" />
+  </div>
+</section>
+
+<style>
+  .page-hero {
+    position: relative;
+    overflow: hidden;
+    padding-block: clamp(3.5rem, 6vw, 5.5rem);
+    border-bottom: 1px solid var(--c-border);
+  }
+
+  /* ─── Fondo (mismo lenguaje que el hero L1) ─── */
+  .page-hero__bg { position: absolute; inset: 0; pointer-events: none; }
+  .page-hero__grid {
+    position: absolute; inset: 0;
+    opacity: 0.03;
+    background-image:
+      linear-gradient(rgba(var(--c-primary-rgb), 1) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(var(--c-primary-rgb), 1) 1px, transparent 1px);
+    background-size: 72px 72px;
+  }
+  .page-hero__glow {
+    position: absolute;
+    top: -40%; left: -5%;
+    width: 50vw; height: 120%;
+    border-radius: 50%;
+    filter: blur(120px);
+    background: radial-gradient(ellipse, rgba(var(--c-primary-rgb), 0.18) 0%, transparent 70%);
+  }
+
+  /* ─── Contenido ─── */
+  .page-hero__inner {
+    position: relative; z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.125rem;
+  }
+
+  .page-hero__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.625rem;
+    font-size: 0.75rem;
+    font-weight: var(--weight-semibold);
+    color: var(--c-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+  }
+  .page-hero__eyebrow-bar {
+    display: block;
+    width: 28px; height: 2px;
+    background: var(--c-primary);
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+
+  .page-hero__title {
+    font-size: clamp(2.25rem, 4.5vw, 3.75rem);
+    font-weight: var(--weight-black);
+    color: var(--c-ink);
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    max-width: 18ch;
+  }
+  .page-hero__title :global(span) { color: var(--c-primary); }
+
+  .page-hero__desc {
+    font-size: clamp(0.9375rem, 1.1vw, 1.0625rem);
+    color: var(--c-ink-2);
+    line-height: 1.8;
+    max-width: 62ch;
+  }
+
+  /* ─── Breadcrumb item (lista global en global.css) ─── */
+  .breadcrumb__item {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--sp-1);
+  }
+
+  /* ─── Responsive ─── */
+  @media (max-width: 640px) {
+    .page-hero { padding-block: 2.5rem 3rem; }
+    .page-hero__title { font-size: clamp(1.875rem, 8vw, 2.5rem); }
+  }
+</style>

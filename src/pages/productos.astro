@@ -1,70 +1,292 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import { getCollection } from 'astro:content';
-import { url } from '../utils/url';
+/**
+ * productos.astro — Catálogo de pantallas LED (L2)
+ * Orquestador: PageHero + CtaBar + catálogo (CategoryCard) +
+ * modelos destacados (colección markdown) + especificaciones + CTA final.
+ * Schemas: BreadcrumbList + ItemList.
+ */
 
-const productos = await getCollection('productos');
+import { getCollection } from 'astro:content'
+
+import Base from '../layouts/Base.astro'
+import CtaBar from '../components/CtaBar.astro'
+import PageHero from '../components/sections/PageHero.astro'
+import SectionHeaderDuo from '../components/ui/SectionHeaderDuo.astro'
+import CategoryCard from '../components/ui/CategoryCard.astro'
+import EspecificacionesIndex from '../components/sections/EspecificacionesIndex.astro'
+import CTAFinalIndex from '../components/sections/CTAFinalIndex.astro'
+import IconArrowRight from '../components/ui/icons/IconArrowRight.astro'
+
+import { SITE } from '../config/site'
+import { CATEGORIAS } from '../config/categorias'
+import { url } from '../utils/url'
+
+// ─── Modelos destacados (colección markdown) ─────────────────────────────────
+const modelos = (await getCollection('productos')).sort(
+  (a, b) => a.data.order - b.data.order
+)
+
+// ─── Meta SEO ─────────────────────────────────────────────────────────────────
+const title = 'Catálogo de Pantallas LED | Venta Directa de Fábrica — PantallaLED'
+const description =
+  'Catálogo completo de pantallas LED en México: exteriores IP65, interiores Ultra HD, flexibles, para eventos, de piso y transparentes. Paso de pixel P2 a P10, garantía de 2 años y cotización el mismo día.'
+const canonical = `${SITE.url}/productos/`
+
+// ─── JSON-LD: BreadcrumbList ──────────────────────────────────────────────────
+const schemaBreadcrumb = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Inicio', item: SITE.url },
+    { '@type': 'ListItem', position: 2, name: 'Productos', item: canonical },
+  ],
+}
+
+// ─── JSON-LD: ItemList (categorías del catálogo) ──────────────────────────────
+const schemaItemList = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: 'Catálogo de Pantallas LED',
+  numberOfItems: CATEGORIAS.length,
+  itemListElement: CATEGORIAS.map((cat, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    name: cat.title,
+    url: `${SITE.url}${cat.href}`,
+  })),
+}
 ---
 
-<Layout
-  title="Productos"
-  description="Catálogo de pantallas LED para exterior e interior. Encuentra el modelo ideal para tu proyecto."
->
-  <!-- Hero -->
-  <section class="pt-32 pb-16 bg-dark">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <h1 class="section-title text-5xl">Catálogo de Productos</h1>
-      <p class="section-subtitle max-w-2xl mx-auto">
-        Pantallas LED de alta resolución para cada necesidad. Exteriores, interiores y formatos especiales.
-      </p>
+<Base {title} {description} {canonical}>
+
+  <!-- ─── Hero L2 ──────────────────────────────────────────────────────── -->
+  <PageHero
+    eyebrow="Catálogo 2026"
+    title="Catálogo de <span>Pantallas LED</span>"
+    desc="Seis líneas de producto con tecnología SMD y COB: desde espectaculares exteriores IP65 de alta luminosidad hasta interiores Ultra HD, módulos para eventos y soluciones arquitectónicas. Venta directa de fábrica con garantía de 2 años e instalación certificada en toda la República Mexicana."
+    crumbs={[
+      { label: 'Inicio', href: '/' },
+      { label: 'Productos' },
+    ]}
+  />
+
+  <CtaBar />
+
+  <!-- ─── Catálogo por categoría ───────────────────────────────────────── -->
+  <section class="section section--surface" id="catalogo" aria-labelledby="catalogo-heading">
+    <div class="container">
+
+      <SectionHeaderDuo
+        id="catalogo-heading"
+        eyebrow="Líneas de producto"
+        title="Encuentra la pantalla para <span>tu proyecto</span>"
+        desc="Cada categoría incluye múltiples pasos de pixel y formatos configurables a medida."
+        body1="Las pantallas exteriores dominan espectaculares, fachadas y vías de alto tráfico con hasta 10,000 nits y certificación IP65. Las interiores Ultra HD (P2–P4) entregan color de nivel broadcast para retail, lobbies corporativos y centros comerciales."
+        body2="Para proyectos especiales: módulos flexibles que se curvan sobre cualquier geometría, pantallas de piso de alta resistencia, transparentes para vitrinas y módulos de renta para escenarios y eventos. Todas las líneas con refacciones en stock y soporte 24/7."
+      />
+
+      <div class="catalogo-grid">
+        {CATEGORIAS.map((cat) => (
+          <CategoryCard categoria={cat} />
+        ))}
+      </div>
+
     </div>
   </section>
 
-  <!-- Filtros -->
-  <section class="py-6 bg-gray-950 border-b border-gray-800">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-wrap gap-3">
-      <span class="text-gray-400 text-sm self-center mr-2">Filtrar:</span>
-      {['Todos', 'Exterior', 'Interior', 'Flexible'].map((f) => (
-        <button class="px-4 py-1.5 rounded-full text-sm font-medium border border-gray-700 text-gray-300 hover:border-primary hover:text-primary transition-colors">
-          {f}
-        </button>
-      ))}
-    </div>
-  </section>
+  <!-- ─── Modelos destacados (markdown) ────────────────────────────────── -->
+  {modelos.length > 0 && (
+    <section class="section section--dark" id="modelos" aria-labelledby="modelos-heading">
+      <div class="container">
 
-  <!-- Productos Grid -->
-  <section class="py-16 bg-gray-950">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      {productos.length > 0 ? (
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {productos.map((p) => (
-            <a href={`/productos/${p.slug}`} class="card group">
-              <div class="aspect-video bg-gray-800 rounded-lg mb-4 flex items-center justify-center overflow-hidden">
-                {p.data.image ? (
-                  <img src={p.data.image} alt={p.data.title} class="w-full h-full object-cover" />
-                ) : (
-                  <span class="text-gray-600 text-sm">Imagen próximamente</span>
+        <SectionHeaderDuo
+          id="modelos-heading"
+          eyebrow="Fichas técnicas"
+          title="Modelos con <span>especificaciones completas</span>"
+          desc="Documentación técnica detallada: paso de pixel, luminosidad, ángulos de visión y aplicaciones."
+          body1="Cada ficha incluye tabla de especificaciones, casos de uso recomendados y los rangos de brillo certificados por el fabricante — la información que necesitas para comparar opciones antes de cotizar."
+          body2="¿No encuentras el modelo exacto? Configuramos cualquier medida y paso de pixel sobre pedido. Nuestros ingenieros te ayudan a definir la ficha técnica ideal para tu espacio sin costo."
+        />
+
+        <div class="modelos-grid">
+          {modelos.map((m) => (
+            <article class="pcard">
+              <div class="pcard__head">
+                <span class="pcard__tipo">{m.data.tipo}</span>
+                {m.data.destacado && <span class="pcard__destacado">Más solicitado</span>}
+              </div>
+              <h3 class="pcard__title">{m.data.title}</h3>
+              <p class="pcard__desc">{m.data.description}</p>
+              <dl class="pcard__specs">
+                <div class="pcard__spec">
+                  <dt>Paso de pixel</dt>
+                  <dd>{m.data.pixelPitch}</dd>
+                </div>
+                {m.data.luminosidad && (
+                  <div class="pcard__spec">
+                    <dt>Luminosidad</dt>
+                    <dd>{m.data.luminosidad}</dd>
+                  </div>
                 )}
-              </div>
-              <div class="flex items-center gap-2 mb-2">
-                <span class="bg-primary/10 text-primary text-xs font-medium px-2 py-0.5 rounded-full">
-                  {p.data.tipo}
+              </dl>
+              <a href={url(`/productos/${m.slug}/`)} class="pcard__footer" aria-label={`Ver ficha técnica de ${m.data.title}`}>
+                <span class="pcard__footer-label">Ver ficha técnica</span>
+                <span class="pcard__footer-arrow" aria-hidden="true">
+                  <IconArrowRight size={14} />
                 </span>
-              </div>
-              <h3 class="text-white font-semibold text-xl mb-2 group-hover:text-primary transition-colors">
-                {p.data.title}
-              </h3>
-              <p class="text-gray-400 text-sm mb-3">{p.data.description}</p>
-              <p class="text-gray-500 text-xs">Paso de pixel: {p.data.pixelPitch}</p>
-            </a>
+              </a>
+            </article>
           ))}
         </div>
-      ) : (
-        <div class="text-center py-20 text-gray-500">
-          <p class="text-lg">Catálogo en construcción. ¡Próximamente!</p>
-          <a href={url('/contacto')} class="btn-primary inline-flex mt-6">Contactar para más información</a>
-        </div>
-      )}
-    </div>
-  </section>
-</Layout>
+
+      </div>
+    </section>
+  )}
+
+  <!-- ─── Secciones compartidas con el index ───────────────────────────── -->
+  <EspecificacionesIndex />
+  <CTAFinalIndex />
+
+  <!-- ─── JSON-LD ──────────────────────────────────────────────────────── -->
+  <script type="application/ld+json" set:html={JSON.stringify(schemaBreadcrumb)} />
+  <script type="application/ld+json" set:html={JSON.stringify(schemaItemList)} />
+
+</Base>
+
+<style>
+  /* ─── Grid de modelos ─── */
+  .modelos-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  /* ─── Card de modelo (ficha técnica) — receta canónica de Tarjetas ─── */
+  .pcard {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
+    background: var(--c-surface);
+    border: 1px solid var(--c-border);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    transition: border-color .2s var(--ease), box-shadow .2s var(--ease), transform .2s var(--ease);
+  }
+  .pcard:hover {
+    border-color: rgba(var(--c-primary-rgb), 0.4);
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.35), 0 0 20px rgba(var(--c-primary-rgb), 0.1);
+    transform: translateY(-3px);
+  }
+
+  .pcard__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+  }
+  .pcard__tipo {
+    font-size: 0.625rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--c-primary-soft);
+    background: rgba(var(--c-primary-rgb), 0.15);
+    border: 1px solid rgba(var(--c-primary-rgb), 0.3);
+    border-radius: var(--radius-full);
+    padding: 0.3rem 0.7rem;
+  }
+  .pcard__destacado {
+    font-size: 0.625rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--c-success);
+    background: rgba(var(--c-success-rgb), 0.1);
+    border: 1px solid rgba(var(--c-success-rgb), 0.25);
+    border-radius: var(--radius-full);
+    padding: 0.3rem 0.7rem;
+  }
+
+  .pcard__title {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--c-ink);
+    line-height: 1.25;
+    letter-spacing: -0.02em;
+    transition: color .2s var(--ease);
+  }
+  .pcard:hover .pcard__title { color: var(--c-primary-soft); }
+
+  .pcard__desc {
+    font-size: 0.875rem;
+    color: var(--c-muted);
+    line-height: 1.65;
+    flex: 1;
+  }
+
+  /* Specs en filas dt/dd */
+  .pcard__specs {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+    margin-top: 0.375rem;
+  }
+  .pcard__spec {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    font-size: 0.8125rem;
+    padding: 0.45rem 0;
+    border-bottom: 1px dashed var(--c-border);
+  }
+  .pcard__spec dt { color: var(--c-muted); }
+  .pcard__spec dd { color: var(--c-ink); font-weight: 600; text-align: right; }
+
+  /* Footer clickeable — mismo patrón que CategoryCard */
+  .pcard__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--c-border);
+  }
+  .pcard__footer::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+  }
+  .pcard__footer-label {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--c-primary);
+  }
+  .pcard__footer-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 1px solid var(--c-border);
+    color: var(--c-muted);
+    transition: border-color .2s var(--ease), color .2s var(--ease),
+                background .2s var(--ease), transform .2s var(--ease);
+  }
+  .pcard:hover .pcard__footer-arrow {
+    border-color: var(--c-primary);
+    background: var(--c-primary);
+    color: var(--c-white);
+    transform: translateX(3px);
+  }
+
+  /* ─── Responsive ─── */
+  @media (max-width: 1024px) {
+    .modelos-grid { grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
+  }
+  @media (max-width: 640px) {
+    .modelos-grid { grid-template-columns: 1fr; gap: 1rem; }
+  }
+</style>

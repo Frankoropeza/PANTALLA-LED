@@ -275,6 +275,26 @@
 
 
 /* ══════════════════════════════════════════════════════════════
+   CATÁLOGO GRID — 3 → 2 (1024) → 1 (640) para CategoryCard
+   Usado en: CategoriasIndex (L1), pages/productos.astro (L2)
+   ══════════════════════════════════════════════════════════════ */
+
+.catalogo-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.75rem;
+}
+
+@media (max-width: 1024px) {
+  .catalogo-grid { grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
+}
+
+@media (max-width: 640px) {
+  .catalogo-grid { grid-template-columns: 1fr; gap: 1rem; }
+}
+
+
+/* ══════════════════════════════════════════════════════════════
    LINK ARROW — Enlace inline con flecha animada
    Usado en: CategoriasIndex, TrustIndex, EspecificacionesIndex
    ══════════════════════════════════════════════════════════════ */

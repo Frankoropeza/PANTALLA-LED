@@ -180,17 +180,17 @@
 
 
 /* ──────────────────────────────────────────────────────────────────
-   6. CATEGORÍAS — grid 3-col → 2-col → 1-col
+   6. CATÁLOGO — refuerzo del grid compartido (.catalogo-grid)
    ────────────────────────────────────────────────────────────────── */
 @media (max-width: 1024px) {
-  .categorias-grid {
+  .catalogo-grid {
     grid-template-columns: repeat(2, 1fr) !important;
     gap: 1.25rem !important;
   }
 }
 
 @media (max-width: 640px) {
-  .categorias-grid {
+  .catalogo-grid {
     grid-template-columns: 1fr !important;
     gap: 1rem !important;
   }

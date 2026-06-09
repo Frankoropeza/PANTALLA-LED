@@ -36,15 +36,18 @@ Vault de documentación del sistema de diseño y arquitectura del sitio [pantall
 - [[Crear una Página Nueva]] — checklist completo
 - [[Crear una Sección Nueva]] — receta paso a paso reusando el sistema
 
-### 06 · Páginas L2
+### 06 · Páginas L2 / L3
 - [[Productos]] — /productos/ (plantilla de referencia L2)
+- [[Servicios]] — /servicios/ (detalle de 8 servicios con anclas)
+- [[Contacto]] — /contacto/ (formulario → WhatsApp sin backend)
+- [[Ficha de Producto]] — /productos/[slug]/ (markdown + schema Product)
 
 ## Estado actual
 
 | Área | Estado |
 |---|---|
 | Index (`/`) | ✅ Homologado al sistema (jun 2026) |
-| `/productos/` | ✅ Migrada a Base + sistema (jun 2026) — referencia L2 |
-| `/servicios`, `/contacto`, `/productos/[slug]` | ⚠️ Legacy — usan `Layout.astro` viejo, pendiente migrar |
+| `/productos/`, `/servicios/`, `/contacto/`, `/productos/[slug]/` | ✅ Migradas a Base + sistema (jun 2026) |
+| Legacy (Layout.astro, Header/Footer/Hero raíz, Tailwind, botones `.btn-primary`) | ✅ ELIMINADO del repo — no reintroducir |
 | Páginas de categoría de producto | ❌ No existen aún (los CTAs ya apuntan a ellas) |
 | `/nosotros` | ❌ No existe (TrustIndex enlaza a ella) |

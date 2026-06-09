@@ -42,6 +42,6 @@
 3. Touch target móvil ≥44px: lo garantiza `mobile.css` §17.
 4. Jerarquía por sección: máx. 1 botón primario + 1 secundario.
 
-## Legacy (no usar en código nuevo)
+## Legacy
 
-`.btn-primary`, `.btn-secondary`, `.btn-outline` (sin doble guión) viven en global.css marcados DEPRECADOS — los usan las páginas viejas `/contacto`, `/productos`, `/servicios` y los componentes `Header/Hero/Footer.astro` raíz. Al migrar esas páginas (ver [[Crear una Página Nueva]]), reemplazarlos y eliminarlos.
+Los botones `.btn-primary/.btn-secondary/.btn-outline` (sin doble guión) y las páginas que los usaban **fueron eliminados** (jun 2026) junto con `Layout.astro`, los `Header/Footer/Hero.astro` raíz y la integración Tailwind. No reintroducir.

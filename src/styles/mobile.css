@@ -374,10 +374,7 @@
    17. BOTONES GLOBALES — touch targets mínimos
    ────────────────────────────────────────────────────────────────── */
 @media (max-width: 640px) {
-  .btn,
-  .btn-primary,
-  .btn-secondary,
-  .btn-outline {
+  .btn {
     padding: 0.875rem 1.25rem !important;
     font-size: 0.9375rem !important;
     min-height: 44px;
@@ -432,10 +429,7 @@
    21. ACCESIBILIDAD — tap highlight touch devices
    ────────────────────────────────────────────────────────────────── */
 @media (hover: none) and (pointer: coarse) {
-  a, button,
-  .btn, .btn-primary, .btn-secondary, .btn-outline,
-  .hero__btn-primary, .hero__btn-wa,
-  .cta-final__btn-primary, .cta-final__btn-secondary,
+  a, button, .btn,
   .hdr-cta, .mob-cta {
     -webkit-tap-highlight-color: rgba(0, 102, 204, 0.15);
   }

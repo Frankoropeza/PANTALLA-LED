@@ -332,68 +332,6 @@ button {
   transform: translateY(-1px);
 }
 
-/* ---- Botones legacy (páginas con Layout.astro) ------------- */
-/* DEPRECADOS: usar .btn .btn--primary / .btn--outline-white / .btn--outline.
-   Se conservan mientras contacto/productos/servicios migran a Base.astro. */
-.btn-primary {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  background: var(--c-primary);
-  color: var(--c-white);
-  padding: 0.875rem 1.75rem;
-  border-radius: var(--radius-md);
-  font-weight: var(--weight-semibold);
-  font-size: 0.9375rem;
-  font-family: var(--font-sans);
-  transition: background var(--transition), box-shadow var(--transition), transform 150ms var(--ease);
-  white-space: nowrap;
-  box-shadow: 0 4px 16px rgba(var(--c-primary-rgb), 0.35);
-}
-.btn-primary:hover {
-  background: var(--c-primary-dark);
-  color: var(--c-white);
-  box-shadow: 0 6px 20px rgba(var(--c-primary-rgb), 0.45);
-  transform: translateY(-1px);
-}
-.btn-primary:active { transform: translateY(0); }
-
-.btn-secondary {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  border: 2px solid rgba(255, 255, 255, 0.25);
-  color: var(--c-white);
-  padding: 0.8125rem 1.75rem;
-  border-radius: var(--radius-md);
-  font-weight: var(--weight-semibold);
-  font-size: 0.9375rem;
-  font-family: var(--font-sans);
-  white-space: nowrap;
-  transition: border-color var(--transition), background var(--transition);
-}
-.btn-secondary:hover {
-  border-color: rgba(255, 255, 255, 0.6);
-  background: rgba(255, 255, 255, 0.06);
-  color: var(--c-white);
-}
-
-.btn-outline {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  border: 2px solid var(--c-primary);
-  color: var(--c-primary);
-  padding: 0.8125rem 1.75rem;
-  border-radius: var(--radius-md);
-  font-weight: var(--weight-semibold);
-  font-size: 0.9375rem;
-  font-family: var(--font-sans);
-  white-space: nowrap;
-  transition: background var(--transition), color var(--transition);
-}
-.btn-outline:hover { background: var(--c-primary); color: var(--c-white); }
-
 /* ---- Tokens responsive de navegación ----------------------- */
 @media (max-width: 1024px) {
   :root {

@@ -5,57 +5,7 @@
 import { url } from '../../utils/url'
 import IconCheck from '../ui/icons/IconCheck.astro'
 import IconArrowRight from '../ui/icons/IconArrowRight.astro'
-
-const servicios = [
-  {
-    num: '01',
-    id: 'venta',
-    title: 'Venta de Pantallas LED',
-    desc: 'Catálogo completo de pantallas para publicidad exterior, interiores, eventos y aplicaciones especiales. Precios directos de fábrica sin intermediarios.',
-  },
-  {
-    num: '02',
-    id: 'renta',
-    title: 'Renta para Eventos',
-    desc: 'Módulos LED de alta resolución en renta por día, semana o mes. Ideales para conciertos, convenciones, exposiciones y activaciones de marca.',
-  },
-  {
-    num: '03',
-    id: 'instalacion',
-    title: 'Instalación Profesional',
-    desc: 'Ingeniería, montaje y puesta en marcha por técnicos certificados. Instalaciones estructurales, eléctricas y de señal bajo norma.',
-  },
-  {
-    num: '04',
-    id: 'mantenimiento',
-    title: 'Mantenimiento y Soporte',
-    desc: 'Pólizas preventivas anuales con visitas periódicas. Servicio correctivo en 24 horas. Reemplazo de módulos y componentes originales.',
-  },
-  {
-    num: '05',
-    id: 'asesoria',
-    title: 'Asesoría Técnica',
-    desc: 'Diagnóstico de requerimientos sin costo. Te ayudamos a definir paso de pixel, brillo, resolución y tipo de pantalla para tu proyecto específico.',
-  },
-  {
-    num: '06',
-    id: 'contenido',
-    title: 'Gestión de Contenido',
-    desc: 'Configuración del software de control, capacitación de operadores y soporte para reproducción de contenido. Compatible con sistemas Windows, Android y en la nube.',
-  },
-  {
-    num: '07',
-    id: 'diseno',
-    title: 'Diseño de Contenido',
-    desc: 'Creación de piezas visuales optimizadas para pantalla LED. Animaciones, videos, looping y contenido dinámico adaptado a tu marca.',
-  },
-  {
-    num: '08',
-    id: 'garantia',
-    title: 'Garantía y Postventa',
-    desc: 'Atención postventa ágil. Gestión de garantías de fábrica. Diagnóstico remoto y en sitio. Refacciones originales en stock.',
-  },
-]
+import { SERVICIOS } from '../../config/servicios'
 
 const garantias = [
   'Servicio llave en mano',
@@ -96,7 +46,7 @@ const garantias = [
 
       <!-- Lista de servicios -->
       <div class="servicios-lista" role="list">
-        {servicios.map((svc) => (
+        {SERVICIOS.map((svc) => (
           <article class="svc-item" id={svc.id} role="listitem">
             <span class="svc-item__num" aria-hidden="true">{svc.num}</span>
             <div class="svc-item__body">

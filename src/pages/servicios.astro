@@ -1,105 +1,228 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import { url } from '../utils/url';
+/**
+ * servicios.astro — Servicios de PantallaLED (L2)
+ * Orquestador: PageHero + detalle de los 8 servicios (anclas públicas) +
+ * proceso + CTA final. Datos: config/servicios.ts (fuente única).
+ * Schemas: BreadcrumbList + ItemList de Service.
+ */
 
-const servicios = [
-  {
-    id: 'instalacion',
-    icon: '🔧',
-    title: 'Instalación Profesional',
-    description: 'Contamos con técnicos certificados y maquinaria especializada para instalar tu pantalla LED de forma segura y eficiente. Realizamos el trabajo en fachadas, azoteas, interiores y estructuras especiales.',
-    features: [
-      'Evaluación técnica del sitio sin costo',
-      'Diseño y fabricación de estructura metálica',
-      'Cableado y conexiones certificadas',
-      'Configuración de software de gestión de contenido',
-      'Capacitación al usuario final',
-    ],
-  },
-  {
-    id: 'renta',
-    icon: '📺',
-    title: 'Renta de Pantallas LED',
-    description: 'Solución ideal para eventos, conciertos, exposiciones, bodas y activaciones de marca. Contamos con pantallas de distintos tamaños disponibles para renta por día, semana o mes.',
-    features: [
-      'Entrega e instalación incluidas',
-      'Operador técnico durante el evento (opcional)',
-      'Diseño de contenido audiovisual',
-      'Seguros y garantía durante el evento',
-      'Disponible en CDMX y área metropolitana',
-    ],
-  },
-  {
-    id: 'mantenimiento',
-    icon: '🛠️',
-    title: 'Mantenimiento Preventivo y Correctivo',
-    description: 'Extendemos la vida útil de tu pantalla con programas de mantenimiento preventivo. También ofrecemos servicio correctivo de emergencia para minimizar tiempos de inactividad.',
-    features: [
-      'Limpieza y calibración de módulos LED',
-      'Revisión de fuentes de poder y tarjetas de control',
-      'Reemplazo de módulos dañados',
-      'Actualización de firmware',
-      'Contrato anual con visitas programadas',
-    ],
-  },
-  {
-    id: 'asesoria',
-    icon: '💡',
-    title: 'Asesoría Técnica',
-    description: 'Antes de invertir, te ayudamos a tomar la mejor decisión. Analizamos tu espacio, la distancia de visión, el nivel de luminosidad requerido y tu presupuesto para recomendarte la pantalla ideal.',
-    features: [
-      'Visita técnica al sitio',
-      'Propuesta de solución personalizada',
-      'Análisis de retorno de inversión (ROI)',
-      'Asesoría en contenido y operación',
-      'Acompañamiento posventa',
-    ],
-  },
-];
+import Base from '../layouts/Base.astro'
+import PageHero from '../components/sections/PageHero.astro'
+import SectionHeaderDuo from '../components/ui/SectionHeaderDuo.astro'
+import ProcesoIndex from '../components/sections/ProcesoIndex.astro'
+import CTAFinalIndex from '../components/sections/CTAFinalIndex.astro'
+import IconCheck from '../components/ui/icons/IconCheck.astro'
+import IconWhatsApp from '../components/ui/icons/IconWhatsApp.astro'
+
+import { SITE, waUrl, WA_MESSAGES } from '../config/site'
+import { SERVICIOS } from '../config/servicios'
+
+// ─── Meta SEO ─────────────────────────────────────────────────────────────────
+const title = 'Servicios de Pantallas LED | Venta, Renta, Instalación y Mantenimiento — PantallaLED'
+const description =
+  'Solución integral de pantallas LED en México: venta directa de fábrica, renta para eventos, instalación certificada bajo norma, mantenimiento 24/7, asesoría técnica gratuita y gestión de contenido. Un solo proveedor para todo el ciclo de vida de tu pantalla.'
+const canonical = `${SITE.url}/servicios/`
+
+// ─── JSON-LD: BreadcrumbList ──────────────────────────────────────────────────
+const schemaBreadcrumb = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Inicio', item: SITE.url },
+    { '@type': 'ListItem', position: 2, name: 'Servicios', item: canonical },
+  ],
+}
+
+// ─── JSON-LD: ItemList de servicios ───────────────────────────────────────────
+const schemaServicios = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: 'Servicios de Pantallas LED',
+  numberOfItems: SERVICIOS.length,
+  itemListElement: SERVICIOS.map((s, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    item: {
+      '@type': 'Service',
+      name: s.title,
+      description: s.desc,
+      url: `${canonical}#${s.id}`,
+      provider: { '@id': `${SITE.url}/#organization` },
+      areaServed: { '@type': 'Country', name: 'México' },
+    },
+  })),
+}
 ---
 
-<Layout
-  title="Servicios"
-  description="Servicios de instalación, renta, mantenimiento y asesoría de pantallas LED en México."
->
-  <!-- Hero de página -->
-  <section class="pt-32 pb-16 bg-dark">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <h1 class="section-title text-5xl">Nuestros Servicios</h1>
-      <p class="section-subtitle max-w-2xl mx-auto">
-        Desde la asesoría hasta la instalación y mantenimiento, somos tu socio integral en soluciones de pantallas LED.
-      </p>
-    </div>
-  </section>
+<Base {title} {description} {canonical}>
 
-  <!-- Servicios -->
-  <section class="py-16 bg-gray-950">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-24">
-      {servicios.map((s, i) => (
-        <div id={s.id} class={`grid grid-cols-1 md:grid-cols-2 gap-12 items-center ${i % 2 === 1 ? 'md:[&>*:first-child]:order-2' : ''}`}>
-          <!-- Content -->
-          <div>
-            <div class="text-5xl mb-4">{s.icon}</div>
-            <h2 class="text-3xl font-heading font-bold text-white mb-4">{s.title}</h2>
-            <p class="text-gray-400 leading-relaxed mb-6">{s.description}</p>
-            <ul class="space-y-3">
-              {s.features.map((f) => (
-                <li class="flex items-start gap-3 text-gray-300">
-                  <svg class="w-5 h-5 text-primary flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                  </svg>
+  <!-- ─── Hero L2 ──────────────────────────────────────────────────────── -->
+  <PageHero
+    eyebrow="Solución integral"
+    title="Servicios de <span>Pantallas LED</span>"
+    desc="Un solo proveedor para todo el ciclo de vida de tu pantalla: desde la asesoría y la venta directa de fábrica, hasta la instalación certificada, el contenido y el mantenimiento 24/7. Operación propia en CDMX y cobertura en toda la República Mexicana."
+    crumbs={[
+      { label: 'Inicio', href: '/' },
+      { label: 'Servicios' },
+    ]}
+  />
+
+  <!-- ─── Detalle de servicios ─────────────────────────────────────────── -->
+  <section class="section section--surface" aria-labelledby="servicios-detalle-heading">
+    <div class="container">
+
+      <SectionHeaderDuo
+        id="servicios-detalle-heading"
+        eyebrow="Qué hacemos"
+        title="Ocho servicios, un solo <span>responsable</span>"
+        desc="Cada servicio incluye alcances documentados, tiempos comprometidos y un técnico asignado."
+        body1="Comprar una pantalla LED es solo el primer paso: el valor real está en que encienda todos los días. Por eso integramos venta, instalación bajo norma NOM, gestión de contenido y mantenimiento preventivo en un mismo equipo técnico, sin subcontrataciones improvisadas."
+        body2="Trabajas con un solo proveedor responsable de extremo a extremo: cotización el mismo día, factura electrónica, garantía de fábrica de 2 años y soporte 24/7 con refacciones originales en stock dentro de México."
+      />
+
+      <div class="servicios-detalle-grid">
+        {SERVICIOS.map((svc) => (
+          <article class="sdet" id={svc.id}>
+            <div class="sdet__top">
+              <span class="sdet__num" aria-hidden="true">{svc.num}</span>
+              <h3 class="sdet__title">{svc.title}</h3>
+            </div>
+            <p class="sdet__desc">{svc.desc}</p>
+            <ul class="sdet__features">
+              {svc.features.map((f) => (
+                <li class="sdet__feature">
+                  <IconCheck size={15} strokeWidth={2.5} />
                   {f}
                 </li>
               ))}
             </ul>
-            <a href={url('/contacto')} class="btn-primary inline-flex mt-8">Solicitar información</a>
-          </div>
-          <!-- Image placeholder -->
-          <div class="aspect-video bg-gray-900 border border-gray-800 rounded-2xl flex items-center justify-center">
-            <span class="text-gray-600 text-sm">Imagen del servicio</span>
-          </div>
-        </div>
-      ))}
+            <div class="sdet__footer">
+              <a
+                href={waUrl(`${WA_MESSAGES.servicios} — ${svc.title}`)}
+                class="link-arrow"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <IconWhatsApp size={14} />
+                Cotizar este servicio
+              </a>
+            </div>
+          </article>
+        ))}
+      </div>
+
     </div>
   </section>
-</Layout>
+
+  <!-- ─── Secciones compartidas ────────────────────────────────────────── -->
+  <ProcesoIndex />
+  <CTAFinalIndex />
+
+  <!-- ─── JSON-LD ──────────────────────────────────────────────────────── -->
+  <script type="application/ld+json" set:html={JSON.stringify(schemaBreadcrumb)} />
+  <script type="application/ld+json" set:html={JSON.stringify(schemaServicios)} />
+
+</Base>
+
+<style>
+  /* ─── Grid de servicios a detalle ─── */
+  .servicios-detalle-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+  }
+
+  /* ─── Card de servicio — receta canónica de Tarjetas ─── */
+  .sdet {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    background: var(--c-surface);
+    border: 1px solid var(--c-border);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    transition: border-color .2s var(--ease), box-shadow .2s var(--ease), transform .2s var(--ease);
+  }
+  .sdet:hover {
+    border-color: rgba(var(--c-primary-rgb), 0.4);
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.35), 0 0 20px rgba(var(--c-primary-rgb), 0.1);
+    transform: translateY(-3px);
+  }
+
+  .sdet__top {
+    display: flex;
+    align-items: center;
+    gap: 0.875rem;
+  }
+  .sdet__num {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--c-primary-light);
+    border: 2px solid var(--c-primary);
+    font-size: 0.75rem;
+    font-weight: var(--weight-black);
+    color: var(--c-primary);
+    letter-spacing: 0.05em;
+    flex-shrink: 0;
+    transition: background .2s var(--ease), color .2s var(--ease);
+  }
+  .sdet:hover .sdet__num {
+    background: var(--c-primary);
+    color: var(--c-white);
+  }
+  .sdet__title {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--c-ink);
+    line-height: 1.25;
+    letter-spacing: -0.015em;
+  }
+
+  .sdet__desc {
+    font-size: 0.9rem;
+    color: var(--c-muted);
+    line-height: 1.7;
+  }
+
+  .sdet__features {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 0.25rem;
+    flex: 1;
+  }
+  .sdet__feature {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    font-size: 0.8438rem;
+    color: var(--c-ink-2);
+    line-height: 1.55;
+  }
+  .sdet__feature svg {
+    color: var(--c-success);
+    flex-shrink: 0;
+    margin-top: 0.2rem;
+  }
+
+  .sdet__footer {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--c-border);
+  }
+  .sdet__footer :global(.link-arrow) { color: var(--color-whatsapp); }
+  .sdet__footer :global(.link-arrow svg) { transform: none; }
+
+  /* ─── Responsive ─── */
+  @media (max-width: 900px) {
+    .servicios-detalle-grid { grid-template-columns: 1fr; gap: 1rem; }
+  }
+  @media (max-width: 640px) {
+    .sdet { padding: 1.25rem; }
+    .sdet__num { width: 38px; height: 38px; font-size: 0.6875rem; }
+  }
+</style>

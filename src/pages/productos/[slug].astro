@@ -1,86 +1,351 @@
 ---
-import Layout from '../../layouts/Layout.astro';
-import { getCollection, getEntry } from 'astro:content';
-import { url } from '../../utils/url';
+/**
+ * productos/[slug].astro — Ficha técnica de producto (L3)
+ * PageHero con CTAs + contenido markdown (prose) + card de specs sticky +
+ * CTA final. Datos: colección content/productos/.
+ * Schemas: BreadcrumbList + Product.
+ */
+
+import { getCollection } from 'astro:content'
+
+import Base from '../../layouts/Base.astro'
+import PageHero from '../../components/sections/PageHero.astro'
+import CTAFinalIndex from '../../components/sections/CTAFinalIndex.astro'
+import IconWhatsApp from '../../components/ui/icons/IconWhatsApp.astro'
+import IconPhone from '../../components/ui/icons/IconPhone.astro'
+import IconCheck from '../../components/ui/icons/IconCheck.astro'
+
+import { SITE, CONTACT, waUrl } from '../../config/site'
 
 export async function getStaticPaths() {
-  const productos = await getCollection('productos');
-  return productos.map((p) => ({
-    params: { slug: p.slug },
-  }));
+  const productos = await getCollection('productos')
+  return productos.map((producto) => ({
+    params: { slug: producto.slug },
+    props: { producto },
+  }))
 }
 
-const { slug } = Astro.params;
-const producto = await getEntry('productos', slug!);
+const { producto } = Astro.props
+const { Content } = await producto.render()
 
-if (!producto) return Astro.redirect('/productos');
+const garantias = [
+  'Garantía de fábrica de 2 años',
+  'Instalación certificada disponible',
+  'Soporte técnico 24/7',
+]
 
-const { Content } = await producto.render();
+// ─── Meta SEO ─────────────────────────────────────────────────────────────────
+const title = `${producto.data.title} | Ficha Técnica y Cotización — PantallaLED`
+const description = producto.data.description
+const canonical = `${SITE.url}/productos/${producto.slug}/`
+
+// ─── JSON-LD: BreadcrumbList ──────────────────────────────────────────────────
+const schemaBreadcrumb = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Inicio', item: SITE.url },
+    { '@type': 'ListItem', position: 2, name: 'Productos', item: `${SITE.url}/productos/` },
+    { '@type': 'ListItem', position: 3, name: producto.data.title, item: canonical },
+  ],
+}
+
+// ─── JSON-LD: Product ─────────────────────────────────────────────────────────
+const schemaProduct = {
+  '@context': 'https://schema.org',
+  '@type': 'Product',
+  name: producto.data.title,
+  description: producto.data.description,
+  url: canonical,
+  category: `Pantallas LED ${producto.data.tipo}`,
+  brand: { '@type': 'Brand', name: SITE.name },
+  additionalProperty: [
+    { '@type': 'PropertyValue', name: 'Paso de pixel', value: producto.data.pixelPitch },
+    producto.data.luminosidad
+      ? { '@type': 'PropertyValue', name: 'Luminosidad', value: producto.data.luminosidad }
+      : null,
+  ].filter(Boolean),
+  offers: {
+    '@type': 'Offer',
+    availability: 'https://schema.org/InStock',
+    priceCurrency: 'MXN',
+    price: '0',
+    description: 'Cotización personalizada según dimensiones y configuración',
+    seller: { '@id': `${SITE.url}/#organization` },
+  },
+}
+
+const waMensaje = `Hola, quiero cotizar: ${producto.data.title} (${producto.data.pixelPitch})`
+
+// Acento azul en la parte distintiva del título (si aplica)
+const tituloHero = producto.data.title.startsWith('Pantalla LED ')
+  ? `Pantalla LED <span>${producto.data.title.slice('Pantalla LED '.length)}</span>`
+  : producto.data.title
 ---
 
-<Layout title={producto.data.title} description={producto.data.description}>
-  <section class="pt-32 pb-16 bg-dark">
-    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+<Base {title} {description} {canonical}>
 
-      <!-- Breadcrumb -->
-      <nav class="flex items-center gap-2 text-sm text-gray-500 mb-8">
-        <a href={url('/')} class="hover:text-white transition-colors">Inicio</a>
-        <span>/</span>
-        <a href={url('/productos')} class="hover:text-white transition-colors">Productos</a>
-        <span>/</span>
-        <span class="text-gray-300">{producto.data.title}</span>
-      </nav>
+  <!-- ─── Hero L3 con CTAs ─────────────────────────────────────────────── -->
+  <PageHero
+    eyebrow={`Pantalla ${producto.data.tipo}`}
+    title={tituloHero}
+    desc={producto.data.description}
+    crumbs={[
+      { label: 'Inicio', href: '/' },
+      { label: 'Productos', href: '/productos/' },
+      { label: producto.data.title },
+    ]}
+  >
+    <div slot="actions" class="ficha-ctas">
+      <a
+        href={waUrl(waMensaje)}
+        class="btn btn--whatsapp btn--lg"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <IconWhatsApp size={18} />
+        Cotizar este modelo
+      </a>
+      <a href={`tel:${CONTACT.phoneRaw}`} class="btn btn--outline btn--lg">
+        <IconPhone size={16} />
+        {CONTACT.phone}
+      </a>
+    </div>
+  </PageHero>
 
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
-        <!-- Imagen -->
-        <div class="aspect-video bg-gray-900 border border-gray-800 rounded-2xl flex items-center justify-center">
-          {producto.data.image ? (
-            <img src={producto.data.image} alt={producto.data.title} class="w-full h-full object-cover rounded-2xl" />
-          ) : (
-            <span class="text-gray-600 text-sm">Imagen próximamente</span>
-          )}
-        </div>
+  <!-- ─── Contenido + specs ────────────────────────────────────────────── -->
+  <section class="section section--surface" aria-label="Ficha técnica del producto">
+    <div class="container">
+      <div class="ficha-layout">
 
-        <!-- Info -->
-        <div>
-          <span class="inline-block bg-primary/10 text-primary text-xs font-medium px-3 py-1 rounded-full mb-4">
-            {producto.data.tipo}
-          </span>
-          <h1 class="text-4xl font-heading font-bold text-white mb-4">{producto.data.title}</h1>
-          <p class="text-gray-400 leading-relaxed mb-6">{producto.data.description}</p>
+        <!-- Markdown -->
+        <article class="prose-led">
+          <Content />
+        </article>
 
-          <dl class="space-y-3 mb-8">
-            <div class="flex gap-3">
-              <dt class="text-gray-500 w-32 flex-shrink-0 text-sm">Pixel Pitch:</dt>
-              <dd class="text-white text-sm font-medium">{producto.data.pixelPitch}</dd>
-            </div>
-            {producto.data.luminosidad && (
-              <div class="flex gap-3">
-                <dt class="text-gray-500 w-32 flex-shrink-0 text-sm">Luminosidad:</dt>
-                <dd class="text-white text-sm font-medium">{producto.data.luminosidad}</dd>
+        <!-- Specs sticky -->
+        <aside class="ficha-specs" aria-label="Resumen de especificaciones">
+          <div class="ficha-specs__card">
+            <h2 class="ficha-specs__title">Especificaciones clave</h2>
+            <dl class="ficha-specs__list">
+              <div class="ficha-specs__row">
+                <dt>Tipo</dt>
+                <dd>{producto.data.tipo}</dd>
               </div>
-            )}
-            {producto.data.resolucion && (
-              <div class="flex gap-3">
-                <dt class="text-gray-500 w-32 flex-shrink-0 text-sm">Resolución:</dt>
-                <dd class="text-white text-sm font-medium">{producto.data.resolucion}</dd>
+              <div class="ficha-specs__row">
+                <dt>Paso de pixel</dt>
+                <dd>{producto.data.pixelPitch}</dd>
               </div>
-            )}
-          </dl>
+              {producto.data.luminosidad && (
+                <div class="ficha-specs__row">
+                  <dt>Luminosidad</dt>
+                  <dd>{producto.data.luminosidad}</dd>
+                </div>
+              )}
+              {producto.data.resolucion && (
+                <div class="ficha-specs__row">
+                  <dt>Resolución</dt>
+                  <dd>{producto.data.resolucion}</dd>
+                </div>
+              )}
+            </dl>
 
-          <a href={url('/contacto')} class="btn-primary inline-flex">Solicitar Cotización</a>
-        </div>
+            <ul class="ficha-specs__garantias">
+              {garantias.map((g) => (
+                <li>
+                  <IconCheck size={14} />
+                  {g}
+                </li>
+              ))}
+            </ul>
+
+            <a
+              href={waUrl(waMensaje)}
+              class="btn btn--whatsapp ficha-specs__cta"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <IconWhatsApp size={18} />
+              Solicitar cotización
+            </a>
+          </div>
+        </aside>
+
       </div>
-
-      <!-- Contenido Markdown -->
-      <article class="prose prose-invert prose-lg max-w-none
-        prose-headings:font-heading prose-headings:text-white
-        prose-p:text-gray-400 prose-li:text-gray-400
-        prose-a:text-primary prose-a:no-underline hover:prose-a:underline
-        prose-strong:text-white">
-        <Content />
-      </article>
-
     </div>
   </section>
-</Layout>
+
+  <CTAFinalIndex />
+
+  <!-- ─── JSON-LD ──────────────────────────────────────────────────────── -->
+  <script type="application/ld+json" set:html={JSON.stringify(schemaBreadcrumb)} />
+  <script type="application/ld+json" set:html={JSON.stringify(schemaProduct)} />
+
+</Base>
+
+<style>
+  .ficha-ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.875rem;
+    margin-top: 0.5rem;
+  }
+
+  /* ─── Layout: prose + sidebar specs ─── */
+  .ficha-layout {
+    display: grid;
+    grid-template-columns: 1fr 360px;
+    gap: clamp(2.5rem, 4vw, 4rem);
+    align-items: start;
+  }
+
+  /* ─── Card de specs sticky ─── */
+  .ficha-specs { position: sticky; top: calc(var(--stack-height) + 2rem); }
+
+  .ficha-specs__card {
+    background: var(--c-surface);
+    border: 1px solid var(--c-border);
+    border-radius: var(--radius-xl);
+    border-top: 3px solid var(--c-primary);
+    padding: 1.75rem 1.5rem;
+  }
+  .ficha-specs__title {
+    font-size: 1.0625rem;
+    font-weight: 700;
+    color: var(--c-ink);
+    margin-bottom: 1rem;
+    letter-spacing: -0.01em;
+  }
+
+  .ficha-specs__list {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.25rem;
+  }
+  .ficha-specs__row {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    font-size: 0.8438rem;
+    padding: 0.55rem 0;
+    border-bottom: 1px dashed var(--c-border);
+  }
+  .ficha-specs__row dt { color: var(--c-muted); }
+  .ficha-specs__row dd { color: var(--c-ink); font-weight: 600; text-align: right; }
+
+  .ficha-specs__garantias {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+  .ficha-specs__garantias li {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.8125rem;
+    color: var(--c-ink-2);
+  }
+  .ficha-specs__garantias li :global(svg) { color: var(--c-success); flex-shrink: 0; }
+
+  .ficha-specs__cta { width: 100%; justify-content: center; }
+
+  /* ─── Prose: estilos del markdown con tokens del sistema ─── */
+  .prose-led {
+    max-width: 72ch;
+    font-size: 0.9375rem;
+    color: var(--c-ink-2);
+    line-height: 1.8;
+  }
+  .prose-led :global(h2) {
+    font-size: clamp(1.5rem, 2.2vw, 1.875rem);
+    font-weight: var(--weight-black);
+    color: var(--c-ink);
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    margin: 2.25rem 0 1rem;
+  }
+  .prose-led :global(h2:first-child) { margin-top: 0; }
+  .prose-led :global(h3) {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--c-ink);
+    letter-spacing: -0.015em;
+    margin: 1.75rem 0 0.75rem;
+  }
+  .prose-led :global(p) { margin-bottom: 1rem; }
+  .prose-led :global(strong) { color: var(--c-ink); font-weight: 700; }
+  .prose-led :global(a) {
+    color: var(--c-primary);
+    font-weight: var(--weight-semibold);
+  }
+  .prose-led :global(a:hover) { color: var(--c-primary-soft); }
+
+  .prose-led :global(ul) {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin: 0 0 1.25rem;
+  }
+  .prose-led :global(ul li) {
+    position: relative;
+    padding-left: 1.375rem;
+  }
+  .prose-led :global(ul li)::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.6em;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--c-primary);
+    opacity: 0.7;
+  }
+
+  /* Tablas del markdown con el lenguaje de tabla-seo */
+  .prose-led :global(table) {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+    margin: 0 0 1.5rem;
+    border: 1px solid var(--c-border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+  }
+  .prose-led :global(thead) { background: var(--c-surface-2); }
+  .prose-led :global(th) {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--c-ink);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--c-border-2);
+  }
+  .prose-led :global(td) {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--c-border);
+    vertical-align: top;
+  }
+  .prose-led :global(tbody tr:last-child td) { border-bottom: none; }
+  .prose-led :global(tbody tr:nth-child(even)) { background: rgba(255, 255, 255, 0.02); }
+
+  .prose-led :global(hr) {
+    border: none;
+    border-top: 1px solid var(--c-border);
+    margin: 2rem 0;
+  }
+
+  /* ─── Responsive ─── */
+  @media (max-width: 1024px) {
+    .ficha-layout { grid-template-columns: 1fr; }
+    .ficha-specs { position: static; order: -1; }
+    .prose-led { max-width: none; }
+  }
+  @media (max-width: 640px) {
+    .ficha-ctas { width: 100%; }
+    .ficha-ctas :global(.btn) { width: 100%; justify-content: center; }
+  }
+</style>

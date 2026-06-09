@@ -145,11 +145,6 @@ const canonicalURL = canonical || new URL(Astro.url.pathname, Astro.site).href
   ul, ol { list-style: none; }
   button { font: inherit; cursor: pointer; border: none; background: none; }
 
-  .container {
-    width: 100%;
-    padding-inline: var(--container-px);
-  }
-
   /* Botones globales */
   .btn-primary {
     display: inline-flex;
@@ -220,10 +215,31 @@ const canonicalURL = canonical || new URL(Astro.url.pathname, Astro.site).href
     border-radius: var(--radius-sm);
   }
 
+  /* ── Tokens responsive de navegación ─────────────────────── */
+  @media (max-width: 1024px) {
+    :root {
+      --header-height: 72px;
+      --stack-height: calc(var(--topbar-height) + 72px);
+      --section-py: clamp(3rem, 5vw, 4rem);
+    }
+  }
   @media (max-width: 640px) {
     :root {
       --topbar-height: 32px;
-      --stack-height: calc(32px + var(--header-height));
+      --header-height: 64px;
+      --stack-height: calc(32px + 64px);
+      --section-py: 3rem;
+    }
+  }
+  @media (max-width: 480px) {
+    :root {
+      --section-py: 2.5rem;
+    }
+  }
+  @media (max-width: 380px) {
+    :root {
+      --header-height: 60px;
+      --stack-height: calc(32px + 60px);
     }
   }
 </style>

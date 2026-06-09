@@ -1,0 +1,510 @@
+/* ════════════════════════════════════════════════════════════════════
+   PANTALLA LED — mobile.css
+   Overrides responsive profesionales. Importado al FINAL de global.css
+   para ganar la cascada sobre todos los estilos de componentes.
+
+   Estrategia:
+     · Un solo archivo para todos los breakpoints responsive.
+     · !important quirúrgico donde las hojas de componente (scoped Astro)
+       pueden llegar más tarde en la cascada y sobrescribir.
+     · Breakpoints: 1024 (tablet), 768 (mobile L), 640 (mobile),
+       480 (small), 380 (XS).
+     · Touch targets ≥ 44px.
+     · Safe-area iOS (notch / dynamic island).
+   ════════════════════════════════════════════════════════════════════ */
+
+
+/* ──────────────────────────────────────────────────────────────────
+   1. CONTAINER FLUIDO — padding reducido en móvil
+   ────────────────────────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  :root { --container-px: 1.25rem; }
+  .container {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding-inline: 1.25rem !important;
+  }
+}
+
+@media (max-width: 640px) {
+  :root { --container-px: 1rem; }
+  .container {
+    padding-inline: 1rem !important;
+  }
+}
+
+@media (max-width: 380px) {
+  :root { --container-px: 0.875rem; }
+  .container {
+    padding-inline: 0.875rem !important;
+  }
+}
+
+
+/* ──────────────────────────────────────────────────────────────────
+   2. SECTION PADDING — reducir espaciado en viewports pequeños
+   ────────────────────────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  :root { --section-py: 4rem; }
+}
+
+@media (max-width: 768px) {
+  :root { --section-py: 3rem; }
+  .section { padding-block: 3rem !important; }
+  .categorias-section,
+  .trust-section,
+  .cobertura-section,
+  .reviews-section { padding-block: 3rem !important; }
+}
+
+@media (max-width: 480px) {
+  :root { --section-py: 2.5rem; }
+  .section { padding-block: 2.5rem !important; }
+  .categorias-section,
+  .trust-section,
+  .cobertura-section,
+  .reviews-section { padding-block: 2.5rem !important; }
+}
+
+
+/* ──────────────────────────────────────────────────────────────────
+   3. HEADER STACK — reducir altura en móvil
+   ────────────────────────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  :root {
+    --header-height: 72px;
+    --stack-height: calc(var(--topbar-height, 36px) + 72px);
+  }
+  .hdr-inner { height: 72px !important; gap: 1rem !important; }
+}
+
+@media (max-width: 640px) {
+  :root {
+    --topbar-height: 32px;
+    --header-height: 64px;
+    --stack-height: calc(32px + 64px);
+  }
+  .hdr-inner { height: 64px !important; }
+  .topbar { font-size: 0.75rem; }
+  .tb-inner { padding-inline: 1rem; }
+
+  /* Burger touch target ≥ 44px */
+  .hdr-burger {
+    width: 44px !important;
+    height: 44px !important;
+    padding: 0.5rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  /* En pantallas muy chicas, dejar solo WhatsApp en topbar */
+  .tb-promo,
+  .tb-center { display: none !important; }
+  .tb-right { margin-left: auto; }
+}
+
+@media (max-width: 380px) {
+  :root { --header-height: 60px; --stack-height: calc(32px + 60px); }
+  .hdr-inner { height: 60px !important; }
+  .hdr-logo__text { font-size: 1rem !important; }
+}
+
+
+/* ──────────────────────────────────────────────────────────────────
+   4. HERO — reforzar el responsive del HeroIndex
+   ────────────────────────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .hero {
+    min-height: auto !important;
+    padding-block: 3rem 3.5rem !important;
+  }
+  .hero__inner {
+    grid-template-columns: 1fr !important;
+    gap: 2.5rem !important;
+    text-align: center;
+  }
+  .hero__eyebrow { margin: 0 auto !important; }
+  .hero__desc    { max-width: 100% !important; }
+  .hero__ctas    { justify-content: center !important; }
+  .hero__trust   { justify-content: center !important; }
+  .hero__visual  { max-width: 520px !important; margin: 0 auto !important; }
+}
+
+@media (max-width: 640px) {
+  .hero {
+    padding-block: 2.5rem 3rem !important;
+  }
+  .hero__title {
+    font-size: clamp(2rem, 8vw, 2.75rem) !important;
+    line-height: 1.08 !important;
+  }
+  .hero__desc {
+    font-size: 0.9375rem !important;
+    line-height: 1.7 !important;
+  }
+  .hero__ctas {
+    flex-direction: column !important;
+    width: 100%;
+    gap: 0.75rem !important;
+  }
+  .hero__btn-primary,
+  .hero__btn-wa {
+    width: 100% !important;
+    justify-content: center !important;
+    padding: 0.875rem 1.25rem !important;
+    min-height: 48px;
+  }
+  .hero__visual { max-width: 340px !important; }
+}
+
+
+/* ──────────────────────────────────────────────────────────────────
+   5. STATS / CTA BAR — apilado en mobile
+   ────────────────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .cta-bar__inner,
+  .stats-bar__inner {
+    flex-wrap: wrap !important;
+    gap: 1rem !important;
+    justify-content: center !important;
+  }
+  .cta-bar__stat,
+  .stats-item {
+    min-width: calc(50% - 0.5rem);
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .cta-bar__value,
+  .stats-value { font-size: 1.5rem !important; }
+}
+
+
+/* ──────────────────────────────────────────────────────────────────
+   6. CATEGORÍAS — grid 3-col → 2-col → 1-col
+   ────────────────────────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .categorias-grid {
+    grid-template-columns: repeat(3, 1fr) !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .categorias-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 1rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .categorias-grid {
+    grid-template-columns: 1fr !important;
+    gap: 0.875rem !important;
+  }
+  .ccat__thumb { aspect-ratio: 16 / 7 !important; }
+  .ccat__body  { padding: 1rem 1.125rem !important; }
+}
+
+
+/* ──────────────────────────────────────────────────────────────────
+   7. TRUST INDEX — layout 2-col → 1-col
+   ────────────────────────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .trust-layout {
+    grid-template-columns: 1fr !important;
+    gap: 2rem !important;
+  }
+  .trust-sidebar { position: static !important; }
+  .trust-grid    { grid-template-columns: repeat(2, 1fr) !important; }
+}
+
+@media (max-width: 640px) {
+  .trust-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .trust-ctas { flex-direction: column !important; }
+  .trust-metrics { gap: 1.25rem !important; }
+}
+
+
+/* ──────────────────────────────────────────────────────────────────
+   8. SERVICIOS INDEX — layout 2-col → 1-col
+   ────────────────────────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .servicios-layout {
+    grid-template-columns: 1fr !important;
+    gap: 2rem !important;
+  }
+  .servicios-sidebar { position: static !important; }
+}
+
+@media (max-width: 640px) {
+  .servicios-ctas { flex-direction: column !important; }
+  .servicios-item {
+    padding: 1rem !important;
+    gap: 0.75rem !important;
+  }
+}
+
+
+/* ──────────────────────────────────────────────────────────────────
+   9. REVIEWS — grid 3-col → 2-col → 1-col (refuerzo)
+   ────────────────────────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .reviews-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .reviews-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+
+/* ──────────────────────────────────────────────────────────────────
+   10. COBERTURA — layout 2-col → 1-col (refuerzo) + city grid
+   ────────────────────────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .cobertura-layout {
+    grid-template-columns: 1fr !important;
+    gap: 2rem !important;
+  }
+  .cobertura-left { position: static !important; }
+  .cobertura-grid { grid-template-columns: repeat(2, 1fr) !important; }
+}
+
+@media (max-width: 640px) {
+  .cobertura-grid {
+    grid-template-columns: 1fr !important;
+    gap: 0.75rem !important;
+  }
+  .cobertura-stats {
+    flex-wrap: wrap !important;
+    gap: 1rem !important;
+  }
+  .cobertura-stat__val { font-size: 1.5rem !important; }
+  .cobertura-map-visual { aspect-ratio: 16/7 !important; }
+}
+
+
+/* ──────────────────────────────────────────────────────────────────
+   11. ESPECIFICACIONES / TABLA — scroll horizontal
+   ────────────────────────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .specs-section .container {
+    overflow-x: auto !important;
+  }
+  .specs-table {
+    min-width: 640px;
+  }
+}
+
+@media (max-width: 640px) {
+  .section-header__title {
+    font-size: clamp(1.5rem, 6vw, 1.875rem) !important;
+  }
+  .section-header {
+    max-width: 100% !important;
+    margin-bottom: 1.75rem !important;
+  }
+}
+
+
+/* ──────────────────────────────────────────────────────────────────
+   12. PROCESO — pasos en columna (refuerzo)
+   ────────────────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .proceso-layout {
+    grid-template-columns: 1fr !important;
+    gap: 0 !important;
+  }
+  .proceso-sidebar { position: static !important; }
+  .proceso-item {
+    border-right: none !important;
+    border-bottom: 1px solid var(--c-border);
+    padding: 1.25rem 0 !important;
+  }
+  .proceso-item:last-child { border-bottom: none; }
+}
+
+
+/* ──────────────────────────────────────────────────────────────────
+   13. FAQ + COTIZACIÓN — apilado vertical
+   ────────────────────────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .faq-cot-index {
+    grid-template-columns: 1fr !important;
+    gap: 2rem !important;
+  }
+  .cot-card { position: static !important; }
+}
+
+@media (max-width: 640px) {
+  .faq-cot-index { padding: 2.5rem 1rem !important; }
+
+  /* iOS no-zoom en inputs */
+  .cot-field input,
+  .cot-field select,
+  .cot-field textarea {
+    font-size: 16px !important;
+    min-height: 48px;
+  }
+
+  .faq-item summary {
+    padding: 1rem !important;
+    font-size: 0.9375rem !important;
+  }
+}
+
+
+/* ──────────────────────────────────────────────────────────────────
+   14. CTA FINAL — stack vertical + botones full-width
+   ────────────────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .cta-final__inner {
+    flex-direction: column !important;
+    text-align: center !important;
+    gap: 2rem !important;
+  }
+  .cta-final__actions {
+    width: 100%;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0.75rem !important;
+    align-items: center;
+  }
+  .cta-final__btn-primary,
+  .cta-final__btn-secondary {
+    width: 100% !important;
+    justify-content: center !important;
+    min-height: 52px;
+    max-width: 400px;
+  }
+  .cta-final__title {
+    font-size: clamp(1.625rem, 5vw, 2rem) !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .cta-final__btn-primary,
+  .cta-final__btn-secondary { max-width: 100%; }
+}
+
+
+/* ──────────────────────────────────────────────────────────────────
+   15. MOBILE NAV — touch targets y safe-area
+   ────────────────────────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .hdr-mobile-nav {
+    padding-bottom: env(safe-area-inset-bottom, 0) !important;
+  }
+  .mob-item__trigger {
+    padding: 0.875rem 1.25rem !important;
+    min-height: 48px;
+  }
+  .mob-direct {
+    padding: 0.875rem 1.25rem !important;
+    min-height: 48px;
+    display: flex !important;
+    align-items: center;
+  }
+  .mob-cta { min-height: 52px; }
+}
+
+
+/* ──────────────────────────────────────────────────────────────────
+   16. FOOTER — stack en móvil
+   ────────────────────────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .footer__grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 2rem !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .footer__grid {
+    grid-template-columns: 1fr !important;
+    gap: 1.75rem !important;
+  }
+  .footer__body { padding-block: 2.5rem 1.5rem !important; }
+}
+
+@media (max-width: 480px) {
+  .footer__body { padding-block: 2rem 1.25rem !important; }
+}
+
+
+/* ──────────────────────────────────────────────────────────────────
+   17. BOTONES GLOBALES — touch targets mínimos
+   ────────────────────────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .btn,
+  .btn-primary,
+  .btn-secondary,
+  .btn-outline {
+    padding: 0.875rem 1.25rem !important;
+    font-size: 0.9375rem !important;
+    min-height: 44px;
+  }
+}
+
+
+/* ──────────────────────────────────────────────────────────────────
+   18. WHATSAPP FLOAT — circular en móvil
+   ────────────────────────────────────────────────────────────────── */
+@media (max-width: 480px) {
+  .wa-float {
+    bottom: 1rem !important;
+    right: 1rem !important;
+    padding: 0.75rem !important;
+    border-radius: 50% !important;
+    width: 52px;
+    height: 52px;
+  }
+  .wa-float__label { display: none !important; }
+}
+
+
+/* ──────────────────────────────────────────────────────────────────
+   19. UTILIDADES — overflow protection
+   ────────────────────────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  html, body { overflow-x: hidden; }
+  img, picture, video, svg, iframe { max-width: 100%; }
+}
+
+@media (max-width: 640px) {
+  .sidebar-header__title {
+    font-size: clamp(1.5rem, 5.5vw, 2rem) !important;
+  }
+}
+
+
+/* ──────────────────────────────────────────────────────────────────
+   20. SAFE-AREAS iOS — notch + home indicator
+   ────────────────────────────────────────────────────────────────── */
+@supports (padding: max(0px)) {
+  .container {
+    padding-left: max(var(--container-px, 1rem), env(safe-area-inset-left)) !important;
+    padding-right: max(var(--container-px, 1rem), env(safe-area-inset-right)) !important;
+  }
+  body { padding-bottom: env(safe-area-inset-bottom, 0); }
+}
+
+
+/* ──────────────────────────────────────────────────────────────────
+   21. ACCESIBILIDAD — tap highlight touch devices
+   ────────────────────────────────────────────────────────────────── */
+@media (hover: none) and (pointer: coarse) {
+  a, button,
+  .btn, .btn-primary, .btn-secondary, .btn-outline,
+  .hero__btn-primary, .hero__btn-wa,
+  .cta-final__btn-primary, .cta-final__btn-secondary,
+  .hdr-cta, .mob-cta {
+    -webkit-tap-highlight-color: rgba(0, 102, 204, 0.15);
+  }
+}

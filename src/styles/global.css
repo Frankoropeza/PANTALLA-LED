@@ -168,9 +168,17 @@ button {
 }
 
 /* ---- Utilidades base --------------------------------------- */
+/*
+  IMPORTANTE: max-width: 100% sobreescribe los media queries de Tailwind
+  (.container por defecto aplica max-width: 1536px en viewports 2xl).
+  Tailwind container plugin deshabilitado en tailwind.config.mjs pero
+  este override garantiza que HMR lo aplique sin reiniciar el servidor.
+*/
 .container {
   width: 100%;
+  max-width: 100%;
   padding-inline: var(--container-px);
+  box-sizing: border-box;
 }
 
 .section {
@@ -310,3 +318,6 @@ button {
   width: 12px;
   height: 12px;
 }
+
+/* ---- Responsive overhaul — DEBE ir al final de la cascada ---- */
+@import './mobile.css';

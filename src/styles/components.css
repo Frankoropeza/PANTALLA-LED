@@ -12,8 +12,12 @@
 
 .section-header {
   text-align: center;
-  max-width: 640px;
-  margin: 0 auto 3rem;
+  max-width: 56%;
+  margin: 0 auto 3.5rem;
+}
+
+@media (max-width: 768px) {
+  .section-header { max-width: 90%; }
 }
 
 .section-header--left {
@@ -44,11 +48,11 @@
 }
 
 .section-header__title {
-  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  font-size: clamp(2rem, 3.5vw, 3.25rem);
   font-weight: 800;
   color: var(--c-ink);
-  line-height: 1.1;
-  letter-spacing: -0.025em;
+  line-height: 1.08;
+  letter-spacing: -0.03em;
   margin-bottom: 1rem;
 }
 
@@ -153,10 +157,10 @@
 }
 
 .sidebar-header__title {
-  font-size: clamp(1.75rem, 2.5vw, 2.25rem);
+  font-size: clamp(2rem, 2.8vw, 2.75rem);
   font-weight: 800;
   letter-spacing: -0.03em;
-  line-height: 1.1;
+  line-height: 1.08;
   color: var(--c-ink);
   margin-bottom: 1rem;
 }

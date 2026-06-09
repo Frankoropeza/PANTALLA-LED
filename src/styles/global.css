@@ -83,11 +83,11 @@
   --sp-20: 5rem;
   --sp-24: 6rem;
 
-  /* Layout */
-  --max-w:         1400px;
-  --container-px:  1.5rem;
-  --section-py:    clamp(4rem, 7vw, 6rem);
-  --section-py-sm: clamp(2.5rem, 4vw, 3.5rem);
+  /* Layout — full-width, percentage-based */
+  --max-w:         100%;
+  --container-px:  clamp(1.5rem, 5%, 5rem);
+  --section-py:    clamp(5rem, 8vw, 7rem);
+  --section-py-sm: clamp(3rem, 5vw, 4rem);
 
   /* Border radius */
   --radius-sm:   4px;
@@ -170,8 +170,6 @@ button {
 /* ---- Utilidades base --------------------------------------- */
 .container {
   width: 100%;
-  max-width: var(--max-w);
-  margin-inline: auto;
   padding-inline: var(--container-px);
 }
 

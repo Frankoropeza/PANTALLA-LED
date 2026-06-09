@@ -189,8 +189,13 @@ const categorias = [
   .categorias-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 1.25rem;
-    margin-bottom: 2.5rem;
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+  }
+
+  @media (min-width: 1440px) {
+    .categorias-grid { grid-template-columns: repeat(6, 1fr); gap: 1rem; }
+    .ccat__body { padding: 1rem; }
   }
 
   /* ─── Tarjeta base ─── */

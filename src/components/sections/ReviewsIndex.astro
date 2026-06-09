@@ -115,8 +115,12 @@ const reviews = [
   .reviews-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 1.25rem;
-    margin-bottom: 2rem;
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+  }
+
+  @media (min-width: 1400px) {
+    .reviews-grid { grid-template-columns: repeat(6, 1fr); }
   }
 
   .review-card {

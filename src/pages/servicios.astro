@@ -1,21 +1,56 @@
 ---
 /**
  * servicios.astro — Servicios de PantallaLED (L2)
- * Orquestador: PageHero + detalle de los 8 servicios (anclas públicas) +
+ * Blueprint homologado a /productos/: PageHero + QuickNav + TrustStrip +
+ * resumen en grid + spotlight por servicio (fondos alternados) +
  * proceso + CTA final. Datos: config/servicios.ts (fuente única).
  * Schemas: BreadcrumbList + ItemList de Service.
  */
 
 import Base from '../layouts/Base.astro'
 import PageHero from '../components/sections/PageHero.astro'
+import QuickNav from '../components/sections/QuickNav.astro'
+import TrustStrip from '../components/sections/TrustStrip.astro'
 import SectionHeaderDuo from '../components/ui/SectionHeaderDuo.astro'
+import ServicioSpotlight from '../components/sections/ServicioSpotlight.astro'
 import ProcesoIndex from '../components/sections/ProcesoIndex.astro'
 import CTAFinalIndex from '../components/sections/CTAFinalIndex.astro'
-import IconCheck from '../components/ui/icons/IconCheck.astro'
-import IconWhatsApp from '../components/ui/icons/IconWhatsApp.astro'
+import IconArrowRight from '../components/ui/icons/IconArrowRight.astro'
 
-import { SITE, waUrl, WA_MESSAGES } from '../config/site'
+import { SITE, WA_MESSAGES } from '../config/site'
 import { SERVICIOS } from '../config/servicios'
+
+// ─── Navegación rápida: una pill por servicio + proceso ──────────────────────
+const quickNavEnlaces = [
+  ...SERVICIOS.map((svc) => ({
+    label: svc.title
+      .replace(' de Pantallas LED', '')
+      .replace(' y Postventa', '')
+      .replace(' y Soporte', ''),
+    href: `#${svc.id}`,
+  })),
+  { label: 'Cómo trabajamos', href: '#proceso' },
+]
+
+// ─── Franja de confianza ──────────────────────────────────────────────────────
+const trustItems = [
+  {
+    title: 'Técnicos certificados',
+    desc: 'Más de 10 años de experiencia e instalaciones eléctricas y estructurales bajo norma NOM.',
+  },
+  {
+    title: 'Respuesta inmediata',
+    desc: 'Cotización el mismo día y servicio correctivo de emergencia en 24 horas con refacciones en stock.',
+  },
+  {
+    title: 'Un solo responsable',
+    desc: 'Venta, instalación, contenido y mantenimiento con el mismo equipo — sin subcontrataciones improvisadas.',
+  },
+  {
+    title: 'Contrato y factura',
+    desc: 'Pólizas anuales documentadas, factura electrónica y garantía por escrito en cada servicio.',
+  },
+]
 
 // ─── Meta SEO ─────────────────────────────────────────────────────────────────
 const title = 'Servicios de Pantallas LED | Venta, Renta, Instalación y Mantenimiento — PantallaLED'
@@ -56,63 +91,63 @@ const schemaServicios = {
 
 <Base {title} {description} {canonical}>
 
-  <!-- ─── Hero L2 ──────────────────────────────────────────────────────── -->
+  <!-- ─── Hero L2 editorial ────────────────────────────────────────────── -->
   <PageHero
-    eyebrow="Solución integral"
-    title="Servicios de <span>Pantallas LED</span>"
-    desc="Un solo proveedor para todo el ciclo de vida de tu pantalla: desde la asesoría y la venta directa de fábrica, hasta la instalación certificada, el contenido y el mantenimiento 24/7. Operación propia en CDMX y cobertura en toda la República Mexicana."
+    eyebrow="Solución integral · Un solo proveedor"
+    title="Servicios de<br/>Pantallas <span>LED</span>"
+    kicker="Venta · Renta · Instalación · Soporte 24/7"
+    desc="Ocho servicios que cubren todo el ciclo de vida de tu pantalla: desde la asesoría técnica y la venta directa de fábrica, hasta la instalación certificada bajo norma, el diseño de contenido y el mantenimiento preventivo con pólizas anuales."
+    body2="Operación propia en CDMX y Estado de México, cobertura comercial en toda la República Mexicana, y un mismo equipo técnico responsable de extremo a extremo — sin subcontrataciones improvisadas."
     crumbs={[
       { label: 'Inicio', href: '/' },
       { label: 'Servicios' },
     ]}
   />
 
-  <!-- ─── Detalle de servicios ─────────────────────────────────────────── -->
-  <section class="section section--surface" aria-labelledby="servicios-detalle-heading">
+  <QuickNav
+    label="Explora los servicios"
+    enlaces={quickNavEnlaces}
+    ctaLabel="Cotizar servicio"
+    ctaMessage={WA_MESSAGES.servicios}
+  />
+
+  <TrustStrip items={trustItems} />
+
+  <!-- ─── Resumen de servicios ─────────────────────────────────────────── -->
+  <section class="section section--surface" aria-labelledby="servicios-resumen-heading">
     <div class="container">
 
       <SectionHeaderDuo
-        id="servicios-detalle-heading"
+        id="servicios-resumen-heading"
         eyebrow="Qué hacemos"
         title="Ocho servicios, un solo <span>responsable</span>"
         desc="Cada servicio incluye alcances documentados, tiempos comprometidos y un técnico asignado."
-        body1="Comprar una pantalla LED es solo el primer paso: el valor real está en que encienda todos los días. Por eso integramos venta, instalación bajo norma NOM, gestión de contenido y mantenimiento preventivo en un mismo equipo técnico, sin subcontrataciones improvisadas."
+        body1="Comprar una pantalla LED es solo el primer paso: el valor real está en que encienda todos los días. Por eso integramos venta, instalación bajo norma NOM, gestión de contenido y mantenimiento preventivo en un mismo equipo técnico que conoce tu proyecto desde la cotización."
         body2="Trabajas con un solo proveedor responsable de extremo a extremo: cotización el mismo día, factura electrónica, garantía de fábrica de 2 años y soporte 24/7 con refacciones originales en stock dentro de México."
       />
 
-      <div class="servicios-detalle-grid">
+      <div class="resumen-grid" role="list">
         {SERVICIOS.map((svc) => (
-          <article class="sdet" id={svc.id}>
-            <div class="sdet__top">
-              <span class="sdet__num" aria-hidden="true">{svc.num}</span>
-              <h3 class="sdet__title">{svc.title}</h3>
+          <a href={`#${svc.id}`} class="rsvc" role="listitem">
+            <span class="rsvc__num" aria-hidden="true">{svc.num}</span>
+            <div class="rsvc__body">
+              <h3 class="rsvc__title">{svc.title}</h3>
+              <p class="rsvc__desc">{svc.desc}</p>
             </div>
-            <p class="sdet__desc">{svc.desc}</p>
-            <ul class="sdet__features">
-              {svc.features.map((f) => (
-                <li class="sdet__feature">
-                  <IconCheck size={15} strokeWidth={2.5} />
-                  {f}
-                </li>
-              ))}
-            </ul>
-            <div class="sdet__footer">
-              <a
-                href={waUrl(`${WA_MESSAGES.servicios} — ${svc.title}`)}
-                class="link-arrow"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <IconWhatsApp size={14} />
-                Cotizar este servicio
-              </a>
-            </div>
-          </article>
+            <span class="rsvc__arrow" aria-hidden="true">
+              <IconArrowRight size={14} />
+            </span>
+          </a>
         ))}
       </div>
 
     </div>
   </section>
+
+  <!-- ─── Spotlight por servicio (detalle SEO, fondos alternados) ──────── -->
+  {SERVICIOS.map((svc, i) => (
+    <ServicioSpotlight servicio={svc} index={i} />
+  ))}
 
   <!-- ─── Secciones compartidas ────────────────────────────────────────── -->
   <ProcesoIndex />
@@ -125,104 +160,96 @@ const schemaServicios = {
 </Base>
 
 <style>
-  /* ─── Grid de servicios a detalle ─── */
-  .servicios-detalle-grid {
+  /* ─── Grid resumen: tarjetas-enlace hacia los spotlights ─── */
+  .resumen-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 1.25rem;
   }
 
-  /* ─── Card de servicio — receta canónica de Tarjetas ─── */
-  .sdet {
+  .rsvc {
     display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
+    align-items: flex-start;
+    gap: 1rem;
     background: var(--c-surface);
     border: 1px solid var(--c-border);
     border-radius: var(--radius-lg);
-    padding: 1.5rem;
+    padding: 1.375rem 1.5rem;
     transition: border-color .2s var(--ease), box-shadow .2s var(--ease), transform .2s var(--ease);
   }
-  .sdet:hover {
+  .rsvc:hover {
     border-color: rgba(var(--c-primary-rgb), 0.4);
     box-shadow: 0 8px 28px rgba(0, 0, 0, 0.35), 0 0 20px rgba(var(--c-primary-rgb), 0.1);
     transform: translateY(-3px);
   }
 
-  .sdet__top {
-    display: flex;
-    align-items: center;
-    gap: 0.875rem;
-  }
-  .sdet__num {
+  .rsvc__num {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 44px;
-    height: 44px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     background: var(--c-primary-light);
     border: 2px solid var(--c-primary);
-    font-size: 0.75rem;
+    font-size: 0.6875rem;
     font-weight: var(--weight-black);
     color: var(--c-primary);
     letter-spacing: 0.05em;
     flex-shrink: 0;
     transition: background .2s var(--ease), color .2s var(--ease);
   }
-  .sdet:hover .sdet__num {
+  .rsvc:hover .rsvc__num {
     background: var(--c-primary);
     color: var(--c-white);
   }
-  .sdet__title {
-    font-size: 1.125rem;
+
+  .rsvc__body { flex: 1; }
+
+  .rsvc__title {
+    font-size: 1.0625rem;
     font-weight: 700;
     color: var(--c-ink);
     line-height: 1.25;
     letter-spacing: -0.015em;
+    margin-bottom: 0.375rem;
+    transition: color .2s var(--ease);
   }
+  .rsvc:hover .rsvc__title { color: var(--c-primary-soft); }
 
-  .sdet__desc {
-    font-size: 0.9rem;
+  .rsvc__desc {
+    font-size: 0.875rem;
     color: var(--c-muted);
-    line-height: 1.7;
+    line-height: 1.6;
   }
 
-  .sdet__features {
+  .rsvc__arrow {
     display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    margin-top: 0.25rem;
-    flex: 1;
-  }
-  .sdet__feature {
-    display: flex;
-    align-items: flex-start;
-    gap: 0.5rem;
-    font-size: 0.8438rem;
-    color: var(--c-ink-2);
-    line-height: 1.55;
-  }
-  .sdet__feature svg {
-    color: var(--c-success);
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 1px solid var(--c-border);
+    color: var(--c-muted);
     flex-shrink: 0;
-    margin-top: 0.2rem;
+    align-self: center;
+    transition: border-color .2s var(--ease), color .2s var(--ease),
+                background .2s var(--ease), transform .2s var(--ease);
   }
-
-  .sdet__footer {
-    margin-top: 1rem;
-    padding-top: 1rem;
-    border-top: 1px solid var(--c-border);
+  .rsvc:hover .rsvc__arrow {
+    border-color: var(--c-primary);
+    background: var(--c-primary);
+    color: var(--c-white);
+    transform: translateX(3px);
   }
-  .sdet__footer :global(.link-arrow) { color: var(--color-whatsapp); }
-  .sdet__footer :global(.link-arrow svg) { transform: none; }
 
   /* ─── Responsive ─── */
   @media (max-width: 900px) {
-    .servicios-detalle-grid { grid-template-columns: 1fr; gap: 1rem; }
+    .resumen-grid { grid-template-columns: 1fr; gap: 1rem; }
   }
   @media (max-width: 640px) {
-    .sdet { padding: 1.25rem; }
-    .sdet__num { width: 38px; height: 38px; font-size: 0.6875rem; }
+    .rsvc { padding: 1.25rem; }
+    .rsvc__num { width: 36px; height: 36px; }
   }
 </style>

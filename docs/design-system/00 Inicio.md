@@ -38,7 +38,8 @@ Vault de documentación del sistema de diseño y arquitectura del sitio [pantall
 
 ### 06 · Páginas L2 / L3
 - [[Productos]] — /productos/ (plantilla de referencia L2)
-- [[Servicios]] — /servicios/ (detalle de 8 servicios con anclas)
+- [[Servicios]] — /servicios/ (8 spotlights con anclas públicas)
+- [[Aplicaciones]] — /aplicaciones/ (6 sectores con cross-links a productos)
 - [[Contacto]] — /contacto/ (formulario → WhatsApp sin backend)
 - [[Ficha de Producto]] — /productos/[slug]/ (markdown + schema Product)
 

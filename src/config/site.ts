@@ -63,15 +63,15 @@ export const SERVICES = [
   { id: 'contenido',     label: 'Gestión de Contenido',        desc: 'Configuración y gestión del software de control'       },
 ] as const
 
-// Aplicaciones / sectores de uso
-export const APPLICATIONS = [
-  { slug: 'publicidad-exterior',  label: 'Publicidad Exterior',     href: '/aplicaciones/publicidad-exterior/'  },
-  { slug: 'eventos-espectaculos', label: 'Eventos y Espectáculos',  href: '/aplicaciones/eventos/'              },
-  { slug: 'centros-comerciales',  label: 'Centros Comerciales',     href: '/aplicaciones/centros-comerciales/'  },
-  { slug: 'restaurantes-hoteles', label: 'Restaurantes y Hoteles',  href: '/aplicaciones/hospitality/'          },
-  { slug: 'estadios-deportivos',  label: 'Estadios y Deportivos',   href: '/aplicaciones/estadios/'             },
-  { slug: 'educacion',            label: 'Educación',               href: '/aplicaciones/educacion/'            },
-] as const
+// Aplicaciones / sectores de uso — derivado de config/aplicaciones.ts
+// (fuente única; los href son anclas reales de /aplicaciones/)
+import { APLICACIONES } from './aplicaciones'
+
+export const APPLICATIONS = APLICACIONES.map((a) => ({
+  slug: a.slug,
+  label: a.title,
+  href: `/aplicaciones/#${a.slug}`,
+})) as { slug: string; label: string; href: string }[]
 
 // Estados / zonas de cobertura
 export const COVERAGE_STATES = [

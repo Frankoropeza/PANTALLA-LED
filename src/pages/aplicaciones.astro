@@ -1,0 +1,244 @@
+---
+/**
+ * aplicaciones.astro — Aplicaciones por sector (L2)
+ * Blueprint homologado a /productos/ y /servicios/: PageHero + QuickNav +
+ * TrustStrip + resumen en grid + spotlight por sector (fondos alternados) +
+ * testimonios + CTA final. Datos: config/aplicaciones.ts (fuente única).
+ * Schemas: BreadcrumbList + ItemList.
+ */
+
+import Base from '../layouts/Base.astro'
+import PageHero from '../components/sections/PageHero.astro'
+import QuickNav from '../components/sections/QuickNav.astro'
+import TrustStrip from '../components/sections/TrustStrip.astro'
+import SectionHeaderDuo from '../components/ui/SectionHeaderDuo.astro'
+import AplicacionSpotlight from '../components/sections/AplicacionSpotlight.astro'
+import ReviewsIndex from '../components/sections/ReviewsIndex.astro'
+import CTAFinalIndex from '../components/sections/CTAFinalIndex.astro'
+import IconArrowRight from '../components/ui/icons/IconArrowRight.astro'
+
+import { SITE, WA_MESSAGES } from '../config/site'
+import { APLICACIONES } from '../config/aplicaciones'
+
+// ─── Navegación rápida: una pill por sector + catálogo ───────────────────────
+const quickNavEnlaces = [
+  ...APLICACIONES.map((app) => ({ label: app.title, href: `#${app.slug}` })),
+  { label: 'Ver catálogo LED', href: '/productos/' },
+]
+
+// ─── Franja de confianza ──────────────────────────────────────────────────────
+const trustItems = [
+  {
+    title: 'Experiencia multisector',
+    desc: 'Más de 500 proyectos entregados en publicidad, retail, eventos, hospitality, deportes y educación.',
+  },
+  {
+    title: 'Proyecto llave en mano',
+    desc: 'Diagnóstico, equipo, instalación certificada y contenido inicial — un solo proveedor responsable.',
+  },
+  {
+    title: 'Solución a la medida',
+    desc: 'Paso de pixel, brillo y formato calculados para tu espacio real, no equipos genéricos de catálogo.',
+  },
+  {
+    title: 'Cobertura nacional',
+    desc: 'Operación propia en CDMX/EdoMex y red certificada en Guadalajara, Monterrey, Puebla y Cancún.',
+  },
+]
+
+// ─── Meta SEO ─────────────────────────────────────────────────────────────────
+const title = 'Aplicaciones de Pantallas LED por Sector | Publicidad, Retail, Eventos — PantallaLED'
+const description =
+  'Soluciones de pantallas LED por industria: espectaculares DOOH, centros comerciales, eventos y conciertos, restaurantes y hoteles, estadios deportivos y educación. Proyectos llave en mano con la pantalla correcta para cada espacio.'
+const canonical = `${SITE.url}/aplicaciones/`
+
+// ─── JSON-LD ──────────────────────────────────────────────────────────────────
+const schemaBreadcrumb = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Inicio', item: SITE.url },
+    { '@type': 'ListItem', position: 2, name: 'Aplicaciones', item: canonical },
+  ],
+}
+
+const schemaItemList = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: 'Aplicaciones de Pantallas LED por Sector',
+  numberOfItems: APLICACIONES.length,
+  itemListElement: APLICACIONES.map((app, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    name: app.title,
+    url: `${canonical}#${app.slug}`,
+  })),
+}
+---
+
+<Base {title} {description} {canonical}>
+
+  <!-- ─── Hero L2 editorial ────────────────────────────────────────────── -->
+  <PageHero
+    eyebrow="Soluciones por industria"
+    title="Una pantalla para<br/>cada <span>sector</span>"
+    kicker="Publicidad · Retail · Eventos · Deportes"
+    desc="Cada industria usa la pantalla LED de forma distinta: el espectacular vende impactos, el centro comercial activa locatarios, el hotel renta mejor sus salones y el estadio monetiza cada minuto de juego. Conocemos los requerimientos técnicos y comerciales de cada sector."
+    body2="Por eso no vendemos equipos genéricos: diseñamos la solución — paso de pixel, brillo, formato y contenido — para tu espacio y tu modelo de negocio, con más de 500 proyectos entregados en toda la República Mexicana."
+    crumbs={[
+      { label: 'Inicio', href: '/' },
+      { label: 'Aplicaciones' },
+    ]}
+  />
+
+  <QuickNav
+    label="Explora por sector"
+    enlaces={quickNavEnlaces}
+    ctaLabel="Cotizar mi proyecto"
+    ctaMessage={WA_MESSAGES.cotizacion}
+  />
+
+  <TrustStrip items={trustItems} />
+
+  <!-- ─── Resumen de sectores ──────────────────────────────────────────── -->
+  <section class="section section--surface" aria-labelledby="aplicaciones-resumen-heading">
+    <div class="container">
+
+      <SectionHeaderDuo
+        id="aplicaciones-resumen-heading"
+        eyebrow="Sectores que atendemos"
+        title="Seis industrias, una <span>solución a la medida</span>"
+        desc="Selecciona tu sector para ver casos de uso, requerimientos técnicos y pantallas recomendadas."
+        body1="La pantalla correcta depende del negocio: un menu board de restaurante necesita color calibrado a 2 metros; un espectacular de autopista, brillo de 10,000 nits a 100 metros. Documentamos los requerimientos de cada sector para que tu inversión rinda desde el primer día."
+        body2="Si tu industria no está en la lista, igual la conocemos: hemos instalado en iglesias, casinos, hospitales, aeropuertos y plantas industriales. Cuéntanos tu caso y te armamos la propuesta técnica sin costo."
+      />
+
+      <div class="apps-grid" role="list">
+        {APLICACIONES.map((app) => (
+          <a href={`#${app.slug}`} class="rapp" role="listitem">
+            <span class="rapp__badge">{app.badge}</span>
+            <h3 class="rapp__title">{app.title}</h3>
+            <p class="rapp__desc">{app.desc}</p>
+            <span class="rapp__footer">
+              <span class="rapp__footer-label">Ver casos de uso</span>
+              <span class="rapp__arrow" aria-hidden="true">
+                <IconArrowRight size={14} />
+              </span>
+            </span>
+          </a>
+        ))}
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ─── Spotlight por sector (detalle SEO, fondos alternados) ────────── -->
+  {APLICACIONES.map((app, i) => (
+    <AplicacionSpotlight aplicacion={app} index={i} />
+  ))}
+
+  <!-- ─── Secciones compartidas ────────────────────────────────────────── -->
+  <ReviewsIndex />
+  <CTAFinalIndex />
+
+  <!-- ─── JSON-LD ──────────────────────────────────────────────────────── -->
+  <script type="application/ld+json" set:html={JSON.stringify(schemaBreadcrumb)} />
+  <script type="application/ld+json" set:html={JSON.stringify(schemaItemList)} />
+
+</Base>
+
+<style>
+  /* ─── Grid resumen: tarjetas-enlace hacia los spotlights ─── */
+  .apps-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+  }
+
+  .rapp {
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
+    background: var(--c-surface);
+    border: 1px solid var(--c-border);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    transition: border-color .2s var(--ease), box-shadow .2s var(--ease), transform .2s var(--ease);
+  }
+  .rapp:hover {
+    border-color: rgba(var(--c-primary-rgb), 0.4);
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.35), 0 0 20px rgba(var(--c-primary-rgb), 0.1);
+    transform: translateY(-3px);
+  }
+
+  .rapp__badge {
+    font-size: 0.625rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--c-primary-soft);
+    background: rgba(var(--c-primary-rgb), 0.12);
+    border: 1px solid rgba(var(--c-primary-rgb), 0.3);
+    border-radius: var(--radius-full);
+    padding: 0.3rem 0.7rem;
+    width: fit-content;
+  }
+
+  .rapp__title {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--c-ink);
+    line-height: 1.25;
+    letter-spacing: -0.02em;
+    transition: color .2s var(--ease);
+  }
+  .rapp:hover .rapp__title { color: var(--c-primary-soft); }
+
+  .rapp__desc {
+    font-size: 0.875rem;
+    color: var(--c-muted);
+    line-height: 1.65;
+    flex: 1;
+  }
+
+  .rapp__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 0.75rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--c-border);
+  }
+  .rapp__footer-label {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--c-primary);
+  }
+  .rapp__arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 1px solid var(--c-border);
+    color: var(--c-muted);
+    transition: border-color .2s var(--ease), color .2s var(--ease),
+                background .2s var(--ease), transform .2s var(--ease);
+  }
+  .rapp:hover .rapp__arrow {
+    border-color: var(--c-primary);
+    background: var(--c-primary);
+    color: var(--c-white);
+    transform: translateX(3px);
+  }
+
+  /* ─── Responsive ─── */
+  @media (max-width: 1024px) {
+    .apps-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 640px) {
+    .apps-grid { grid-template-columns: 1fr; gap: 1rem; }
+    .rapp { padding: 1.25rem; }
+  }
+</style>

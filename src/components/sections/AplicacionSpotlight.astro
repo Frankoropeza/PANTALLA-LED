@@ -1,0 +1,188 @@
+---
+// AplicacionSpotlight.astro — Sección de detalle SEO por sector
+// Tercera gemela de Categoria/ServicioSpotlight: split layout con
+// sidebar sticky (badge + H2 + intro + pantallas recomendadas + CTA)
+// | grid 2×2 de casos de uso. El id de la sección es el ancla
+// pública /aplicaciones/#<slug>. Datos: config/aplicaciones.ts.
+
+import type { Aplicacion } from '../../config/aplicaciones'
+import IconWhatsApp from '../ui/icons/IconWhatsApp.astro'
+import IconArrowRight from '../ui/icons/IconArrowRight.astro'
+import { waUrl } from '../../config/site'
+import { url } from '../../utils/url'
+
+interface Props {
+  aplicacion: Aplicacion
+  /** índice para alternar fondo (par = dark, impar = surface) */
+  index: number
+}
+
+const { aplicacion: app, index } = Astro.props
+const fondo = index % 2 === 0 ? 'section--dark' : 'section--surface'
+const headingId = `${app.slug}-heading`
+const waMensaje = `Hola, necesito una pantalla LED para ${app.title.toLowerCase()}`
+---
+
+<section
+  id={app.slug}
+  class:list={['section', fondo, 'aspot']}
+  aria-labelledby={headingId}
+>
+  <div class="container">
+    <div class="split-layout">
+
+      <!-- Sidebar: contexto + pantallas recomendadas + CTA -->
+      <div class="split-layout__sidebar">
+        <p class="aspot__badge">{app.badge}</p>
+        <h2 id={headingId} class="sidebar-header__title" set:html={app.title} />
+        <p class="aspot__intro">{app.intro}</p>
+
+        <p class="aspot__rec-label">Pantallas recomendadas</p>
+        <div class="aspot__recs">
+          {app.pantallas.map((p) => (
+            <a href={url(p.href)} class="aspot__rec">
+              {p.label}
+              <IconArrowRight size={12} />
+            </a>
+          ))}
+        </div>
+
+        <div class="aspot__ctas">
+          <a
+            href={waUrl(waMensaje)}
+            class="btn btn--whatsapp"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <IconWhatsApp size={17} />
+            Cotizar para este sector
+          </a>
+        </div>
+      </div>
+
+      <!-- Grid 2×2 de casos de uso -->
+      <div class="aspot__grid" role="list">
+        {app.features.map((f) => (
+          <article class="aspot-card" role="listitem">
+            <h3 class="aspot-card__title">{f.title}</h3>
+            <p class="aspot-card__desc">{f.desc}</p>
+          </article>
+        ))}
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  .aspot__badge {
+    display: inline-block;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--c-primary-soft);
+    background: rgba(var(--c-primary-rgb), 0.12);
+    border: 1px solid rgba(var(--c-primary-rgb), 0.3);
+    border-radius: var(--radius-full);
+    padding: 0.35rem 0.8rem;
+    margin-bottom: 1rem;
+  }
+
+  .aspot__intro {
+    font-size: 0.9375rem;
+    color: var(--c-muted);
+    line-height: 1.75;
+    margin-bottom: 1.5rem;
+  }
+
+  /* ─── Pantallas recomendadas ─── */
+  .aspot__rec-label {
+    font-size: 0.6875rem;
+    font-weight: var(--weight-semibold);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--c-muted);
+    margin-bottom: 0.625rem;
+  }
+  .aspot__recs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-bottom: 1.75rem;
+  }
+  .aspot__rec {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--c-ink-2);
+    background: rgba(var(--c-primary-rgb), 0.08);
+    border: 1px solid rgba(var(--c-primary-rgb), 0.18);
+    border-radius: var(--radius-full);
+    padding: 0.35rem 0.75rem;
+    transition: border-color var(--transition), color var(--transition), background var(--transition);
+  }
+  .aspot__rec:hover {
+    border-color: var(--c-primary);
+    color: var(--c-primary);
+    background: var(--c-primary-light);
+  }
+  .aspot__rec svg { flex-shrink: 0; }
+
+  .aspot__ctas {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  /* ─── Cards de casos de uso — receta canónica ─── */
+  .aspot__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+    align-content: start;
+  }
+
+  .aspot-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    background: var(--c-surface);
+    border: 1px solid var(--c-border);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    transition: border-color .2s var(--ease), box-shadow .2s var(--ease), transform .2s var(--ease);
+  }
+  .aspot-card:hover {
+    border-color: rgba(var(--c-primary-rgb), 0.4);
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.35), 0 0 20px rgba(var(--c-primary-rgb), 0.1);
+    transform: translateY(-3px);
+  }
+
+  .aspot-card__title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--c-ink);
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+    padding-left: 0.875rem;
+    border-left: 3px solid var(--c-primary);
+  }
+
+  .aspot-card__desc {
+    font-size: 0.875rem;
+    color: var(--c-muted);
+    line-height: 1.65;
+  }
+
+  /* ─── Responsive ─── */
+  /* El colapso del split lo maneja .split-layout (sistema global) */
+  @media (max-width: 640px) {
+    .aspot__grid { grid-template-columns: 1fr; gap: 1rem; }
+    .aspot-card { padding: 1.25rem; }
+    .aspot__ctas :global(.btn) { width: 100%; justify-content: center; }
+  }
+</style>

@@ -1,0 +1,27 @@
+---
+// PreFooterNav.astro — Menú segmentado pre-footer (todas las páginas)
+// Variante azul de QuickNav con accesos a páginas y servicios clave,
+// complementario al menú naranja bajo el hero (que usa anclas).
+// Montado en Base.astro, justo antes del Footer.
+
+import QuickNav from '../sections/QuickNav.astro'
+import { WA_MESSAGES } from '../../config/site'
+
+const enlaces = [
+  { label: 'Catálogo completo', href: '/productos/' },
+  { label: 'Pantalla LED Exterior', href: '/productos/pantalla-exterior/' },
+  { label: 'Pantalla LED Interior', href: '/productos/pantalla-interior/' },
+  { label: 'Renta para eventos', href: '/servicios/#renta' },
+  { label: 'Instalación profesional', href: '/servicios/#instalacion' },
+  { label: 'Mantenimiento 24/7', href: '/servicios/#mantenimiento' },
+  { label: 'Contacto y cotización', href: '/contacto/' },
+]
+---
+
+<QuickNav
+  variant="primary"
+  label="Accesos directos del sitio"
+  enlaces={enlaces}
+  ctaLabel="Cotizar por WhatsApp"
+  ctaMessage={WA_MESSAGES.cotizacion}
+/>

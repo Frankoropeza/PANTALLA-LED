@@ -23,10 +23,18 @@
 - Responsive: 1 fila en desktop → 4 columnas (≤1200) → 2 columnas (≤640, min-height 50px). **Mantener número de items en múltiplos de 4** para que las filas cierren parejas (index: 8 · productos: 10 → 4+4+2).
 - El prop `label` ahora es solo el `aria-label` del nav.
 
+## Variantes
+
+| Variante | Color | Dónde |
+|---|---|---|
+| `accent` (default) | Banda naranja LED | Bajo el hero — navegación por **anclas** de la página |
+| `primary` | Banda azul primaria | **Pre-footer global** — accesos a **páginas** clave |
+
 ## Dónde se usa
 
-- **Index:** 7 anclas de sección (array en `index.astro`).
-- **/productos/:** 6 categorías (anclas `#<slug>` — [[Tarjetas|CategoryCard]] expone `id={cat.slug}`) + Fichas técnicas + Guía de pixel.
+- **Index (accent):** 7 anclas de sección (array en `index.astro`).
+- **/productos/ (accent):** 6 categorías (anclas `#<slug>` — [[Tarjetas|CategoryCard]] expone `id={cat.slug}`) + Fichas + Guía + Asesoría.
+- **Todas las páginas (primary):** `global/PreFooterNav.astro`, montado en `Base.astro` antes del Footer — catálogo, fichas exterior/interior, renta, instalación, mantenimiento, contacto + CTA. Al crear páginas nuevas no hay que hacer nada: lo trae el layout.
 
 ## Soporte global
 

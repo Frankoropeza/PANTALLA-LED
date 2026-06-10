@@ -17,6 +17,8 @@ interface Props {
   enlaces: Enlace[]
   ctaLabel?: string
   ctaMessage: string
+  /** accent = banda naranja (bajo el hero) · primary = banda azul (pre-footer) */
+  variant?: 'accent' | 'primary'
 }
 
 const {
@@ -24,10 +26,11 @@ const {
   enlaces,
   ctaLabel = 'Cotizar ahora',
   ctaMessage,
+  variant = 'accent',
 } = Astro.props
 ---
 
-<nav class="quicknav" aria-label={label}>
+<nav class:list={['quicknav', `quicknav--${variant}`]} aria-label={label}>
   <ul class="quicknav__list">
     {enlaces.map((e) => (
       <li class="quicknav__item">
@@ -57,11 +60,23 @@ const {
   .quicknav {
     position: relative;
     width: 100%;
+    overflow: hidden;
+  }
+
+  /* Variante naranja (bajo el hero) */
+  .quicknav--accent {
     background: linear-gradient(120deg, var(--c-accent) 0%, #E85B00 55%, var(--c-accent-dark) 100%);
     box-shadow:
       inset 0 1px 0 rgba(255, 255, 255, 0.18),
       0 8px 24px rgba(var(--c-accent-rgb), 0.18);
-    overflow: hidden;
+  }
+
+  /* Variante azul (pre-footer) */
+  .quicknav--primary {
+    background: linear-gradient(120deg, #1A7FE8 0%, var(--c-primary) 45%, var(--c-primary-dark) 100%);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.16),
+      0 -8px 24px rgba(var(--c-primary-rgb), 0.15);
   }
   /* Brillo diagonal sutil */
   .quicknav::before {
@@ -106,9 +121,14 @@ const {
     letter-spacing: 0.01em;
     transition: background var(--transition), color var(--transition), text-shadow var(--transition);
   }
-  .quicknav__btn:hover {
+  .quicknav--accent .quicknav__btn:hover {
     background: var(--c-white);
     color: var(--c-accent-dark);
+    text-shadow: none;
+  }
+  .quicknav--primary .quicknav__btn:hover {
+    background: var(--c-white);
+    color: var(--c-primary-dark);
     text-shadow: none;
   }
 

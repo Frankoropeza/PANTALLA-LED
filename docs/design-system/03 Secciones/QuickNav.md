@@ -15,12 +15,13 @@
 
 ## Diseño
 
-**Banda de acento naranja LED** (gradiente `--c-accent` → `--c-accent-dark` con brillo diagonal) — contraste deliberado contra el azul dominante, patrón Gama de México. Es el único uso protagónico del naranja en el sitio: no replicarlo en otras secciones para que conserve su poder de contraste.
+**Barra segmentada full-bleed** sobre banda naranja LED (gradiente `--c-accent` → `--c-accent-dark` con brillo diagonal) — contraste deliberado contra el azul dominante. Único uso protagónico del naranja en el sitio: no replicarlo en otras secciones.
 
-- Label blanco uppercase con barra blanca.
-- Pills glass blancas translúcidas (`rgba(255,255,255,.12)` + borde `.28` + blur) → hover se rellenan de blanco con texto naranja oscuro y elevación.
-- CTA: pill blanca sólida con texto/icono en verde WhatsApp.
-- ≤900: label arriba. ≤640: carrusel horizontal sin scrollbar, touch 38px+.
+- Grid `grid-auto-columns: 1fr`: **cada botón ocupa una celda igual del 100% del viewport**, separadas por hairlines blancas (inset shadows que funcionan también entre filas).
+- Botón: texto blanco bold centrado, min-height 56px → hover la celda se rellena de blanco con texto naranja.
+- CTA: celda blanca permanente con texto/icono verde WhatsApp.
+- Responsive: 1 fila en desktop → 4 columnas (≤1200) → 2 columnas (≤640, min-height 50px). **Mantener número de items en múltiplos de 4** para que las filas cierren parejas (index: 8 · productos: 10 → 4+4+2).
+- El prop `label` ahora es solo el `aria-label` del nav.
 
 ## Dónde se usa
 

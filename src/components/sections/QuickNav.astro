@@ -1,7 +1,8 @@
 ---
-// QuickNav.astro — Franja de navegación rápida (pills + CTA WhatsApp)
-// Reutilizable en cualquier página: va inmediatamente después del hero.
-// Props: label, enlaces (anclas o rutas) y mensaje del CTA.
+// QuickNav.astro — Barra de navegación rápida segmentada
+// Banda naranja de ancho completo: cada botón ocupa una celda igual
+// del 100% del viewport. Va inmediatamente después del hero.
+// Props: label (accesibilidad), enlaces y mensaje del CTA WhatsApp.
 
 import { waUrl } from '../../config/site'
 import IconWhatsApp from '../ui/icons/IconWhatsApp.astro'
@@ -19,56 +20,48 @@ interface Props {
 }
 
 const {
-  label = 'Explora el sitio',
+  label = 'Navegación rápida de secciones',
   enlaces,
   ctaLabel = 'Cotizar ahora',
   ctaMessage,
 } = Astro.props
 ---
 
-<nav class="quicknav" aria-label="Navegación rápida de secciones">
-  <div class="container quicknav__inner">
-
-    <p class="quicknav__label">
-      <span class="quicknav__label-bar" aria-hidden="true"></span>
-      {label}
-    </p>
-
-    <ul class="quicknav__list">
-      {enlaces.map((e) => (
-        <li>
-          <a href={e.href} class="quicknav__pill">{e.label}</a>
-        </li>
-      ))}
-      <li>
-        <a
-          href={waUrl(ctaMessage)}
-          class="quicknav__pill quicknav__pill--cta"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <IconWhatsApp size={14} />
-          {ctaLabel}
-        </a>
+<nav class="quicknav" aria-label={label}>
+  <ul class="quicknav__list">
+    {enlaces.map((e) => (
+      <li class="quicknav__item">
+        <a href={e.href} class="quicknav__btn">{e.label}</a>
       </li>
-    </ul>
-
-  </div>
+    ))}
+    <li class="quicknav__item">
+      <a
+        href={waUrl(ctaMessage)}
+        class="quicknav__btn quicknav__btn--cta"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <IconWhatsApp size={15} />
+        {ctaLabel}
+      </a>
+    </li>
+  </ul>
 </nav>
 
 <style>
   /*
     Banda de acento naranja LED (--c-accent) — contraste deliberado
-    contra el azul dominante del sitio (patrón Gama de México).
+    contra el azul dominante del sitio. Barra segmentada full-bleed:
+    todos los botones ocupan celdas iguales del 100% del ancho.
   */
   .quicknav {
     position: relative;
+    width: 100%;
     background: linear-gradient(120deg, var(--c-accent) 0%, #E85B00 55%, var(--c-accent-dark) 100%);
-    padding-block: 1.125rem;
-    overflow: hidden;
     box-shadow:
       inset 0 1px 0 rgba(255, 255, 255, 0.18),
       0 8px 24px rgba(var(--c-accent-rgb), 0.18);
+    overflow: hidden;
   }
   /* Brillo diagonal sutil */
   .quicknav::before {
@@ -79,104 +72,71 @@ const {
     pointer-events: none;
   }
 
-  .quicknav__inner {
-    position: relative;
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-  }
-
-  .quicknav__label {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.625rem;
-    font-size: 0.6875rem;
-    font-weight: var(--weight-bold);
-    color: var(--c-white);
-    text-transform: uppercase;
-    letter-spacing: 0.14em;
-    white-space: nowrap;
-    flex-shrink: 0;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
-  }
-  .quicknav__label-bar {
-    display: block;
-    width: 22px;
-    height: 2px;
-    background: var(--c-white);
-    border-radius: 2px;
-    flex-shrink: 0;
-  }
-
+  /* ─── Grid de celdas iguales, 100% del viewport ─── */
   .quicknav__list {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 0.5rem;
+    position: relative;
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 1fr;
+    width: 100%;
   }
 
-  /* Pills glass blancas sobre naranja */
-  .quicknav__pill {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    font-size: 0.8125rem;
-    font-weight: var(--weight-semibold);
-    color: var(--c-white);
-    background: rgba(255, 255, 255, 0.12);
-    border: 1px solid rgba(255, 255, 255, 0.28);
-    border-radius: var(--radius-full);
-    padding: 0.45rem 1.05rem;
-    white-space: nowrap;
-    backdrop-filter: blur(4px);
-    transition: background var(--transition), color var(--transition),
-                border-color var(--transition), transform 150ms var(--ease),
-                box-shadow var(--transition);
+  /* Separadores entre celdas (también entre filas al envolver) */
+  .quicknav__item {
+    display: flex;
+    box-shadow:
+      inset 1px 0 0 rgba(255, 255, 255, 0.18),
+      inset 0 1px 0 rgba(255, 255, 255, 0.18);
   }
-  .quicknav__pill:hover {
+
+  .quicknav__btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
+    width: 100%;
+    min-height: 56px;
+    padding: 0.875rem 0.75rem;
+    text-align: center;
+    font-size: clamp(0.75rem, 0.95vw, 0.875rem);
+    font-weight: var(--weight-bold);
+    line-height: 1.2;
+    color: var(--c-white);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.12);
+    letter-spacing: 0.01em;
+    transition: background var(--transition), color var(--transition), text-shadow var(--transition);
+  }
+  .quicknav__btn:hover {
     background: var(--c-white);
     color: var(--c-accent-dark);
-    border-color: var(--c-white);
-    transform: translateY(-1px);
-    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
+    text-shadow: none;
   }
-  .quicknav__pill:active { transform: translateY(0); }
 
-  /* CTA: blanco sólido con identidad WhatsApp */
-  .quicknav__pill--cta {
+  /* CTA: celda blanca con identidad WhatsApp */
+  .quicknav__btn--cta {
     background: var(--c-white);
     color: #128C46;
-    border-color: var(--c-white);
-    font-weight: var(--weight-bold);
-    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
+    text-shadow: none;
   }
-  .quicknav__pill--cta:hover {
-    background: var(--c-white);
+  .quicknav__btn--cta:hover {
+    background: #F2FBF5;
     color: var(--color-whatsapp-hover);
-    transform: translateY(-1px);
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.24);
   }
-  .quicknav__pill--cta svg { flex-shrink: 0; color: #25D366; }
+  .quicknav__btn--cta :global(svg) { flex-shrink: 0; color: #25D366; }
 
-  /* ─── Responsive: scroll horizontal en móvil ─── */
-  @media (max-width: 900px) {
-    .quicknav__inner {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 0.75rem;
+  /* ─── Responsive: celdas siempre iguales, en filas ─── */
+  @media (max-width: 1200px) {
+    .quicknav__list {
+      grid-auto-flow: row;
+      grid-template-columns: repeat(4, 1fr);
     }
   }
 
   @media (max-width: 640px) {
-    .quicknav__list {
-      flex-wrap: nowrap;
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
-      width: 100%;
-      padding-bottom: 0.25rem;
-      scrollbar-width: none;
+    .quicknav__list { grid-template-columns: repeat(2, 1fr); }
+    .quicknav__btn {
+      min-height: 50px;
+      font-size: 0.8125rem;
     }
-    .quicknav__list::-webkit-scrollbar { display: none; }
-    .quicknav__pill { padding: 0.5rem 1rem; min-height: 38px; }
   }
 </style>

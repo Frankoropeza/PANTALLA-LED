@@ -125,8 +125,6 @@
   }
   .hero__eyebrow { margin: 0 auto !important; }
   .hero__p       { max-width: 100% !important; }
-  .hero__ctas    { justify-content: center !important; }
-  .hero__trust   { justify-content: center !important; }
 }
 
 @media (max-width: 640px) {
@@ -140,18 +138,6 @@
   .hero__p {
     font-size: 0.9375rem !important;
     line-height: 1.7 !important;
-  }
-  .hero__ctas {
-    flex-direction: column !important;
-    width: 100%;
-    gap: 0.75rem !important;
-  }
-  .hero__btn-primary,
-  .hero__btn-wa {
-    width: 100% !important;
-    justify-content: center !important;
-    padding: 0.875rem 1.25rem !important;
-    min-height: 48px;
   }
 }
 

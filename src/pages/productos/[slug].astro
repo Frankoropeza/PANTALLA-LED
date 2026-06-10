@@ -12,10 +12,9 @@ import Base from '../../layouts/Base.astro'
 import PageHero from '../../components/sections/PageHero.astro'
 import CTAFinalIndex from '../../components/sections/CTAFinalIndex.astro'
 import IconWhatsApp from '../../components/ui/icons/IconWhatsApp.astro'
-import IconPhone from '../../components/ui/icons/IconPhone.astro'
 import IconCheck from '../../components/ui/icons/IconCheck.astro'
 
-import { SITE, CONTACT, waUrl } from '../../config/site'
+import { SITE, waUrl } from '../../config/site'
 
 export async function getStaticPaths() {
   const productos = await getCollection('productos')
@@ -95,23 +94,7 @@ const tituloHero = producto.data.title.startsWith('Pantalla LED ')
       { label: 'Productos', href: '/productos/' },
       { label: producto.data.title },
     ]}
-  >
-    <div slot="actions" class="ficha-ctas">
-      <a
-        href={waUrl(waMensaje)}
-        class="btn btn--whatsapp btn--lg"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <IconWhatsApp size={18} />
-        Cotizar este modelo
-      </a>
-      <a href={`tel:${CONTACT.phoneRaw}`} class="btn btn--outline btn--lg">
-        <IconPhone size={16} />
-        {CONTACT.phone}
-      </a>
-    </div>
-  </PageHero>
+  />
 
   <!-- ─── Contenido + specs ────────────────────────────────────────────── -->
   <section class="section section--surface" aria-label="Ficha técnica del producto">
@@ -184,13 +167,6 @@ const tituloHero = producto.data.title.startsWith('Pantalla LED ')
 </Base>
 
 <style>
-  .ficha-ctas {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.875rem;
-    margin-top: 0.5rem;
-  }
-
   /* ─── Layout: prose + sidebar specs ─── */
   .ficha-layout {
     display: grid;
@@ -343,9 +319,5 @@ const tituloHero = producto.data.title.startsWith('Pantalla LED ')
     .ficha-layout { grid-template-columns: 1fr; }
     .ficha-specs { position: static; order: -1; }
     .prose-led { max-width: none; }
-  }
-  @media (max-width: 640px) {
-    .ficha-ctas { width: 100%; }
-    .ficha-ctas :global(.btn) { width: 100%; justify-content: center; }
   }
 </style>

@@ -1,0 +1,174 @@
+---
+// CategoriaSpotlight.astro — Sección de detalle SEO por categoría
+// Split layout: sidebar sticky (badge + H2 + intro + CTAs) | grid 2×2
+// de capacidades. Fondos alternados por índice (patrón Firefighters MX
+// homologado al sistema). Datos: config/categorias.ts → spotlight.
+
+import type { Categoria } from '../../config/categorias'
+import IconWhatsApp from '../ui/icons/IconWhatsApp.astro'
+import IconArrowRight from '../ui/icons/IconArrowRight.astro'
+import { waUrl } from '../../config/site'
+import { url } from '../../utils/url'
+
+interface Props {
+  categoria: Categoria
+  /** índice para alternar fondo (par = dark, impar = surface) */
+  index: number
+}
+
+const { categoria: cat, index } = Astro.props
+const fondo = index % 2 === 0 ? 'section--dark' : 'section--surface'
+const headingId = `${cat.slug}-detalle-heading`
+const waMensaje = `Hola, necesito cotizar ${cat.title} (${cat.specs.join(' / ')})`
+---
+
+<section
+  id={`${cat.slug}-detalle`}
+  class:list={['section', fondo, 'cspot']}
+  aria-labelledby={headingId}
+>
+  <div class="container">
+    <div class="split-layout">
+
+      <!-- Sidebar: contexto + CTAs -->
+      <div class="split-layout__sidebar">
+        <p class="cspot__badge">{cat.badge}</p>
+        <h2 id={headingId} class="sidebar-header__title">
+          {cat.title} <span>certificadas</span>
+        </h2>
+        <p class="cspot__intro">{cat.spotlight.intro}</p>
+
+        <div class="cspot__specs" aria-label="Pasos de pixel disponibles">
+          {cat.specs.map((s) => (
+            <span class="cspot__spec">{s}</span>
+          ))}
+        </div>
+
+        <div class="cspot__ctas">
+          <a
+            href={waUrl(waMensaje)}
+            class="btn btn--whatsapp"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <IconWhatsApp size={17} />
+            Cotizar {cat.title.toLowerCase()}
+          </a>
+          {cat.spotlight.fichaHref && (
+            <a href={url(cat.spotlight.fichaHref)} class="link-arrow">
+              Ver ficha técnica completa
+              <IconArrowRight size={14} />
+            </a>
+          )}
+        </div>
+      </div>
+
+      <!-- Grid 2×2 de capacidades -->
+      <div class="cspot__grid" role="list">
+        {cat.spotlight.features.map((f) => (
+          <article class="cspot-card" role="listitem">
+            <h3 class="cspot-card__title">{f.title}</h3>
+            <p class="cspot-card__desc">{f.desc}</p>
+          </article>
+        ))}
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Badge de categoría (estilo norma del patrón de referencia) */
+  .cspot__badge {
+    display: inline-block;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--c-primary-soft);
+    background: rgba(var(--c-primary-rgb), 0.12);
+    border: 1px solid rgba(var(--c-primary-rgb), 0.3);
+    border-radius: var(--radius-full);
+    padding: 0.35rem 0.8rem;
+    margin-bottom: 1rem;
+  }
+
+  .cspot__intro {
+    font-size: 0.9375rem;
+    color: var(--c-muted);
+    line-height: 1.75;
+    margin-bottom: 1.5rem;
+  }
+
+  .cspot__specs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-bottom: 1.75rem;
+  }
+  .cspot__spec {
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    color: var(--c-ink-2);
+    background: rgba(var(--c-primary-rgb), 0.08);
+    border: 1px solid rgba(var(--c-primary-rgb), 0.18);
+    border-radius: var(--radius-full);
+    padding: 0.25rem 0.65rem;
+  }
+
+  .cspot__ctas {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  /* ─── Cards de capacidades — receta canónica ─── */
+  .cspot__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+    align-content: start;
+  }
+
+  .cspot-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    background: var(--c-surface);
+    border: 1px solid var(--c-border);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    transition: border-color .2s var(--ease), box-shadow .2s var(--ease), transform .2s var(--ease);
+  }
+  .cspot-card:hover {
+    border-color: rgba(var(--c-primary-rgb), 0.4);
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.35), 0 0 20px rgba(var(--c-primary-rgb), 0.1);
+    transform: translateY(-3px);
+  }
+
+  .cspot-card__title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--c-ink);
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+    padding-left: 0.875rem;
+    border-left: 3px solid var(--c-primary);
+  }
+
+  .cspot-card__desc {
+    font-size: 0.875rem;
+    color: var(--c-muted);
+    line-height: 1.65;
+  }
+
+  /* ─── Responsive ─── */
+  /* El colapso del split lo maneja .split-layout (sistema global) */
+  @media (max-width: 640px) {
+    .cspot__grid { grid-template-columns: 1fr; gap: 1rem; }
+    .cspot-card { padding: 1.25rem; }
+    .cspot__ctas :global(.btn) { width: 100%; justify-content: center; }
+  }
+</style>

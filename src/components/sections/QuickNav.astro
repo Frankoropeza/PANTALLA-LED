@@ -57,13 +57,30 @@ const {
 </nav>
 
 <style>
+  /*
+    Banda de acento naranja LED (--c-accent) — contraste deliberado
+    contra el azul dominante del sitio (patrón Gama de México).
+  */
   .quicknav {
-    background: var(--c-bg-2);
-    border-bottom: 1px solid var(--c-border);
-    padding-block: 1rem;
+    position: relative;
+    background: linear-gradient(120deg, var(--c-accent) 0%, #E85B00 55%, var(--c-accent-dark) 100%);
+    padding-block: 1.125rem;
+    overflow: hidden;
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.18),
+      0 8px 24px rgba(var(--c-accent-rgb), 0.18);
+  }
+  /* Brillo diagonal sutil */
+  .quicknav::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(105deg, rgba(255, 255, 255, 0.12) 0%, transparent 35%, transparent 70%, rgba(0, 0, 0, 0.12) 100%);
+    pointer-events: none;
   }
 
   .quicknav__inner {
+    position: relative;
     display: flex;
     align-items: center;
     gap: 1.5rem;
@@ -74,18 +91,19 @@ const {
     align-items: center;
     gap: 0.625rem;
     font-size: 0.6875rem;
-    font-weight: var(--weight-semibold);
-    color: var(--c-muted);
+    font-weight: var(--weight-bold);
+    color: var(--c-white);
     text-transform: uppercase;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.14em;
     white-space: nowrap;
     flex-shrink: 0;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
   }
   .quicknav__label-bar {
     display: block;
-    width: 20px;
+    width: 22px;
     height: 2px;
-    background: var(--c-primary);
+    background: var(--c-white);
     border-radius: 2px;
     flex-shrink: 0;
   }
@@ -97,38 +115,48 @@ const {
     gap: 0.5rem;
   }
 
+  /* Pills glass blancas sobre naranja */
   .quicknav__pill {
     display: inline-flex;
     align-items: center;
     gap: 0.4rem;
     font-size: 0.8125rem;
-    font-weight: var(--weight-medium);
-    color: var(--c-ink-2);
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid var(--c-border);
+    font-weight: var(--weight-semibold);
+    color: var(--c-white);
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.28);
     border-radius: var(--radius-full);
-    padding: 0.45rem 1rem;
+    padding: 0.45rem 1.05rem;
     white-space: nowrap;
-    transition: border-color var(--transition), color var(--transition), background var(--transition);
+    backdrop-filter: blur(4px);
+    transition: background var(--transition), color var(--transition),
+                border-color var(--transition), transform 150ms var(--ease),
+                box-shadow var(--transition);
   }
   .quicknav__pill:hover {
-    border-color: var(--c-primary);
-    color: var(--c-primary);
-    background: var(--c-primary-light);
+    background: var(--c-white);
+    color: var(--c-accent-dark);
+    border-color: var(--c-white);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
   }
+  .quicknav__pill:active { transform: translateY(0); }
 
+  /* CTA: blanco sólido con identidad WhatsApp */
   .quicknav__pill--cta {
-    color: var(--color-whatsapp);
-    background: rgba(37, 211, 102, 0.07);
-    border-color: rgba(37, 211, 102, 0.28);
-    font-weight: var(--weight-semibold);
+    background: var(--c-white);
+    color: #128C46;
+    border-color: var(--c-white);
+    font-weight: var(--weight-bold);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
   }
   .quicknav__pill--cta:hover {
-    color: var(--color-whatsapp);
-    background: rgba(37, 211, 102, 0.14);
-    border-color: rgba(37, 211, 102, 0.5);
+    background: var(--c-white);
+    color: var(--color-whatsapp-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.24);
   }
-  .quicknav__pill--cta svg { flex-shrink: 0; }
+  .quicknav__pill--cta svg { flex-shrink: 0; color: #25D366; }
 
   /* ─── Responsive: scroll horizontal en móvil ─── */
   @media (max-width: 900px) {

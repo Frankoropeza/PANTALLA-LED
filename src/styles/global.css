@@ -26,6 +26,7 @@
   /* Acento secundario (naranja LED) */
   --c-accent:      #FF6600;
   --c-accent-dark: #CC5200;
+  --c-accent-rgb:  255, 102, 0;
 
   /* Semánticos */
   --c-success:      #22C55E;

@@ -15,9 +15,11 @@
 
 ## Diseño
 
-Franja `--c-bg-2` con borde inferior: label uppercase + pills (anclas o rutas) + pill CTA verde WhatsApp (`waUrl(ctaMessage)`).
+**Banda de acento naranja LED** (gradiente `--c-accent` → `--c-accent-dark` con brillo diagonal) — contraste deliberado contra el azul dominante, patrón Gama de México. Es el único uso protagónico del naranja en el sitio: no replicarlo en otras secciones para que conserve su poder de contraste.
 
-- Pills: borde `--c-border`, hover azul; CTA verde translúcido.
+- Label blanco uppercase con barra blanca.
+- Pills glass blancas translúcidas (`rgba(255,255,255,.12)` + borde `.28` + blur) → hover se rellenan de blanco con texto naranja oscuro y elevación.
+- CTA: pill blanca sólida con texto/icono en verde WhatsApp.
 - ≤900: label arriba. ≤640: carrusel horizontal sin scrollbar, touch 38px+.
 
 ## Dónde se usa

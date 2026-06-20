@@ -6,7 +6,7 @@
  * Schemas: BreadcrumbList + Product.
  */
 
-import { getCollection } from 'astro:content'
+import { getCollection, render } from 'astro:content'
 
 import Base from '../../layouts/Base.astro'
 import PageHero from '../../components/sections/PageHero.astro'
@@ -19,13 +19,13 @@ import { SITE, waUrl } from '../../config/site'
 export async function getStaticPaths() {
   const productos = await getCollection('productos')
   return productos.map((producto) => ({
-    params: { slug: producto.slug },
+    params: { slug: producto.id },
     props: { producto },
   }))
 }
 
 const { producto } = Astro.props
-const { Content } = await producto.render()
+const { Content } = await render(producto)
 
 const garantias = [
   'Garantía de fábrica de 2 años',
@@ -36,7 +36,7 @@ const garantias = [
 // ─── Meta SEO ─────────────────────────────────────────────────────────────────
 const title = `${producto.data.title} | Ficha Técnica y Cotización — PantallaLED`
 const description = producto.data.description
-const canonical = `${SITE.url}/productos/${producto.slug}/`
+const canonical = `${SITE.url}/productos/${producto.id}/`
 
 // ─── JSON-LD: BreadcrumbList ──────────────────────────────────────────────────
 const schemaBreadcrumb = {

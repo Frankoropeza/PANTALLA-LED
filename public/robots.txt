@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /404
+
+User-agent: AhrefsBot
+Allow: /
+
+Sitemap: https://pantalla-led.com/sitemap-index.xml

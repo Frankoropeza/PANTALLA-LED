@@ -1,0 +1,26 @@
+---
+/**
+ * 404.astro — Página de error real.
+ * Cloudflare Pages sirve dist/404.html con estado HTTP 404 para cualquier
+ * ruta inexistente. Sin este archivo, Pages devolvía la home con 200
+ * (soft-404), lo que ensucia las auditorías de GSC, Bing y Ahrefs.
+ */
+import Base from '../layouts/Base.astro'
+---
+
+<Base
+  title="Página no encontrada | PantallaLED"
+  description="La página que buscas no existe o cambió de dirección. Consulta el catálogo de pantallas LED, servicios y contacto."
+>
+  <section class="container" style="padding-block: clamp(4rem, 10vw, 7rem); text-align: center;">
+    <p style="font-size: 4rem; font-weight: 800; line-height: 1;">404</p>
+    <h1 style="margin-top: 1rem;">Página no encontrada</h1>
+    <p style="margin-top: 1rem;">La dirección que abriste no existe o cambió. Usa estos enlaces para seguir navegando.</p>
+    <p style="margin-top: 1.5rem; display: flex; gap: 1.25rem; justify-content: center; flex-wrap: wrap;">
+      <a href="/">Inicio</a>
+      <a href="/productos/">Productos</a>
+      <a href="/servicios/">Servicios</a>
+      <a href="/contacto/">Contacto</a>
+    </p>
+  </section>
+</Base>

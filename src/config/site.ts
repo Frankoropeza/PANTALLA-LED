@@ -45,12 +45,12 @@ export function waUrl(message: string): string {
 
 // Categorías de producto (fuente de verdad)
 export const PRODUCT_CATEGORIES = [
-  { slug: 'pantallas-exteriores',  label: 'Pantallas Exteriores',   badge: 'IP65',       href: '/productos/pantallas-exteriores/'  },
-  { slug: 'pantallas-interiores',  label: 'Pantallas Interiores',   badge: null,          href: '/productos/pantallas-interiores/'  },
-  { slug: 'pantallas-flexibles',   label: 'Pantallas Flexibles',    badge: 'Curva',       href: '/productos/pantallas-flexibles/'   },
-  { slug: 'pantallas-eventos',     label: 'Pantallas para Eventos', badge: 'Renta',       href: '/productos/pantallas-eventos/'     },
-  { slug: 'pantallas-piso',        label: 'Pantallas de Piso',      badge: 'LED Floor',   href: '/productos/pantallas-piso/'        },
-  { slug: 'pantallas-transparentes', label: 'Pantallas Transparentes', badge: null,       href: '/productos/pantallas-transparentes/' },
+  { slug: 'pantallas-exteriores',  label: 'Pantallas Exteriores',   badge: 'IP65',       href: '/productos/#pantallas-exteriores-detalle'  },
+  { slug: 'pantallas-interiores',  label: 'Pantallas Interiores',   badge: null,          href: '/productos/#pantallas-interiores-detalle'  },
+  { slug: 'pantallas-flexibles',   label: 'Pantallas Flexibles',    badge: 'Curva',       href: '/productos/#pantallas-flexibles-detalle'   },
+  { slug: 'pantallas-eventos',     label: 'Pantallas para Eventos', badge: 'Renta',       href: '/productos/#pantallas-eventos-detalle'     },
+  { slug: 'pantallas-piso',        label: 'Pantallas de Piso',      badge: 'LED Floor',   href: '/productos/#pantallas-piso-detalle'        },
+  { slug: 'pantallas-transparentes', label: 'Pantallas Transparentes', badge: null,       href: '/productos/#pantallas-transparentes-detalle' },
 ] as const
 
 // Servicios (fuente de verdad)

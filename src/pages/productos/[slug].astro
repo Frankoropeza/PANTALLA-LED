@@ -64,14 +64,6 @@ const schemaProduct = {
       ? { '@type': 'PropertyValue', name: 'Luminosidad', value: producto.data.luminosidad }
       : null,
   ].filter(Boolean),
-  offers: {
-    '@type': 'Offer',
-    availability: 'https://schema.org/InStock',
-    priceCurrency: 'MXN',
-    price: '0',
-    description: 'Cotización personalizada según dimensiones y configuración',
-    seller: { '@id': `${SITE.url}/#organization` },
-  },
 }
 
 const waMensaje = `Hola, quiero cotizar: ${producto.data.title} (${producto.data.pixelPitch})`

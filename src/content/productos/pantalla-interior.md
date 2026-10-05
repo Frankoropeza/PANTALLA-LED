@@ -51,4 +51,4 @@ Incluye sistema de gestión de contenido (CMS) para programar y transmitir conte
 
 ---
 
-¿Interesado en este producto? [Solicita tu cotización](/contacto) sin costo ni compromiso.
+¿Interesado en este producto? [Solicita tu cotización](/contacto/) sin costo ni compromiso.

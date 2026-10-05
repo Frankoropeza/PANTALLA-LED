@@ -110,11 +110,6 @@ const schemaWebSite = {
   publisher: {
     '@id': `${SITE.url}/#organization`,
   },
-  potentialAction: {
-    '@type': 'SearchAction',
-    target: `${SITE.url}/buscar?q={search_term_string}`,
-    'query-input': 'required name=search_term_string',
-  },
 }
 
 // ─── JSON-LD: BreadcrumbList ──────────────────────────────────────────────────
@@ -132,8 +127,8 @@ const schemaBreadcrumb = {
 }
 
 // ─── Meta SEO ─────────────────────────────────────────────────────────────────
-const title = `Pantallas LED en México | Venta, Renta e Instalación — ${SITE.name}`
-const description = 'Especialistas en pantallas LED de alta resolución para exteriores e interiores. Venta, renta e instalación certificada en toda la República Mexicana. Cotización gratis en 2 horas.'
+const title = `Pantallas LED en México | Venta, Renta e Instalación`
+const description = 'Pantallas LED para venta, renta e instalación en México. Explora opciones para exteriores, interiores y eventos; solicita una cotización.'
 const canonical = SITE.url
 ---
 

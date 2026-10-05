@@ -16,6 +16,7 @@ interface Props {
 
 const { title, description, canonical, ogImage } = Astro.props
 const canonicalURL = canonical || new URL(Astro.url.pathname, Astro.site).href
+const ogImageURL = ogImage || new URL(url('/icon.png'), Astro.site).href
 ---
 <!doctype html>
 <html lang="es">
@@ -34,13 +35,13 @@ const canonicalURL = canonical || new URL(Astro.url.pathname, Astro.site).href
   <meta property="og:type"        content="website" />
   <meta property="og:site_name"   content="PantallaLED" />
   <meta property="og:locale"      content="es_MX" />
-  {ogImage && <meta property="og:image" content={ogImage} />}
+  <meta property="og:image" content={ogImageURL} />
 
   <!-- Twitter Card -->
   <meta name="twitter:card"        content="summary_large_image" />
   <meta name="twitter:title"       content={title} />
   <meta name="twitter:description" content={description} />
-  {ogImage && <meta name="twitter:image" content={ogImage} />}
+  <meta name="twitter:image" content={ogImageURL} />
 
   <meta name="robots" content="index, follow" />
   <link rel="icon" type="image/svg+xml" href={url('/favicon.svg')} />

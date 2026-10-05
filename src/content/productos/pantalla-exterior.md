@@ -1,6 +1,6 @@
 ---
 title: "Pantalla LED Exterior"
-description: "Pantallas LED de alta luminosidad diseñadas para publicidad en exteriores. Resistentes a la intemperie con certificación IP65, visibles incluso bajo luz solar directa."
+description: "Pantalla LED exterior para publicidad y espacios al aire libre. Conoce sus especificaciones y solicita una cotización para tu proyecto."
 tipo: "Exterior"
 pixelPitch: "P4, P5, P6, P8, P10"
 luminosidad: "5,000 - 8,000 nits"
@@ -50,4 +50,4 @@ Trabajamos con los mejores fabricantes de módulos LED del mundo y ofrecemos **g
 
 ---
 
-¿Interesado en este producto? [Solicita tu cotización](/contacto) sin costo ni compromiso.
+¿Interesado en este producto? [Solicita tu cotización](/contacto/) sin costo ni compromiso.

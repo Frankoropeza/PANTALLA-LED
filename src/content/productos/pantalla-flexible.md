@@ -51,4 +51,4 @@ Desarrollamos soluciones completamente personalizadas: formas irregulares, esfer
 
 ---
 
-¿Tienes un proyecto creativo? [Cuéntanos tu idea](/contacto) y lo hacemos realidad.
+¿Tienes un proyecto creativo? [Cuéntanos tu idea](/contacto/) y lo hacemos realidad.

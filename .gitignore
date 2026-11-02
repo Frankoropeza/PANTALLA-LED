@@ -74,3 +74,11 @@ graphify-out/
 # worktrees: copias de trabajo, nunca se versionan
 .worktrees/
 .claude/worktrees/
+
+# --- OrigenLab: pipeline API, secretos y worktrees fuera del repo ---
+.env
+.env.*
+.api/
+scripts/api/
+.worktrees/
+.claude/worktrees/

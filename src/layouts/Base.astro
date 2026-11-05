@@ -27,6 +27,7 @@ const ogImageURL = ogImage || new URL(url('/icon.png'), Astro.site).href
   <title>{title}</title>
   <meta name="description" content={description} />
   <link rel="canonical" href={canonicalURL} />
+  <meta name="ahrefs-site-verification" content="40cd9b4cc4c260d40efb96782881710bbb25965aa5bbb6d072dee8e4bf18b4f5" />
 
   <!-- Open Graph -->
   <meta property="og:title"       content={title} />
@@ -54,6 +55,9 @@ const ogImageURL = ogImage || new URL(url('/icon.png'), Astro.site).href
     href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap"
     rel="stylesheet"
   />
+
+  <!-- Ahrefs Web Analytics -->
+  <script is:inline src="https://analytics.ahrefs.com/analytics.js" data-key="yV0n1+n227XW04hVBqtV6Q" async></script>
 </head>
 <body>
   <TopBar />
